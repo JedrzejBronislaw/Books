@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.MainViewController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="%menu.file">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="%menu.edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="%menu.help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+            <Menu fx:id="languageMenu" mnemonicParsing="false" text="%menu.language" />
+      </menus>
+    </MenuBar>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <BorderPane>
+               <center>
+                  <ScrollPane hbarPolicy="NEVER">
+                     <content>
+                        <HBox spacing="10.0">
+                           <children>
+                            <AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
+                              <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Księgozbiór" />
+                                    <Label fx:id="label1" layoutX="31.0" layoutY="32.0" text="Label" />
+                        
+                                    </children>
+                            </AnchorPane>
+                              <AnchorPane fx:id="previewPane" minWidth="100.0" />
+                              <AnchorPane fx:id="sPane" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+               </center>
+               <left>
+                  <VBox fx:id="formBox" prefHeight="374.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#showBooks" text="%books" />
+                        <Button mnemonicParsing="false" onAction="#showAuthors" text="%authors" />
+                        <Button mnemonicParsing="false" onAction="#showTitles" text="%titles" />
+                        <Button mnemonicParsing="false" onAction="#showEditions" text="%editions" />
+                        <Button mnemonicParsing="false" onAction="#showBookCollections" text="%book_collections" />
+                        <Button mnemonicParsing="false" onAction="#showTitleCollections" text="%title_collections" />
+                        <Button mnemonicParsing="false" onAction="#showEditionCollections" text="%edition_collections" />
+                        <Button mnemonicParsing="false" onAction="#showLanguages" text="%languages" />
+                        <Button mnemonicParsing="false" onAction="#showLocations" text="%locations" />
+                        <Button mnemonicParsing="false" onAction="#showPublishingHouses" text="%publishing_houses" />
+                     </children>
+                  </VBox>
+               </left>
+               <top>
+                  <Label fx:id="header1" text="Label" BorderPane.alignment="CENTER" />
+               </top>
+            </BorderPane>
+         </children>
+      </HBox>
+  </children>
+</VBox>

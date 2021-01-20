@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LanguagePreviewController">
+   <children>
+      <TitledPane collapsible="false" text="%language">
+         <content>
+            <GridPane>
+               <children>
+                  <Label styleClass="key" text="%abbrev" />
+                  <Label styleClass="key" text="%name" GridPane.rowIndex="1" />
+                  <Label fx:id="abbrevLabel" styleClass="value" text="..." wrapText="true" GridPane.columnIndex="1" />
+                  <Label fx:id="nameLabel" styleClass="value" text="..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints minWidth="10.0" />
+               </columnConstraints>
+            </GridPane>
+         </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%books">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="booksNumberLabel" layoutX="14.0" layoutY="14.0" text="Label" />
+                  <Label fx:id="booksNamesLabel" layoutX="14.0" layoutY="32.0" text="Label" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%editions">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="editionsNumberLabel" layoutX="14.0" layoutY="5.0" text="Label" />
+                  <Label fx:id="editionsNamesLabel" layoutX="14.0" layoutY="23.0" text="Label" />
+               </children></AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%titles">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="titlesNumberLabel" layoutX="14.0" layoutY="14.0" text="Label" />
+                  <Label fx:id="titlesNamesLabel" layoutX="14.0" layoutY="32.0" text="Label" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</VBox>

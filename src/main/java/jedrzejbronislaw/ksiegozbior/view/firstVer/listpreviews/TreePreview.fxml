@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TreePreviewController">
+   <children>
+      <Label fx:id="title" text="Label" textAlignment="CENTER" />
+      <TreeView fx:id="tree" onMouseClicked="#clickAction" prefHeight="200.0" prefWidth="200.0" />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+            <Button mnemonicParsing="false" onAction="#addAction" text="%add" />
+          <Button mnemonicParsing="false" onAction="#deleteAction" text="%delete" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</VBox>

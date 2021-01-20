@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="mainPane" minWidth="200.0" onMouseClicked="#paneClick" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" spacing="10.0" style="-fx-border-color: #000; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers2.ResultItemController">
+   <children>
+      <ImageView fitHeight="90.0" fitWidth="80.0" onMouseClicked="#coverClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/img/cover.jpg" />
+         </image>
+      </ImageView>
+      <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="title" onMouseClicked="#titleClick" text="Title" />
+            <Label fx:id="author" onMouseClicked="#authorClick" text="Author" />
+         </children>
+      </VBox>
+      <Label fx:id="contentLetter" text="?" textFill="#878787">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

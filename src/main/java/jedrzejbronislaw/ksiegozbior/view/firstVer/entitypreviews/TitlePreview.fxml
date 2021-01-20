@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController">
+   <children>
+      <TitledPane collapsible="false" text="%title">
+         <content>
+            <GridPane>
+               <children>
+                  <Label styleClass="key" text="%title" />
+                  <Label styleClass="key" text="%subtitle" GridPane.rowIndex="1" />
+                  <Label styleClass="key" text="%authors" GridPane.rowIndex="2" />
+                  <Label fx:id="titleLabel" styleClass="value" text="..." wrapText="true" GridPane.columnIndex="1" />
+                  <Label fx:id="subtitleLabel" styleClass="value" text="..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="authorsLabel" styleClass="value" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label styleClass="key" text="%language" GridPane.rowIndex="3" />
+                  <Label styleClass="key" text="%creationYear" GridPane.rowIndex="4" />
+                  <Label fx:id="languageLabel" styleClass="value" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="creationYearLabel" styleClass="value" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" />
+               </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints minWidth="10.0" />
+               </columnConstraints>
+            </GridPane>
+         </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%description">
+        <content>
+            <TextArea fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%collections">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="collectionsLabel" layoutX="14.0" layoutY="5.0" text="Label" />
+               </children></AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</VBox>

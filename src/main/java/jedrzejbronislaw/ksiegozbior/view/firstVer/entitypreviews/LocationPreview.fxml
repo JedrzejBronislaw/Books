@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController">
+   <children>
+      <TitledPane collapsible="false" text="%location">
+         <content>
+            <GridPane>
+               <children>
+                  <Label styleClass="key" text="%name" />
+                  <Label styleClass="key" text="%superlocation" GridPane.rowIndex="1" />
+                  <Label fx:id="nameLabel" styleClass="value" text="..." wrapText="true" GridPane.columnIndex="1" />
+                  <Label fx:id="superlocationLabel" styleClass="value" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints minWidth="10.0" />
+               </columnConstraints>
+            </GridPane>
+         </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%description">
+        <content>
+            <TextArea fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%sublocations">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="sublocationsLabel" layoutX="14.0" layoutY="14.0" text="Label" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" text="%elements">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="elementsLabel" layoutX="14.0" layoutY="5.0" text="Label" />
+               </children></AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</VBox>

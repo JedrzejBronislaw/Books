@@ -1,0 +1,41 @@
+#header1{
+	-fx-text-fill: #00A;
+	-fx-font-size: 22px;
+	-fx-font-weight: bolder;
+}
+
+Label {
+    -fx-text-fill: #009;
+    -fx-font-size: 14px;
+}
+
+.addingForm HBox, .addingForm VBox {
+	-fx-spacing: 5px
+}
+
+.addingForm VBox Label{
+	-fx-text-fill: #005;
+	-fx-font-size: 10px;
+}
+
+.addingForm ComboBox, .addingForm DatePicker{
+	-fx-pref-width: null;
+	-fx-max-width: infinity;
+	
+}
+.addingForm{
+	-fx-vgap: 10px;
+	-fx-hgap: 10px;
+	-fx-padding: 10px;
+}
+
+.key{
+	-fx-font-size: 12px;
+	-fx-font-weight: normal;
+}
+
+.value{
+	-fx-text-fill: #000;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
