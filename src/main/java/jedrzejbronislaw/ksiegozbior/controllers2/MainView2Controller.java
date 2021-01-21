@@ -137,13 +137,14 @@ public class MainView2Controller implements Initializable {
 		
 
 //		addBook.setOnClicked(() -> System.out.println("Add book"));
-		seeLibrary.setOnClicked(() -> setView(libraryPane, true));//System.out.println("See Library"));
-		
-		
-		addBook.setOnClicked(() -> setView(newBookPane, true));
-		signUpButton.setOnAction(e -> setView(newUserPane, true));
-		signInButton.setOnAction(e -> setView(loginPanel, true));
-		backButton.setOnAction(e -> setView(mainContent, false));
+//		seeLibrary.setOnClicked(() -> setView(libraryPane, true));//System.out.println("See Library"));
+//		
+//		
+//		addBook.setOnClicked(() -> setView(newBookPane, true));
+//		signUpButton.setOnAction(e -> setView(newUserPane, true));
+//		signInButton.setOnAction(e -> setView(loginPanel, true));
+//		backButton.setOnAction(e -> setView(mainContent, false));;
+
 		logOutButton.setOnAction(e -> session.logOut());
 		
 		search.setHeight(25);
