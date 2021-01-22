@@ -28,18 +28,18 @@ public class TheLocation implements TheEnt {
 				);
 	}
 	
-	public MyList getSuperlocationsNames() {
-		return new MyList(location.getSupercollections());
+	public MyList<String> getSuperlocationsNames() {
+		return new MyList<>(location.getSupercollections());
 	}
 	
-	public MyList getSublocationsNames() {
-		return new MyList(
+	public MyList<String> getSublocationsNames() {
+		return new MyList<>(
 				Repositories.getLocationRepository().getSublocationsNames(location.getId())
 				);
 	}
 
-	public MyList getBooksNames() {
-		return new MyList(
+	public MyList<String> getBooksNames() {
+		return new MyList<>(
 					Named.convertListToNamesList(
 						Repositories.getLocationRepository().getBooks(location)
 					)

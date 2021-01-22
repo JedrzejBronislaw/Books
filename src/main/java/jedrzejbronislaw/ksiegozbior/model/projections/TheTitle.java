@@ -64,14 +64,14 @@ public class TheTitle implements TheEnt{
 	}
 	
 	
-	public MyList getCollections() {
+	public MyList<String> getCollections() {
 		List<String> collections = new ArrayList<String>();
 		Set<TitleCollectionLink> links = title.getCollections();
 		
 		for(TitleCollectionLink tcl : links)
 			collections.add(tcl.getCollection().getName());
 		
-		return new MyList(collections);
+		return new MyList<>(collections);
 	}
 	
 	

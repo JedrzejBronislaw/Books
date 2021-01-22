@@ -56,18 +56,18 @@ public class TheLanguage implements TheEnt {
 		return Repositories.getLanguageRepository().getTitles(language);
 	}
 
-	public MyList getBooksNames() {
-		return new MyList(
+	public MyList<String> getBooksNames() {
+		return new MyList<>(
 			Named.convertListToNamesList(getBooks())
 			);
 	}
-	public MyList getEditionsNames() {
-		return new MyList(
+	public MyList<String> getEditionsNames() {
+		return new MyList<>(
 			Named.convertListToNamesList(getEditions())
 			);
 	}
-	public MyList getTitlesNames() {
-		return new MyList(
+	public MyList<String> getTitlesNames() {
+		return new MyList<>(
 			Named.convertListToNamesList(getTitles())
 			);
 	}

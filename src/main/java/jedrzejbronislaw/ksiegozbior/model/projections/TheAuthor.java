@@ -54,9 +54,9 @@ public class TheAuthor implements TheEnt{
 	
 	
 	
-	public MyList getPenNames() {
+	public MyList<String> getPenNames() {
 		//TODO getPenNames
-		return new MyList(new ArrayList<String>());
+		return new MyList<>(new ArrayList<String>());
 	}
 	
 	public String getPenNamesText() {
@@ -77,13 +77,13 @@ public class TheAuthor implements TheEnt{
 	}
 	
 	
-	public MyList getTitlesNames() {
+	public MyList<String> getTitlesNames() {
 		List<String> names = new ArrayList<String>();
 		List<Title> titles = getTitles();
 		
 		titles.forEach(t -> names.add(t.getTitle()));
 		
-		return new MyList(names);
+		return new MyList<>(names);
 	}
 	
 	public String getTitlesText() {

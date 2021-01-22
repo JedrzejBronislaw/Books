@@ -28,15 +28,15 @@ public class TheTitleCollection extends TheCollection{
 	}
 
 	@Override
-	public MyList getSupercollections() {
-		return new MyList(
+	public MyList<String> getSupercollections() {
+		return new MyList<>(
 				collection.getSupercollections()
 				);
 	}
 
 	@Override
-	public MyList getSubcollections() {
-		return new MyList(
+	public MyList<String> getSubcollections() {
+		return new MyList<>(
 					Named.convertListToNamesList(
 						Repositories.getTitleCollectionRepository().findSubcollections(collection.getId())
 					)
@@ -44,8 +44,8 @@ public class TheTitleCollection extends TheCollection{
 	}
 
 	@Override
-	public MyList getElements() {
-		return new MyList(
+	public MyList<String> getElements() {
+		return new MyList<>(
 					Named.convertListToNamesList(
 						Repositories.getTitleCollectionRepository().findElements(collection.getId())
 					)

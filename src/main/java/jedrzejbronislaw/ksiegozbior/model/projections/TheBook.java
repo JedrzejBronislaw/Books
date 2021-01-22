@@ -27,14 +27,14 @@ public class TheBook extends TheEdition implements TheEnt{
 		return "";
 	}
 
-	public MyList getComments(){
+	public MyList<String> getComments(){
 		Set<BookComment> comments = book.getComments();
 		List<String> outcome = new ArrayList<String>();
 
 //		comments.forEach(c -> outcome.add(" - " + c.getContent()));
 		comments.forEach(c -> outcome.add(c.getContent()));
 		
-		return new MyList(outcome);
+		return new MyList<>(outcome);
 	}
 	
 	public String getCommentsText() {

@@ -9,9 +9,9 @@ public abstract class TheCollection implements TheEnt{
 	public abstract String getName();
 
 	public abstract StringNumber<Long> getNumberOfElements();
-	public abstract MyList getSupercollections();
-	public abstract MyList getSubcollections();
-	public abstract MyList getElements();
+	public abstract MyList<String> getSupercollections();
+	public abstract MyList<String> getSubcollections();
+	public abstract MyList<String> getElements();
 	
 	@Override
 	public String getLabel() {
