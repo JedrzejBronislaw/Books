@@ -136,16 +136,15 @@ public class MainView2Controller implements Initializable {
 		});
 		
 
-//		addBook.setOnClicked(() -> System.out.println("Add book"));
-//		seeLibrary.setOnClicked(() -> setView(libraryPane, true));//System.out.println("See Library"));
-//		
-//		
-//		addBook.setOnClicked(() -> setView(newBookPane, true));
-//		signUpButton.setOnAction(e -> setView(newUserPane, true));
-//		signInButton.setOnAction(e -> setView(loginPanel, true));
-//		backButton.setOnAction(e -> setView(mainContent, false));;
-
-		logOutButton.setOnAction(e -> session.logOut());
+		view.setMainPane(mainPane);
+		view.register(Views.Main, mainContent);
+		
+		seeLibrary  .setOnClicked(() -> setView(Views.Library, true));
+		addBook     .setOnClicked(() -> setView(Views.NewBook, true));
+		signUpButton.setOnAction(e   -> setView(Views.NewUser, true));
+		signInButton.setOnAction(e   -> setView(Views.LoginPanel, true));
+		backButton  .setOnAction(e   -> setView(Views.Main, false));
+		logOutButton.setOnAction(e   -> session.logOut());
 		
 		search.setHeight(25);
 		search.setWidth(100);
@@ -166,6 +165,9 @@ public class MainView2Controller implements Initializable {
 //		view.set(bookDetailsPane, true);
 	}
 	
+	private void setView(Views viewType, boolean inScrollPane) {
+		view.set(viewType);
+	}
 //	private void setView(Pane pane, boolean inScrollPane) {
 //		if(pane != null)
 //			if(inScrollPane) {
