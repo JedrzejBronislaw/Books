@@ -2,14 +2,12 @@ package jedrzejbronislaw.ksiegozbior.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -31,7 +29,6 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
-import lombok.Setter;
 
 
 

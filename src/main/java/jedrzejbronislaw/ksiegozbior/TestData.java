@@ -1,10 +1,8 @@
 package jedrzejbronislaw.ksiegozbior;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 

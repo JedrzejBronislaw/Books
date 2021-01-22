@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
-import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 

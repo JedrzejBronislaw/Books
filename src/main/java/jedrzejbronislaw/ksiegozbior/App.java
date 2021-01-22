@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
-import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 
 @SpringBootApplication
 @EnableAutoConfiguration

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
@@ -21,7 +20,6 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
-import lombok.Getter;
 
 @Component
 public class BookDetailsController implements Initializable {

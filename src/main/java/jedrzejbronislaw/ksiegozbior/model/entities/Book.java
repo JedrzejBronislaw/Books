@@ -1,7 +1,6 @@
 package jedrzejbronislaw.ksiegozbior.model.entities;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 

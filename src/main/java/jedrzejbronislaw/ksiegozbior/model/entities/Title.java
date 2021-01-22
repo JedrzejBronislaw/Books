@@ -13,7 +13,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollectionLink;
 import lombok.Getter;
 import lombok.Setter;

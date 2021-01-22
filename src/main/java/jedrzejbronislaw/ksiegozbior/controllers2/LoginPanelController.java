@@ -1,11 +1,6 @@
 package jedrzejbronislaw.ksiegozbior.controllers2;
 
 import java.net.URL;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.Session;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
-import jedrzejbronislaw.ksiegozbior.model.entities.Library;
 import jedrzejbronislaw.ksiegozbior.model.entities.User;
-import jedrzejbronislaw.ksiegozbior.model.entities.User.Mode;
-import jedrzejbronislaw.ksiegozbior.model.entities.User.Role;
-import jedrzejbronislaw.ksiegozbior.model.repositories.LibraryRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.UserRepository;
 import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 
