@@ -34,40 +34,30 @@ import lombok.Setter;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ResultItemController implements Initializable {
 
-	enum ContentType{Empty, Book, Edition, Title, Author};
+	enum ContentType{EMPTY, BOOK, EDITION, TITLE, AUTHOR};
 	
-	private static final Paint normalColor = Color.WHITE;
+	private static final Paint normalColor     = Color.WHITE;
 	private static final Paint mouseEnterColor = Color.LIGHTGRAY;
 	private static final Paint mousePressColor = Color.DARKGRAY;
+	
+	
+	@FXML private HBox mainPane;
+	
+	@FXML private Label  titleLabel;
+	@FXML private Label authorLabel;
+	@FXML private ImageView cover;
 
-	@Getter
-	private ContentType contentType;
-	@Getter
-	private Ent content;
-	
+	@FXML private Label contentLetter;
 
-	@Setter
-	private Runnable onTitleClick;
-	@Setter
-	private Runnable onAuthorClick;
-	@Setter
-	private Runnable onCoverClick;
-	@Setter
-	private Runnable onClick;
-	
-	
-	@FXML
-	private HBox mainPane;
-	
-	@FXML
-	private Label title;
-	@FXML
-	private Label author;
-	@FXML
-	private ImageView cover;
 
-	@FXML
-	private Label contentLetter;
+	@Setter private Runnable onTitleClick;
+	@Setter private Runnable onAuthorClick;
+	@Setter private Runnable onCoverClick;
+	@Setter private Runnable onClick;
+	
+	@Getter private ContentType contentType;
+	@Getter private Ent content;
+	
 	
 	@FXML
 	private void mouseEntered() {
@@ -119,80 +109,57 @@ public class ResultItemController implements Initializable {
 	}
 
 	public void setContent(Ent content) {
-		if(content instanceof Author)
-			setAuthor((Author) content);
-		else if(content instanceof Book)
-			setBook((Book) content);
-		else if(content instanceof Edition)
-			setEdition((Edition)content);
-		else if(content instanceof Title)
-			setTitle((Title)content);
-		else
-			contentType = ContentType.Empty;
+		if(content instanceof Author)  setAuthor( (Author)  content); else
+		if(content instanceof Book)    setBook(   (Book)    content); else
+		if(content instanceof Edition) setEdition((Edition) content); else
+		if(content instanceof Title)   setTitle(  (Title)   content); else
+			contentType = ContentType.EMPTY;
 		
 		fillContentLetter();
 	}
 	
 	private void fillContentLetter() {
-		if(contentType == ContentType.Author)
-			contentLetter.setText("A");
-		else if(contentType == ContentType.Book)
-			contentLetter.setText("B");
-		else if(contentType == ContentType.Edition)
-			contentLetter.setText("E");
-		else if(contentType == ContentType.Title)
-			contentLetter.setText("T");
-		else
+		if(contentType == ContentType.AUTHOR)  contentLetter.setText("A"); else
+		if(contentType == ContentType.BOOK)    contentLetter.setText("B"); else
+		if(contentType == ContentType.EDITION) contentLetter.setText("E"); else
+		if(contentType == ContentType.TITLE)   contentLetter.setText("T"); else
 			contentLetter.setText("-");
-		
 	}
 	
-//	public Ent get() {
-//		if(contentType == ContentType.Book)
-//			contentLetter.setText("B");
-//		else if(contentType == ContentType.Edition)
-//			contentLetter.setText("E");
-//		else if(contentType == ContentType.Title)
-//			contentLetter.setText("T");
-//		else
-//			contentLetter.setText("-");
-//		
-//	}
-
-	public void setAuthor(Author author_) {
-		content = author_;
-		contentType = ContentType.Author;
-		TheAuthor theAuthor = new TheAuthor(author_);
+	public void setAuthor(Author author) {
+		content = author;
+		contentType = ContentType.AUTHOR;
+		TheAuthor theAuthor = new TheAuthor(author);
 		
-		title.setText(theAuthor.getName());
-		author.setText(theAuthor.getLiveDates());
+		titleLabel.setText(theAuthor.getName());
+		authorLabel.setText(theAuthor.getLiveDates());
 	}
 
 	public void setBook(Book book) {
 		content = book;
-		contentType = ContentType.Book;
+		contentType = ContentType.BOOK;
 		TheBook theBook = new TheBook(book);
 		
-		title.setText(theBook.getTitle());
-		author.setText(theBook.getAuthors().serialize_newLine());
+		titleLabel.setText(theBook.getTitle());
+		authorLabel.setText(theBook.getAuthors().serialize_newLine());
 	}
 	
 	public void setEdition(Edition edition) {
 		content = edition;
-		contentType = ContentType.Edition;
+		contentType = ContentType.EDITION;
 		TheEdition theEdition = new TheEdition(edition);
 		
-		title.setText(theEdition.getTitle());
-		author.setText(theEdition.getAuthors().serialize_newLine());
+		titleLabel.setText(theEdition.getTitle());
+		authorLabel.setText(theEdition.getAuthors().serialize_newLine());
 	}
 	
-	public void setTitle(Title title_) {
-		content = title_;
-		contentType = ContentType.Title;
-		TheTitle theTitle = new TheTitle(title_);
+	public void setTitle(Title title) {
+		content = title;
+		contentType = ContentType.TITLE;
+		TheTitle theTitle = new TheTitle(title);
 		
-		title.setText(theTitle.getTitle());
-		author.setText(theTitle.getAuthors().serialize_newLine());
+		titleLabel.setText(theTitle.getTitle());
+		authorLabel.setText(theTitle.getAuthors().serialize_newLine());
 	}
 
 
@@ -204,5 +171,4 @@ public class ResultItemController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		changeBackground(normalColor);
 	}
-
 }

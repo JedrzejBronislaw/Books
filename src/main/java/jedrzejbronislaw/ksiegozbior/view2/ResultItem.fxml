@@ -17,8 +17,8 @@
       </ImageView>
       <VBox spacing="3.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="title" onMouseClicked="#titleClick" text="Title" />
-            <Label fx:id="author" onMouseClicked="#authorClick" text="Author" />
+            <Label fx:id="titleLabel" onMouseClicked="#titleClick" text="Title" />
+            <Label fx:id="authorLabel" onMouseClicked="#authorClick" text="Author" />
          </children>
       </VBox>
       <Label fx:id="contentLetter" text="?" textFill="#878787">

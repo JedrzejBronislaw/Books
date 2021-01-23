@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers2;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
@@ -24,11 +25,9 @@ import jedrzejbronislaw.ksiegozbior.tools.MyList;
 @Component
 public class BookDetailsController implements Initializable {
 
+	@FXML private VBox vbox;
+	
 	private Book book;
-	
-	@FXML
-	private VBox vbox;
-	
 	
 	private NodeAndController bookNAC;
 	private NodeAndController editionNAC;
@@ -37,31 +36,34 @@ public class BookDetailsController implements Initializable {
 	
 
 	public void setBookPreview(NodeAndController nac) {
-		if(nac == null) bookNAC = null;
-		else if(nac.getController() instanceof BookPreviewController) 
-			bookNAC = nac;
+		if (nac != null && nac.getController() instanceof BookPreviewController)
+			bookNAC = nac; else
+			bookNAC = null;
 		
 		refreshPreview();
 	}
 
 	public void setEditionPreview(NodeAndController nac) {
-		if(nac == null) editionNAC = null;
-		else if(nac.getController() instanceof EditionPreviewController) 
-			editionNAC = nac;
+		if(nac != null && nac.getController() instanceof EditionPreviewController)
+			editionNAC = nac; else
+			editionNAC = null;
+		
 		refreshPreview();
 	}
 
 	public void setTitlePreview(NodeAndController nac) {
-		if(nac == null) titleNAC = null;
-		else if(nac.getController() instanceof TitlePreviewController)
-			titleNAC = nac;
+		if(nac != null && nac.getController() instanceof TitlePreviewController)
+			titleNAC = nac; else
+			titleNAC = null;
+		
 		refreshPreview();
 	}
 
 	public void setAuthorPreview(NodeAndController nac) {
-		if(nac == null) authorNAC = null;
-		else if(nac.getController() instanceof AuthorPreviewController) 
-			authorNAC = nac;
+		if(nac.getController() instanceof AuthorPreviewController)
+			authorNAC = nac; else
+			authorNAC = null;
+		
 		refreshPreview();
 	}
 	
@@ -74,19 +76,20 @@ public class BookDetailsController implements Initializable {
 		};
 		
 		vbox.getChildren().clear();
-		
-		for(NodeAndController preview : previews) 
-			if(preview != null)
-				vbox.getChildren().add(preview.getNode());
+		Stream.of(previews).filter(p -> p != null).forEach(this::addPreview);
 		
 		set(book);
+	}
+	
+	private void addPreview(NodeAndController preview) {
+		vbox.getChildren().add(preview.getNode());
 	}
 	
 	
 	public void set(Book book) {
 		if (book == null) return;
-		this.book = book;
 		
+		this.book = book;
 		TheBook theBook = new TheBook(book);
 		
 		if(authorNAC != null) {
@@ -112,8 +115,5 @@ public class BookDetailsController implements Initializable {
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void initialize(URL arg0, ResourceBundle arg1) {}
 }

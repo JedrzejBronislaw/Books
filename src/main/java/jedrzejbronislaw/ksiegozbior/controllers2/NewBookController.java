@@ -39,64 +39,42 @@ import lombok.NonNull;
 @Component
 public class NewBookController implements Initializable {
 
-	enum Steps{SearchTitle, SearchOrigTitle, SearchAuthor, FillForms};
+	enum Steps{SEARCH_TITLE, SEARCG_ORIG_TITLE, SEARCH_AUTHOR, FILL_FORMS};
+	
+	@Autowired private SearchController searcher;
+	@Autowired private MyFXMLLoader fxmlLoader;
 
-	private Steps currentStep;
-
-	@FXML
-	private GridPane searchTitlePane;
-	@FXML
-	private GridPane searchOriTitlePane;
-	@FXML
-	private GridPane searchAuthorPane;
-	@FXML
-	private GridPane resultsPane;
-	@FXML
-	private VBox formPane;
-	@FXML
-	private StackPane bottomButtonsPane;
+	@FXML private GridPane searchTitlePane;
+	@FXML private GridPane searchOriTitlePane;
+	@FXML private GridPane searchAuthorPane;
+	@FXML private GridPane resultsPane;
+	@FXML private VBox formPane;
+	@FXML private StackPane bottomButtonsPane;
 	
 	
-	@FXML
-	private TextField titleSearchField;
-	@FXML
-	private Rectangle titleRect;
-	@FXML
-	private Text titleText;
+	@FXML private TextField titleSearchField;
+	@FXML private Rectangle titleRect;
+	@FXML private Text titleText;
 
-	@FXML
-	private TextField oriTitleSearchField;
-	@FXML
-	private Rectangle oriTitleRect;
-	@FXML
-	private Text oriTitleText;
+	@FXML private TextField oriTitleSearchField;
+	@FXML private Rectangle oriTitleRect;
+	@FXML private Text oriTitleText;
 
-	@FXML
-	private TextField authorSearchField;
-	@FXML
-	private Rectangle authorRect;
-	@FXML
-	private Text authorText;
+	@FXML private TextField authorSearchField;
+	@FXML private Rectangle authorRect;
+	@FXML private Text authorText;
 	
-	@FXML
-	private Rectangle resetRect;
-	@FXML
-	private Text resetText;
+	@FXML private Rectangle resetRect;
+	@FXML private Text resetText;
 	
-	@FXML
-	private Rectangle addRect;
-	@FXML
-	private Text addText;
+	@FXML private Rectangle addRect;
+	@FXML private Text addText;
 	
-	@FXML
-	private Rectangle noneRect;
-	@FXML
-	private Text noneText;
+	@FXML private Rectangle noneRect;
+	@FXML private Text noneText;
 
-	@FXML
-	private VBox results;
-	@FXML
-	private Label searchInfoLabel;
+	@FXML private VBox results;
+	@FXML private Label searchInfoLabel;
 	
 	private MyButton titleButton;
 	private MyButton oriTitleButton;
@@ -110,135 +88,47 @@ public class NewBookController implements Initializable {
 	private NodeAndController editionForm;
 	private NodeAndController bookForm;
 
-	private boolean authorFormVisible = true;
-	private boolean titleFormVisible = true;
+	private boolean authorFormVisible  = true;
+	private boolean titleFormVisible   = true;
 	private boolean editionFormVisible = true;
-	private boolean bookFormVisible = true;
-	
-	@Autowired
-	private SearchController searcher;
-	
-	@Autowired
-	private MyFXMLLoader fxmlLoader;
-	
+	private boolean bookFormVisible    = true;
 	
 	private Ent selectedExistingEnt;
+	private Steps currentStep;
 	
-	
-	private Steps nextStep() {
-		Steps newStep = Steps.SearchTitle;
-		
-		switch (currentStep) {
-		case SearchTitle:
-			newStep = Steps.SearchOrigTitle; break;
-		case SearchOrigTitle:
-			newStep = Steps.SearchAuthor; break;
-		case SearchAuthor:
-			newStep = Steps.FillForms; break;
-		case FillForms:
-			newStep = Steps.FillForms; break;
-		default:
-			newStep = Steps.SearchTitle; break;
+
+	public void setAuthorForm(@NonNull NodeAndController authorForm) {
+		if (authorForm.getController() instanceof EntityFormController) {
+			this.authorForm = authorForm;
+			addBorder(authorForm);
+			refreshFormsPanes();
 		}
-		
-		showStep(newStep);
-		return newStep;
+	}
+	public void setTitleForm(@NonNull NodeAndController titleForm) {
+		if (authorForm.getController() instanceof EntityFormController) {
+			this.titleForm = titleForm;
+			addBorder(titleForm);
+			refreshFormsPanes();
+		}
+	}
+	public void setEditionForm(@NonNull NodeAndController editionForm) {
+		if (authorForm.getController() instanceof EntityFormController) {
+			this.editionForm = editionForm;
+			addBorder(editionForm);
+			refreshFormsPanes();
+		}
+	}
+	public void setBookForm(@NonNull NodeAndController bookForm) {
+		if (authorForm.getController() instanceof EntityFormController) {
+			this.bookForm = bookForm;
+			addBorder(bookForm);
+			refreshFormsPanes();
+		}
 	}
 	
-	private void showStep(Steps step) {
-		switch (step) {
-		case SearchTitle:
-			setPanesVisible(true, false, false, true, false);
-			break;
-
-		case SearchOrigTitle:
-			setPanesVisible(false, true, false, true, false);
-			break;
-
-		case SearchAuthor:
-			setPanesVisible(false, false, true, true, false);
-			break;
-
-		case FillForms:
-			setPanesVisible(false, false, false, false, true);
-			break;
-
-		default:
-			break;
-		}
-		
-		currentStep = step;
+	private void addBorder(NodeAndController form) {
+		getFieldPane(form).setStyle("-fx-border-color: #000;");
 	}
-
-	private void setPanesVisible(boolean searchTitle, boolean searchOriTitle, boolean searchAuthor, boolean results, boolean forms) {
-		searchTitlePane.setVisible(searchTitle);
-		searchTitlePane.setManaged(searchTitle);
-		
-		searchOriTitlePane.setVisible(searchOriTitle);
-		searchOriTitlePane.setManaged(searchOriTitle);
-		
-		searchAuthorPane.setVisible(searchAuthor);
-		searchAuthorPane.setManaged(searchAuthor);
-		
-		resultsPane.setVisible(results);
-		resultsPane.setManaged(results);
-		
-		formPane.setVisible(forms);
-		formPane.setManaged(forms);
-		
-		bottomButtonsPane.setVisible(forms);
-		bottomButtonsPane.setManaged(forms);
-	}
-	
-	
-	private void fillForms(Ent entity) {
-		clearAllForms();
-		hideAllForms();
-		enableAllForms(true);
-		
-		((NewBookPaneController)bookForm.getController()).setEdition(null);
-
-		if(entity instanceof Author) {
-			Author author = (Author) entity;
-			
-			setAuthorDetails(author);
-			((NewTitlePaneController)titleForm.getController()).setAuthor(author);
-			
-			showForm(titleForm);
-			showForm(editionForm);
-			showForm(bookForm);
-		} else if(entity instanceof Title) {
-			Title title = (Title) entity;
-			TheTitle theEdition = new TheTitle(title);
-
-			setTitleDetails(title);
-			
-			MyList<Author> authors = theEdition.getAuthors();
-			if(authors.size() == 1)
-				setAuthorDetails(authors.get(0));
-			
-
-			((NewEditionPaneController)editionForm.getController()).setTitle(title);
-			showForm(editionForm);
-			showForm(bookForm);
-		} else if(entity instanceof Edition) {
-			Edition edition = (Edition) entity;
-			TheEdition theEdition = new TheEdition(edition);
-			
-			setEditionDetails(edition);
-			
-			Set<Edition_Title> titles = edition.getTitles();
-			if(titles.size() == 1)
-				setTitleDetails(titles.iterator().next().getTitleObj());
-			
-			MyList<Author> authors = theEdition.getAuthors();
-			if(authors.size() == 1)
-				setAuthorDetails(authors.get(0));
-			
-			((NewBookPaneController)bookForm.getController()).setEdition(edition);
-			showForm(bookForm);
-		}
-	};
 	
 	private NodeAndController[] getAllForms() {
 		return new NodeAndController[] {
@@ -257,88 +147,157 @@ public class NewBookController implements Initializable {
 		};
 	}
 	
-	public void setAuthorForm(@NonNull NodeAndController authorForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.authorForm = authorForm;
-			refreshFormsPanes();
+	
+	private Steps nextStep() {
+		Steps newStep = Steps.SEARCH_TITLE;
+		
+		switch (currentStep) {
+			case SEARCH_TITLE:      newStep = Steps.SEARCG_ORIG_TITLE; break;
+			case SEARCG_ORIG_TITLE: newStep = Steps.SEARCH_AUTHOR;     break;
+			case SEARCH_AUTHOR:     newStep = Steps.FILL_FORMS;        break;
+			case FILL_FORMS:        newStep = Steps.FILL_FORMS;        break;
+			
+			default:                newStep = Steps.SEARCH_TITLE;      break;
 		}
+		
+		showStep(newStep);
+		return newStep;
 	}
-	public void setTitleForm(@NonNull NodeAndController titleForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.titleForm = titleForm;
-			refreshFormsPanes();
+	
+	private void showStep(Steps step) {
+		switch (step) {
+			case SEARCH_TITLE:      setPanesVisible(true,  false, false, true,  false); break;
+			case SEARCG_ORIG_TITLE: setPanesVisible(false, true,  false, true,  false); break;
+			case SEARCH_AUTHOR:     setPanesVisible(false, false, true,  true,  false); break;
+			case FILL_FORMS:        setPanesVisible(false, false, false, false, true ); break;
+		
+			default: break;
 		}
+		
+		currentStep = step;
 	}
-	public void setEditionForm(@NonNull NodeAndController editionForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.editionForm = editionForm;
-			refreshFormsPanes();
-		}
+
+	private void setPanesVisible(boolean searchTitle, boolean searchOriTitle, boolean searchAuthor, boolean results, boolean forms) {
+		setPaneVisibility(searchTitlePane,    searchTitle);
+		setPaneVisibility(searchOriTitlePane, searchOriTitle);
+		setPaneVisibility(searchAuthorPane,   searchAuthor);
+		setPaneVisibility(resultsPane,        results);
+		setPaneVisibility(formPane,           forms);
+		setPaneVisibility(bottomButtonsPane,  forms);
 	}
-	public void setBookForm(@NonNull NodeAndController bookForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.bookForm = bookForm;
-			refreshFormsPanes();
-		}
+	
+	private void setPaneVisibility(Pane pane, boolean visibility) {
+		pane.setVisible(visibility);
+		pane.setManaged(visibility);
 	}
+	
+	
+	private void fillForms(Ent entity) {
+		clearAllForms();
+		hideAllForms();
+		enableAllForms(true);
+		
+		((NewBookPaneController)bookForm.getController()).setEdition(null);
+
+		if (entity instanceof Author)  fillAutor(  (Author)  entity); else
+		if (entity instanceof Title)   fillTitle(  (Title)   entity); else
+		if (entity instanceof Edition) fillEdition((Edition) entity);
+	}
+	
+	private void fillAutor(Author author) {
+		setAuthorDetails(author);
+		((NewTitlePaneController)titleForm.getController()).setAuthor(author);
+		
+		showForm(titleForm);
+		showForm(editionForm);
+		showForm(bookForm);
+	}
+	
+	private void fillTitle(Title title) {
+		TheTitle theEdition = new TheTitle(title);
+
+		setTitleDetails(title);
+		
+		MyList<Author> authors = theEdition.getAuthors();
+		if (authors.size() == 1)
+			setAuthorDetails(authors.get(0));
+		
+
+		((NewEditionPaneController)editionForm.getController()).setTitle(title);
+		showForm(editionForm);
+		showForm(bookForm);
+	}
+	
+	private void fillEdition(Edition edition) {
+		TheEdition theEdition = new TheEdition(edition);
+		
+		setEditionDetails(edition);
+		
+		Set<Edition_Title> titles = edition.getTitles();
+		if (titles.size() == 1)
+			setTitleDetails(titles.iterator().next().getTitleObj());
+		
+		MyList<Author> authors = theEdition.getAuthors();
+		if (authors.size() == 1)
+			setAuthorDetails(authors.get(0));
+		
+		((NewBookPaneController)bookForm.getController()).setEdition(edition);
+		showForm(bookForm);
+	}
+	
 	private void refreshFormsPanes() {
-		NodeAndController form;
 		Pane fieldPane;
 		NodeAndController[] forms = getAllForms();
-		boolean[] vis = getAllFormsVisibility();
+		boolean[] formsVisibility = getAllFormsVisibility();
 		
 		formPane.getChildren().clear();
-		for(int i=0; i<forms.length; i++) {
-			if(!vis[i]) continue;
+		
+		for (int i=0; i<forms.length; i++) {
+			if (!formsVisibility[i]) continue;
+			if (forms[i] == null)    continue;
 			
-			form = forms[i];
-			if(form != null && (fieldPane = getFieldPane(form)) != null) {
-				fieldPane.setStyle("-fx-border-color: #000;");
-				formPane.getChildren().add(fieldPane);
-			}
+			fieldPane = getFieldPane(forms[i]);
+			if (fieldPane == null)   continue;
+			
+			formPane.getChildren().add(fieldPane);
 		}
 	}
 	
-	private Pane getFieldPane(NodeAndController x) {
-		if (x.getController() instanceof EntityFormController) {
-			Pane pane = ((EntityFormController)x.getController()).getFieldsPane();
-			return pane;
-		} else
-			return null;
+	private Pane getFieldPane(NodeAndController nac) {
+		if (!(nac.getController() instanceof EntityFormController)) return null;
+
+		return ((EntityFormController)nac.getController()).getFieldsPane();
 	}
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		titleButton = new MyButton(titleRect, titleText);
+		   titleButton = new MyButton(titleRect,    titleText);
 		oriTitleButton = new MyButton(oriTitleRect, oriTitleText);
-		authorButton = new MyButton(authorRect, authorText);
-		resetButton = new MyButton(resetRect, resetText);
-		addButton = new MyButton(addRect, addText);
-		noneButton = new MyButton(noneRect, noneText);
+		  authorButton = new MyButton(authorRect,   authorText);
+		   resetButton = new MyButton(resetRect,    resetText);
+		     addButton = new MyButton(addRect,      addText);
+		    noneButton = new MyButton(noneRect,     noneText);
 		
-		titleButton.setHeight(25);
+		   titleButton.setHeight(25);
 		oriTitleButton.setHeight(25);
-		authorButton.setHeight(25);
-		resetButton.setHeight(25);
-		noneButton.setHeight(25);
+		  authorButton.setHeight(25);
+		   resetButton.setHeight(25);
+		    noneButton.setHeight(25);
 
-		titleButton.setOnClicked(() -> searcher.newSearchEdition(titleSearchField.getText()));
+		   titleButton.setOnClicked(() -> searcher.newSearchEdition( titleSearchField.getText()));
 		oriTitleButton.setOnClicked(() -> searcher.newSearchTitle(oriTitleSearchField.getText()));
-		authorButton.setOnClicked(() -> searcher.newSearchAuthor(authorSearchField.getText()));
-		resetButton.setOnClicked(() -> {reset(); showStep(Steps.SearchTitle);});
-		addButton.setOnClicked(() -> {save(); reset(); showStep(Steps.SearchTitle);});
-		noneButton.setOnClicked(() -> {
-			reset();
-			nextStep();
-		});
+		  authorButton.setOnClicked(() -> searcher.newSearchAuthor( authorSearchField.getText()));
+		   resetButton.setOnClicked(() -> {        reset(); showStep(Steps.SEARCH_TITLE);});
+		     addButton.setOnClicked(() -> {save(); reset(); showStep(Steps.SEARCH_TITLE);});
+		    noneButton.setOnClicked(() -> {        reset(); nextStep();});
 		
-		searcher.setClearShearchResults(() -> results.getChildren().clear());
+		searcher.setClearShearchResults(results.getChildren()::clear);
 		searcher.setShowSearchItem(book -> results.getChildren().add(createResultItem(book)));
-		searcher.setShowSearchInfo((phrase, count)-> searchInfoLabel.setText("\"" + phrase + "\" -> " + Integer.toString(count)));
+		searcher.setShowSearchInfo((phrase, count) -> searchInfoLabel.setText("\"" + phrase + "\" -> " + Integer.toString(count)));
 		
-		showStep(Steps.SearchTitle);
+		showStep(Steps.SEARCH_TITLE);
 	}
 
 	private void reset() {
@@ -347,169 +306,149 @@ public class NewBookController implements Initializable {
 		clearAllForms();
 		enableAllForms(true);
 		showAllForms();
-		titleSearchField.setText(null);
+		   titleSearchField.setText(null);
 		oriTitleSearchField.setText(null);
-		authorSearchField.setText(null);
-		searchInfoLabel.setText(null);
+		  authorSearchField.setText(null);
+		    searchInfoLabel.setText(null);
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		NodeAndController x = fxmlLoader.create("view2/" + "ResultItem.fxml");
+		NodeAndController nac = fxmlLoader.create("view2/" + "ResultItem.fxml");
 		
-		ResultItemController controller = (ResultItemController) x.getController();
+		ResultItemController controller = (ResultItemController) nac.getController();
 		controller.setContent(ent);
 		controller.setOnClick(() -> {
 			selectedExistingEnt = controller.getContent();
 			fillForms(controller.getContent());
-			showStep(Steps.FillForms);
+			showStep(Steps.FILL_FORMS);
 		});
 			
-		return (Pane) x.getNode();
-
+		return (Pane) nac.getNode();
 	}
 	
 	private void setAuthorDetails(Author author) {
-		if (authorForm != null) {
-			((NewAuthorPaneController)authorForm.getController()).set(author);
-//			((EntityFormController)authorForm.getController()).setEnable(false);
-			enableForm(authorForm, false);
-			showForm(authorForm);
-		}
+		if (authorForm == null) return;
+		
+		((NewAuthorPaneController)authorForm.getController()).set(author);
+		enableForm(authorForm, false);
+		showForm(authorForm);
 	}
+	
 	private void setEditionDetails(Edition content) {
-		if (editionForm != null) {
-			((NewEditionPaneController)editionForm.getController()).set(content);
-//			((EntityFormController)editionForm.getController()).setEnable(false);
-			enableForm(editionForm, false);
-			showForm(editionForm);
-		}
+		if (editionForm == null) return;
+		
+		((NewEditionPaneController)editionForm.getController()).set(content);
+		enableForm(editionForm, false);
+		showForm(editionForm);
 	}
 	
 	private void setTitleDetails(Title content) {
-		if (titleForm != null) {
-			((NewTitlePaneController)titleForm.getController()).set(content);
-//			((EntityFormController)titleForm.getController()).setEnable(false);
-			enableForm(titleForm, false);
-			showForm(titleForm);
-		}
+		if (titleForm == null) return;
+		
+		((NewTitlePaneController)titleForm.getController()).set(content);
+		enableForm(titleForm, false);
+		showForm(titleForm);
 	}
 	
 	private void hideAllForms() {
-		NodeAndController[] forms = getAllForms();		
 		Pane pane;
 		
-		for(NodeAndController form : forms)
-			if(form != null)
-				if((pane = getFieldPane(form)) != null) {
-					pane.setVisible(false);
-					pane.setManaged(false);
-				}
+		for(NodeAndController form : getAllForms()) {
+			if (form == null) continue;
+			
+			pane = getFieldPane(form);
+			if (pane == null) continue;
+			
+			setPaneVisibility(pane, false);
+		}
 	}
 
 	private void showAllForms() {
 		NodeAndController[] forms = getAllForms();		
 
-		for(NodeAndController form : forms)
+		for (NodeAndController form : forms)
 			showForm(form);
 	}
 
 	private void showForm(NodeAndController form) {
-		Pane pane;
+		if (form == null) return;
 		
-		if(form != null)
-			if((pane = getFieldPane(form)) != null) {
-				pane.setVisible(true);
-				pane.setManaged(true);
-			}
+		Pane pane = getFieldPane(form);
+		if (pane == null) return;
+		
+		setPaneVisibility(pane, true);
 	}
 
 	private void enableAllForms(boolean enable) {
-		NodeAndController[] forms = getAllForms();		
-
-		for(NodeAndController form : forms)
+		for (NodeAndController form : getAllForms())
 			enableForm(form, enable);
 	}
 	
 	private void enableForm(NodeAndController form, boolean enable) {
-		Pane pane;
+		if (form == null) return;
 		
-		if(form != null)
-			if((pane = getFieldPane(form)) != null) {
-				pane.setDisable(!enable);
-			}
+		Pane pane = getFieldPane(form);
+		if (pane == null) return;
+		
+		pane.setDisable(!enable);
 	}
 	
 	private void clearAllForms() {
-		NodeAndController[] forms = getAllForms();
-		
-		for(NodeAndController form : forms)
-			if(form != null) {
-				EntityFormController controller = (EntityFormController)form.getController();
-				controller.clearFields();
-				controller.enableAllFields();
-			}	
+
+		for(NodeAndController form : getAllForms()) {
+			if(form == null) continue;
+				
+			EntityFormController controller = (EntityFormController)form.getController();
+			controller.clearFields();
+			controller.enableAllFields();
+		}
 	}
 	
 	private void save() {
 		
-		if(selectedExistingEnt instanceof Edition) {
+		if (selectedExistingEnt instanceof Edition) {
 			saveBook();			
 		} else if(selectedExistingEnt instanceof Title) {
-			
-			
 			Edition e = saveEdition();
 			addEditionToBook(e);
 			saveBook();				
 		} else if(selectedExistingEnt instanceof Author) {
-			Title t = saveTitle();
-			addTitleToEdition(t);
-			Edition e = saveEdition();
-			addEditionToBook(e);
+			addTitleToEdition(saveTitle());
+			addEditionToBook (saveEdition());
 			saveBook();							
 		} else {
-			Author a = saveAuthor();
-			addAuthorToTitle(a);
-			Title t = saveTitle();
-			addTitleToEdition(t);
-			Edition e = saveEdition();
-			addEditionToBook(e);
+			addAuthorToTitle (saveAuthor());
+			addTitleToEdition(saveTitle());
+			addEditionToBook (saveEdition());
 			saveBook();							
 		}
 	}
 
 	private void addEditionToBook(Edition edition) {
-		NodeAndController form = bookForm;
+		Initializable ctrl = getController(bookForm);
+		if (!(ctrl instanceof NewBookPaneController)) return;
 		
-		if(form != null && form.getController() != null) {
-			if(form.getController() instanceof NewBookPaneController) {
-				NewBookPaneController controller = (NewBookPaneController) form.getController();
-				controller.setEdition(edition);
-			}
-		}		
+		((NewBookPaneController) ctrl).setEdition(edition);
 	}
 
 	private void addTitleToEdition(Title title) {
-		NodeAndController form = editionForm;
+		Initializable ctrl = getController(editionForm);
+		if (!(ctrl instanceof NewEditionPaneController)) return;
 		
-		if(form != null && form.getController() != null) {
-			if(form.getController() instanceof NewEditionPaneController) {
-				NewEditionPaneController controller = (NewEditionPaneController) form.getController();
-				controller.setTitle(title);
-			}
-		}		
+		((NewEditionPaneController) ctrl).setTitle(title);
 	}
 
 	private void addAuthorToTitle(Author author) {
-		NodeAndController form = titleForm;
-		
-		if(form != null && form.getController() != null) {
-			if(form.getController() instanceof NewTitlePaneController) {
-				NewTitlePaneController controller = (NewTitlePaneController) form.getController();
-				controller.setAuthor(author);
-			}
-		}		
-	}
+		Initializable ctrl = getController(titleForm);
+		if (!(ctrl instanceof NewTitlePaneController)) return;
 
+		((NewTitlePaneController) ctrl).setAuthor(author);
+	}
+	
+	private Initializable getController(NodeAndController nac) {
+		return (nac == null) ? null : nac.getController();
+	}
+	
 	private Author saveAuthor() {
 		return (Author) saveForm(authorForm);
 	}
@@ -527,13 +466,10 @@ public class NewBookController implements Initializable {
 	}
 
 	private Ent saveForm(NodeAndController form) {
-		if(form != null && form.getController() != null) {
-			if(form.getController() instanceof EntityFormController) {
-				EntityFormController controller = (EntityFormController) form.getController();
-				return controller.save();
-			}
-		}
+		Initializable ctrl = getController(form);
 		
-		return null;
+		if (!(ctrl instanceof EntityFormController)) return null;
+		
+		return ((EntityFormController) ctrl).save();
 	}
 }

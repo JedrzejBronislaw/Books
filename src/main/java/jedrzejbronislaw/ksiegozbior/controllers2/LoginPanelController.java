@@ -19,75 +19,34 @@ import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 @Component
 public class LoginPanelController implements Initializable {
 
-	@Autowired
-	private UserRepository repository;
-
-	@Autowired
-	private Session session;
+	@Autowired private UserRepository repository;
+	@Autowired private Session session;
 	
-//	@Autowired
-//	private LibraryRepository libRepository;
-	
-	@FXML
-	private VBox vbox;
-
-	@FXML
-	private TextField loginField;
-//	@FXML
-//	private TextField firstNameField;
-//	@FXML
-//	private TextField lastNameField;
+	@FXML private VBox vbox;
+	@FXML private TextField loginField;
 	
 	private MyButton saveButton;
 	
+	
 	private void clearFields() {
 		loginField.setText(null);
-//		firstNameField.setText(null);
-//		lastNameField.setText(null);
 	}
-	
-//	private void save() {
-//		Library library = saveLibrary();
-//		
-//		User newUser = new User();
-//		
-//		newUser.setLogin(loginField.getText());
-//		newUser.setFirstName(firstNameField.getText());
-//		newUser.setLastName(lastNameField.getText());
-//		newUser.setRegistrationTime(Timestamp.valueOf(LocalDateTime.now()));
-//		newUser.setMode(Mode.Ok);
-//		newUser.setRole(Role.User);
-//		
-//		
-//		ArrayList<Library> libraries = new ArrayList<Library>();
-//		libraries.add(library);
-//		newUser.setLibraries(libraries);
-//		
-//		repository.save(newUser);
-//	}
-	
-//	private Library saveLibrary() {
-//		Library newLibrary = new Library();
-//		
-//		newLibrary.setName("user default Library");
-//
-//		libRepository.save(newLibrary);
-//		
-//		return newLibrary;
-//	}
 
 	private void logIn(String login) {
 		User user = repository.findByLogin(login);
-		if(user != null)
-			session.logIn(user);
+		
+		if (user != null) session.logIn(user);
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		saveButton = new MyButton(Internationalization.get("log_in"));
 		saveButton.setHeight(25);
-		saveButton.setOnClicked(() -> {logIn(loginField.getText()); clearFields();});
+		saveButton.setOnClicked(() -> {
+			logIn(loginField.getText());
+			clearFields();
+		});
+		
 		vbox.getChildren().add(saveButton.createNode());
 	}
-
 }
