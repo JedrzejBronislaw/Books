@@ -13,35 +13,28 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLanguage;
 
 @Component
-public class LanguagePreviewController implements Initializable{
+public class LanguagePreviewController implements Initializable {
 
-	final boolean lazy = true;
-	boolean booksShown = false;
-	boolean editionsShown = false;
-	boolean titlesShown = false;
+	private final boolean lazy = true;
 	
 	private TheLanguage theLanguage;
 	
-	@FXML
-	private Label abbrevLabel;
-	@FXML
-	private Label nameLabel;
+	@FXML private Label abbrevLabel;
+	@FXML private Label nameLabel;
 
-	@FXML
-	private Label booksNumberLabel;
-	@FXML
-	private Label booksNamesLabel;
+	@FXML private Label booksNumberLabel;
+	@FXML private Label booksNamesLabel;
 
-	@FXML
-	private Label editionsNumberLabel;
-	@FXML
-	private Label editionsNamesLabel;
+	@FXML private Label editionsNumberLabel;
+	@FXML private Label editionsNamesLabel;
 
-	@FXML
-	private Label titlesNumberLabel;
-	@FXML
-	private Label titlesNamesLabel;
+	@FXML private Label titlesNumberLabel;
+	@FXML private Label titlesNamesLabel;
 	
+	private boolean booksShown    = false;
+	private boolean editionsShown = false;
+	private boolean titlesShown   = false;
+	 
 
 	public void setLanguage(Language language) {
 		theLanguage = new TheLanguage(language);
@@ -53,12 +46,11 @@ public class LanguagePreviewController implements Initializable{
 		clear();
 		
 		abbrevLabel.setText(theLanguage.getAbbrev());
-		nameLabel.setText(theLanguage.getName());
+		nameLabel  .setText(theLanguage.getName());
 
-		booksNumberLabel.setText(theLanguage.getNumberOfBooks().str());
+		booksNumberLabel   .setText(theLanguage.getNumberOfBooks().str());
 		editionsNumberLabel.setText(theLanguage.getNumberOfEditinos().str());
-		titlesNumberLabel.setText(theLanguage.getNumberOfTitles().str());
-				
+		titlesNumberLabel  .setText(theLanguage.getNumberOfTitles().str());
 		
 		if(!lazy) {
 			booksRefresh();
@@ -80,9 +72,9 @@ public class LanguagePreviewController implements Initializable{
 		titlesNumberLabel.setText("");
 		titlesNamesLabel.setText(Internationalization.get("show"));
 
-		booksShown = false;
+		booksShown    = false;
 		editionsShown = false;
-		titlesShown = false;
+		titlesShown   = false;
 	}
 	
 	private void booksRefresh() {
@@ -117,7 +109,6 @@ public class LanguagePreviewController implements Initializable{
 			});
 			
 			titlesNamesLabel.setOnMouseClicked(e -> {
-			
 				if(!titlesShown) {
 					titlesRefresh();
 					titlesShown=true;
@@ -125,5 +116,4 @@ public class LanguagePreviewController implements Initializable{
 			});
 		}
 	}
-
 }

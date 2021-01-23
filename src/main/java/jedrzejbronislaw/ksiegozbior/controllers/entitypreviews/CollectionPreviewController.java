@@ -17,17 +17,14 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitleCollection;
 
 @Component
-public class CollectionPreviewController implements Initializable{
+public class CollectionPreviewController implements Initializable {
 
 	private TheCollection theCollection;
 	
-	@FXML
-	private Label nameLabel;
-	@FXML
-	private Label supercollectionLabel;
+	@FXML private Label nameLabel;
+	@FXML private Label supercollectionLabel;
 
-	@FXML
-	private Label elementsLabel;
+	@FXML private Label elementsLabel;
 	
 
 	public void setTitleCollection(TitleCollection collection) {
@@ -49,16 +46,14 @@ public class CollectionPreviewController implements Initializable{
 		if (theCollection == null) return;
 		clear();
 		
-		nameLabel.setText(theCollection.getName());
+		nameLabel           .setText(theCollection.getName());
 		supercollectionLabel.setText(theCollection.getSupercollections().serialize_newLine());
 		
 		elementsLabel.setText(
-				"("+
-				theCollection.getNumberOfElements().str()+
-				")"+
-				System.lineSeparator()+
-				theCollection.getElements().serialize_newLine()
-				);
+			"(" + theCollection.getNumberOfElements().str() + ")"
+			+ System.lineSeparator() +
+			theCollection.getElements().serialize_newLine()
+		);
 	}
 	
 	private void clear() {
@@ -72,5 +67,4 @@ public class CollectionPreviewController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
 }

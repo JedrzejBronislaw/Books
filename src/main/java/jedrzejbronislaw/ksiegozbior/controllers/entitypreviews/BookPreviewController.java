@@ -13,35 +13,23 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
 
 @Component
-public class BookPreviewController implements Initializable{//, EntityPreviewControler{
+public class BookPreviewController implements Initializable {
 	
 	private TheBook theBook;
 	
-	@FXML
-	private Label titleLabel;
-	@FXML
-	private Label subtitleLabel;
-	@FXML
-	private Label authorsLabel;
-	@FXML
-	private Label publisherLabel;
-	@FXML
-	private Label languageLabel;
-	@FXML
-	private Label purchaseDateLabel;
-	@FXML
-	private Label libraryLabel;
-	@FXML
-	private Label publicationDateLabel;
-	@FXML
-	private Label pagesLabel;
-	@FXML
-	private Label hardCoverLabel;
+	@FXML private Label titleLabel;
+	@FXML private Label subtitleLabel;
+	@FXML private Label authorsLabel;
+	@FXML private Label publisherLabel;
+	@FXML private Label languageLabel;
+	@FXML private Label purchaseDateLabel;
+	@FXML private Label libraryLabel;
+	@FXML private Label publicationDateLabel;
+	@FXML private Label pagesLabel;
+	@FXML private Label hardCoverLabel;
 
-	@FXML
-	private Label titlesLabel;
-	@FXML
-	private TextArea commentsField;
+	@FXML private Label titlesLabel;
+	@FXML private TextArea commentsField;
 
 	
 	public void setBook(Book book) {
@@ -53,40 +41,39 @@ public class BookPreviewController implements Initializable{//, EntityPreviewCon
 		if (theBook == null) return;
 		clear();
 		
-		titleLabel.setText(theBook.getTitle());
-		subtitleLabel.setText(theBook.getSubtitle());
-		authorsLabel.setText(theBook.getAuthors().serialize_newLine());
-		publisherLabel.setText(theBook.getPublisherName());
-		languageLabel.setText(theBook.getLanguageName());
-		purchaseDateLabel.setText(theBook.getPurchaseDate());
-		libraryLabel.setText(theBook.getLibrary());
+		titleLabel          .setText(theBook.getTitle());
+		subtitleLabel       .setText(theBook.getSubtitle());
+		authorsLabel        .setText(theBook.getAuthors().serialize_newLine());
+		publisherLabel      .setText(theBook.getPublisherName());
+		languageLabel       .setText(theBook.getLanguageName());
+		purchaseDateLabel   .setText(theBook.getPurchaseDate());
+		libraryLabel        .setText(theBook.getLibrary());
 		publicationDateLabel.setText(theBook.getPublicationYear().str());
-		pagesLabel.setText(theBook.getPages().str());
-		hardCoverLabel.setText(theBook.getHardCoverStr());
+		pagesLabel          .setText(theBook.getPages().str());
+		hardCoverLabel      .setText(theBook.getHardCoverStr());
 		
-		titlesLabel.setText(theBook.getTitlesText());
-		commentsField.setText(theBook.getCommentsText());
+		titlesLabel         .setText(theBook.getTitlesText());
+		commentsField       .setText(theBook.getCommentsText());
 	}
 	
 	private void clear() {
-		titleLabel.setText("");
-		subtitleLabel.setText("");
-		authorsLabel.setText("");
-		publisherLabel.setText("");
-		languageLabel.setText("");
-		purchaseDateLabel.setText("");
-		libraryLabel.setText("");
+		titleLabel          .setText("");
+		subtitleLabel       .setText("");
+		authorsLabel        .setText("");
+		publisherLabel      .setText("");
+		languageLabel       .setText("");
+		purchaseDateLabel   .setText("");
+		libraryLabel        .setText("");
 		publicationDateLabel.setText("");
-		pagesLabel.setText("");
-		hardCoverLabel.setText("");
+		pagesLabel          .setText("");
+		hardCoverLabel      .setText("");
 		
-		titlesLabel.setText("");
-		commentsField.clear();
+		titlesLabel         .setText("");
+		commentsField       .clear();
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
 }

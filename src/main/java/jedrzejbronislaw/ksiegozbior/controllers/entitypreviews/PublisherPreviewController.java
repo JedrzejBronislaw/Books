@@ -12,19 +12,15 @@ import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.projections.ThePublishingHouse;
 
 @Component
-public class PublisherPreviewController implements Initializable{
+public class PublisherPreviewController implements Initializable {
 
 	private ThePublishingHouse thePublisher;
 	
-	@FXML
-	private Label abbrevLabel;
-	@FXML
-	private Label nameLabel;
-	@FXML
-	private Label cityLabel;
+	@FXML private Label abbrevLabel;
+	@FXML private Label nameLabel;
+	@FXML private Label cityLabel;
 
-	@FXML
-	private Label editionsLabel;
+	@FXML private Label editionsLabel;
 	
 
 	public void setPublisher(PublishingHouse publisher) {
@@ -37,8 +33,8 @@ public class PublisherPreviewController implements Initializable{
 		clear();
 		
 		abbrevLabel.setText(thePublisher.getAbbrev());
-		nameLabel.setText(thePublisher.getName());
-		cityLabel.setText(thePublisher.getCity());
+		nameLabel  .setText(thePublisher.getName());
+		cityLabel  .setText(thePublisher.getCity());
 		
 		editionsLabel.setText(thePublisher.getNumberOfEditions().str());
 	}
@@ -55,5 +51,4 @@ public class PublisherPreviewController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
 }

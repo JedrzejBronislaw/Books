@@ -13,25 +13,18 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
 
 @Component
-public class TitlePreviewController implements Initializable{//, EntityPreviewControler{
+public class TitlePreviewController implements Initializable {
 	
 	private TheTitle theTitle;
 	
-	@FXML
-	private Label titleLabel;
-	@FXML
-	private Label subtitleLabel;
-	@FXML
-	private Label authorsLabel;
-	@FXML
-	private Label languageLabel;
-	@FXML
-	private Label creationYearLabel;
+	@FXML private Label titleLabel;
+	@FXML private Label subtitleLabel;
+	@FXML private Label authorsLabel;
+	@FXML private Label languageLabel;
+	@FXML private Label creationYearLabel;
 
-	@FXML
-	private TextArea descriptionField;
-	@FXML
-	private Label collectionsLabel;
+	@FXML private TextArea descriptionField;
+	@FXML private Label collectionsLabel;
 	
 
 	public void setTitle(Title title) {
@@ -43,14 +36,14 @@ public class TitlePreviewController implements Initializable{//, EntityPreviewCo
 		if (theTitle == null) return;
 		clear();
 		
-		titleLabel.setText(theTitle.getTitle());
-		subtitleLabel.setText(theTitle.getSubtitle());
-		authorsLabel.setText(theTitle.getAuthors().serialize_newLine());
-		languageLabel.setText(theTitle.getLanguageName());
+		titleLabel       .setText(theTitle.getTitle());
+		subtitleLabel    .setText(theTitle.getSubtitle());
+		authorsLabel     .setText(theTitle.getAuthors().serialize_newLine());
+		languageLabel    .setText(theTitle.getLanguageName());
 		creationYearLabel.setText(theTitle.getCreationYear().str());
 		
-		descriptionField.setText(theTitle.getDescription());
-		collectionsLabel.setText(theTitle.getCollections().serialize_newLine());
+		descriptionField .setText(theTitle.getDescription());
+		collectionsLabel .setText(theTitle.getCollections().serialize_newLine());
 	}
 	
 	private void clear() {
@@ -68,5 +61,4 @@ public class TitlePreviewController implements Initializable{//, EntityPreviewCo
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
 }

@@ -13,23 +13,16 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLocation;
 
 @Component
-public class LocationPreviewController implements Initializable{
+public class LocationPreviewController implements Initializable {
 
 	private TheLocation theLocation;
 	
-	@FXML
-	private Label nameLabel;
-	@FXML
-	private Label superlocationLabel;
+	@FXML private Label nameLabel;
+	@FXML private Label superlocationLabel;
 	
-	@FXML
-	private TextArea descriptionField;
-
-	@FXML
-	private Label elementsLabel;
-	
-	@FXML
-	private Label sublocationsLabel;
+	@FXML private TextArea descriptionField;
+	@FXML private Label elementsLabel;
+	@FXML private Label sublocationsLabel;
 	
 
 	public void setLocation(Location location) {
@@ -41,20 +34,17 @@ public class LocationPreviewController implements Initializable{
 		if (theLocation == null) return;
 		clear();
 		
-		nameLabel.setText(theLocation.getName());
+		nameLabel         .setText(theLocation.getName());
 		superlocationLabel.setText(theLocation.getSuperlocationsNames().serialize_newLine());
 		
-		descriptionField.setText(theLocation.getDescription());
-		
-		sublocationsLabel.setText(theLocation.getSublocationsNames().serialize_newLine());
+		descriptionField  .setText(theLocation.getDescription());
+		sublocationsLabel .setText(theLocation.getSublocationsNames().serialize_newLine());
 		
 		elementsLabel.setText(
-				"("+
-				theLocation.getNumberOfBooks().str()+
-				")"+
-				System.lineSeparator()+
-				theLocation.getBooksNames().serialize_newLine()
-				);
+			"(" + theLocation.getNumberOfBooks().str() + ")"
+			+ System.lineSeparator() +
+			theLocation.getBooksNames().serialize_newLine()
+		);
 	}
 	
 	private void clear() {
@@ -70,6 +60,4 @@ public class LocationPreviewController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
-
 }

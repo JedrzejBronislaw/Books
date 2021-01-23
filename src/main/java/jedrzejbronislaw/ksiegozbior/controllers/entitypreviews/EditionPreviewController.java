@@ -12,33 +12,22 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 
 @Component
-public class EditionPreviewController implements Initializable{//, EntityPreviewControler{
+public class EditionPreviewController implements Initializable {
 	
 	private TheEdition theEdition;
 	
-	@FXML
-	Label titleLabel;
-	@FXML
-	Label subtitleLabel;
-	@FXML
-	Label authorsLabel;
-	@FXML
-	Label publisherLabel;
-	@FXML
-	Label languageLabel;
-	@FXML
-	Label editionNumberLabel;
-	@FXML
-	Label isbnLabel;
-	@FXML
-	Label publicationDateLabel;
-	@FXML
-	Label pagesLabel;
-	@FXML
-	Label hardCoverLabel;
+	@FXML Label titleLabel;
+	@FXML Label subtitleLabel;
+	@FXML Label authorsLabel;
+	@FXML Label publisherLabel;
+	@FXML Label languageLabel;
+	@FXML Label editionNumberLabel;
+	@FXML Label isbnLabel;
+	@FXML Label publicationDateLabel;
+	@FXML Label pagesLabel;
+	@FXML Label hardCoverLabel;
 
-	@FXML
-	Label titlesLabel;
+	@FXML Label titlesLabel;
 	
 
 	public void setEdition(Edition edition) {
@@ -50,18 +39,18 @@ public class EditionPreviewController implements Initializable{//, EntityPreview
 		if (theEdition == null) return;
 		clear();
 		
-		titleLabel.setText(theEdition.getTitle());
-		subtitleLabel.setText(theEdition.getSubtitle());
-		authorsLabel.setText(theEdition.getAuthors().serialize_newLine());
-		publisherLabel.setText(theEdition.getPublisherName());
-		languageLabel.setText(theEdition.getLanguageName());
-		editionNumberLabel.setText(theEdition.getNumerRoman());
-		isbnLabel.setText(theEdition.getISBNFormatted());
+		titleLabel          .setText(theEdition.getTitle());
+		subtitleLabel       .setText(theEdition.getSubtitle());
+		authorsLabel        .setText(theEdition.getAuthors().serialize_newLine());
+		publisherLabel      .setText(theEdition.getPublisherName());
+		languageLabel       .setText(theEdition.getLanguageName());
+		editionNumberLabel  .setText(theEdition.getNumerRoman());
+		isbnLabel           .setText(theEdition.getISBNFormatted());
 		publicationDateLabel.setText(theEdition.getPublicationYear().str());
-		pagesLabel.setText(theEdition.getPages().str());
-		hardCoverLabel.setText(theEdition.getHardCoverStr());
+		pagesLabel          .setText(theEdition.getPages().str());
+		hardCoverLabel      .setText(theEdition.getHardCoverStr());
 		
-		titlesLabel.setText(theEdition.getTitlesText());
+		titlesLabel         .setText(theEdition.getTitlesText());
 	}
 	
 	private void clear() {
@@ -83,5 +72,4 @@ public class EditionPreviewController implements Initializable{//, EntityPreview
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		clear();
 	}
-
 }
