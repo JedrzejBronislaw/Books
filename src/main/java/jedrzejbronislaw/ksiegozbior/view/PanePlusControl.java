@@ -6,9 +6,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class PanePlusControl{
-	@NonNull
-	Pane pane;
-	@NonNull
-	MultiEntityViewController controller;
+public class PanePlusControl {
+	
+	@NonNull Pane pane;
+	@NonNull MultiEntityViewController controller;
 }

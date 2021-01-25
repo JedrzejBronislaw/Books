@@ -5,8 +5,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
-
-public class MyComboxCallBack<T> implements Callback<ListView<T>, ListCell<T>>{
+public class MyComboxCallBack<T> implements Callback<ListView<T>, ListCell<T>> {
 
 	public interface Presentation<T>{
 		public String toStirng(T element);
@@ -14,8 +13,8 @@ public class MyComboxCallBack<T> implements Callback<ListView<T>, ListCell<T>>{
 
 	private Presentation<T> presentation = null;
 	
-	public MyComboxCallBack() {
-	}
+	
+	public MyComboxCallBack() {}
 	
 	public MyComboxCallBack(ComboBox<T> combobox) {
 		combobox.setButtonCell(this.call(null));
@@ -32,16 +31,15 @@ public class MyComboxCallBack<T> implements Callback<ListView<T>, ListCell<T>>{
 	public ListCell<T> call(ListView<T> arg0) {
 
 		return new ListCell<T>() {
+			
 			@Override
 			protected void updateItem(T element, boolean empty) {
 				super.updateItem(element, empty);
+				
 				if(!empty || element != null)
-					setText(presentation != null ? presentation.toStirng(element) : element.toString());
-				else
+					setText(presentation != null ? presentation.toStirng(element) : element.toString()); else
 					setText(null);
-//					setGraphic(null);
 			}
 		};
 	}
-	
 }

@@ -9,18 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyComboboxRefresher<T> {
 
-	@NonNull
-	private ComboBox<T> combobox;
-	
-	@NonNull
-	private CrudRepository<T, Long> repo;
-//	private Repo repo;
+	@NonNull private ComboBox<T> combobox;
+	@NonNull private CrudRepository<T, Long> repo;
 	
 	public void refresh() {
-		Iterable<T> elements = repo.findAll();
-		
 		combobox.getItems().clear();
-		
-		elements.forEach(elem -> combobox.getItems().add(elem));
+		repo.findAll().forEach(combobox.getItems()::add);
 	}
 }

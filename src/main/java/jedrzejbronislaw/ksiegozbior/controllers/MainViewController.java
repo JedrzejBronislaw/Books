@@ -42,67 +42,67 @@ public class MainViewController implements Initializable {
 	@FXML
 	private void showWelcomeView(){//TODO
 		if(view != null)
-			view.setView(Views.Authors);
+			view.setView(Views.AUTHORS);
 	}
 
 	@FXML
 	private void showAuthors(){
 		if(view != null)
-			view.setView(Views.Authors);
+			view.setView(Views.AUTHORS);
 	}
 
 	@FXML
 	private void showTitles(){
 		if(view != null)
-			view.setView(Views.Titles);
+			view.setView(Views.TITLES);
 	}
 
 	@FXML
 	private void showBooks(){
 		if(view != null)
-			view.setView(Views.Books);
+			view.setView(Views.BOOKS);
 	}
 
 	@FXML
 	private void showEditions(){
 		if(view != null)
-			view.setView(Views.Editions);
+			view.setView(Views.EDITIONS);
 	}
 
 	@FXML
 	private void showBookCollections(){
 		if(view != null) 
-			view.setView(Views.BookCollections);
+			view.setView(Views.BOOK_COLLECTIONS);
 	}
 
 	@FXML
 	private void showTitleCollections(){
 		if(view != null)
-			view.setView(Views.TitleCollections);
+			view.setView(Views.TITLE_COLLECTIONS);
 	}
 
 	@FXML
 	private void showEditionCollections(){
 		if(view != null)
-			view.setView(Views.EditionCollections);
+			view.setView(Views.EDITION_COLLECTIONS);
 	}
 
 	@FXML
 	private void showLanguages(){
 		if(view != null)
-			view.setView(Views.Languages);
+			view.setView(Views.LANGUAGES);
 	}
 
 	@FXML
 	private void showLocations(){
 		if(view != null)
-			view.setView(Views.Locations);
+			view.setView(Views.LOCATIONS);
 	}
 
 	@FXML
 	private void showPublishingHouses(){
 		if(view != null)
-			view.setView(Views.PublishingHouses);
+			view.setView(Views.PUBLISHING_HOUSES);
 	}
 
 	public void setLanguageMenu(Languages current, Languages...languages) {

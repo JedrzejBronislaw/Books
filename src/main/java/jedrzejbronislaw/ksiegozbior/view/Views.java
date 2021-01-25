@@ -1,15 +1,15 @@
 package jedrzejbronislaw.ksiegozbior.view;
 
 public enum Views {
-	Welcome,
-	Books,
-	Titles,
-	Authors,
-	Editions,
-	BookCollections,
-	TitleCollections,
-	EditionCollections,
-	Languages,
-	Locations,
-	PublishingHouses
+	WELCOME,
+	BOOKS,
+	TITLES,
+	AUTHORS,
+	EDITIONS,
+	BOOK_COLLECTIONS,
+	TITLE_COLLECTIONS,
+	EDITION_COLLECTIONS,
+	LANGUAGES,
+	LOCATIONS,
+	PUBLISHING_HOUSES
 }
