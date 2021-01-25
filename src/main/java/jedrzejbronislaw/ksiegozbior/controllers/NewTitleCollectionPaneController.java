@@ -17,24 +17,17 @@ import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
 import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
-
-
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewTitleCollectionPaneController implements Initializable, EntityFormController{
+public class NewTitleCollectionPaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private TitleCollectionRepository titleCollectionRepository;
+	@Autowired private TitleCollectionRepository titleCollectionRepository;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
-	
-	@FXML
-	private TextField nameField;
-	
-	@FXML
-	private ComboBox<TitleCollection> supercollectionField;
+	@FXML private GridPane fieldsPane;
+	@FXML private TextField nameField;
+	@FXML private ComboBox<TitleCollection> supercollectionField;
 	
 	
 	@FXML
@@ -46,7 +39,7 @@ public class NewTitleCollectionPaneController implements Initializable, EntityFo
 	private void saveCollection() {
 		TitleCollection collection = new TitleCollection();
 		
-		collection.setName(nameField.getText().isBlank() ? null : nameField.getText().strip());
+		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());
 		
 		titleCollectionRepository.save(collection);
@@ -67,6 +60,4 @@ public class NewTitleCollectionPaneController implements Initializable, EntityFo
 		supercollectionField.setOnShowing(e -> supercollectionRefresher.refresh());
 		supercollectionRefresher.refresh();
 	}
-
-
 }

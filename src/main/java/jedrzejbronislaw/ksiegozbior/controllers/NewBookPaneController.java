@@ -31,58 +31,32 @@ import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
 @Component
-public class NewBookPaneController implements Initializable, EntityFormController{
+public class NewBookPaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private BookRepository bookRepository;
-	@Autowired
-	private EditionRepository editionRepository;
-	@Autowired
-	private LocationRepository locationRepository;
-	@Autowired
-	private BookCommentRepository bookCommentRepository;
+	@Autowired private BookRepository bookRepository;
+	@Autowired private EditionRepository editionRepository;
+	@Autowired private LocationRepository locationRepository;
+	@Autowired private BookCommentRepository bookCommentRepository;
 
 	MyComboboxRefresher<Edition> editionRefresher;
 	MyComboboxRefresher<Location> locationRefresher;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
+	@FXML private GridPane fieldsPane;
+	@FXML private Label ownerLabel;
+	@FXML private ComboBox<Edition> editionField;
+	@FXML private TextField autographField;
+	@FXML private CheckBox autographCheck;
+	@FXML private DatePicker purchaseDateField;
+	@FXML private ComboBox<Visibility> visibilityField;
+	@FXML private ComboBox<Location> locationField;
+	@FXML private TextArea commentField;
 	
-	@FXML
-	private Label ownerLabel;
-	
-	@FXML
-	private ComboBox<Edition> editionField;
-	
-	@FXML
-	private TextField autographField;
-	
-	@FXML
-	private CheckBox autographCheck;
-
-	@FXML
-	private DatePicker purchaseDateField;
-	
-	@FXML
-	private ComboBox<Visibility> visibilityField;
-	
-	@FXML
-	private ComboBox<Location> locationField;
-	
-	@FXML
-	private TextArea commentField;
-	
-	@FXML
-	private Label editionTitle;
-	@FXML
-	private Label editionAuthor;
-	@FXML
-	private Label editionLanguage;
-	@FXML
-	private Label editionPublisher;
-	@FXML
-	private Label editionNumber;
+	@FXML private Label editionTitle;
+	@FXML private Label editionAuthor;
+	@FXML private Label editionLanguage;
+	@FXML private Label editionPublisher;
+	@FXML private Label editionNumber;
 	
 	
 	@FXML
@@ -122,23 +96,9 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 			newBook.getComments().add(comment);
 		}
 		
-		
-		
 		bookRepository.save(newBook);
 		
 		return newBook;
-//		
-//		//TODO validation
-//		
-//		newBook.set
-//		
-//		newAuthor.setName(nameField.getText());
-//		newAuthor.setSurname(surnameField.getText());
-//		newAuthor.setDescription(descriptionField.getText());
-//		newAuthor.setBirthDate(Date.valueOf(birthDateField.getValue()));
-//		newAuthor.setDeathDate(Date.valueOf(deathDateField.getValue()));
-//		
-//		autorRepository.save(newAuthor);
 	}
 
 
@@ -161,7 +121,7 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		editionRefresher = new MyComboboxRefresher<Edition>(editionField, editionRepository);
+		editionRefresher  = new MyComboboxRefresher<Edition> (editionField,  editionRepository);
 		locationRefresher = new MyComboboxRefresher<Location>(locationField, locationRepository);
 
 		new MyComboxCallBack<Edition>(editionField, e-> new TheEdition(e).toString());
@@ -169,16 +129,10 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		
 		updateLists();
 		
-		editionField.setOnShowing(e -> editionRefresher.refresh());
-		locationField.setOnShowing(e ->locationRefresher.refresh());
+		editionField .setOnShowing(e -> editionRefresher .refresh());
+		locationField.setOnShowing(e -> locationRefresher.refresh());
 		
-		autographCheck.setOnAction(e -> {
-			autographField.setEditable(autographCheck.isSelected());
-			if(autographCheck.isSelected())
-				autographField.setStyle("-fx-text-fill: #000;");
-			else
-				autographField.setStyle("-fx-text-fill: #888;");
-		});
+		autographCheck.setOnAction(e -> autographClickAction());
 		
 		editionField.setOnAction(e -> {
 			System.out.println("editionField.setOnAction");
@@ -186,8 +140,17 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		});
 		
 		clearFields();
-		autographCheck.getOnAction().handle(null);
+		autographClickAction();
 		loadVisibilityList();
+	}
+
+	private void autographClickAction() {
+		boolean autograph = autographCheck.isSelected();
+		
+		autographField.setEditable(autograph);
+		if(autograph)
+			autographField.setStyle("-fx-text-fill: #000;"); else
+			autographField.setStyle("-fx-text-fill: #888;");
 	}
 
 	private void updateLists() {
@@ -199,9 +162,7 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		Visibility[] vis = Visibility.values();
 		
 		visibilityField.getItems().clear();
-		
-		for(int i=0; i<vis.length; i++)
-			visibilityField.getItems().add(vis[i]);
+		visibilityField.getItems().addAll(vis);
 	}
 	
 	private void loadEditionDetails(Edition e) {
@@ -209,11 +170,11 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		
 		TheEdition edition = new TheEdition(e);
 		
-		editionTitle.setText(edition.getTitle());	
-		editionAuthor.setText(edition.getAuthors().serialize_newLine());
-		editionLanguage.setText(edition.getLanguageName());
+		editionTitle    .setText(edition.getTitle());	
+		editionAuthor   .setText(edition.getAuthors().serialize_newLine());
+		editionLanguage .setText(edition.getLanguageName());
 		editionPublisher.setText(edition.getPublisherName());
-		editionNumber.setText(edition.getNumerRoman());
+		editionNumber   .setText(edition.getNumerRoman());
 	}
 
 	public void setEdition(Edition edition) {

@@ -17,24 +17,17 @@ import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
 import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
-
-
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewBookCollectionPaneController implements Initializable, EntityFormController{
+public class NewBookCollectionPaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private BookCollectionRepository bookCollectionRepository;
+	@Autowired private BookCollectionRepository bookCollectionRepository;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
-	
-	@FXML
-	private TextField nameField;
-	
-	@FXML
-	private ComboBox<BookCollection> supercollectionField;
+	@FXML private GridPane fieldsPane;
+	@FXML private TextField nameField;
+	@FXML private ComboBox<BookCollection> supercollectionField;
 	
 	
 	@FXML
@@ -46,7 +39,7 @@ public class NewBookCollectionPaneController implements Initializable, EntityFor
 	private void saveCollection() {
 		BookCollection collection = new BookCollection();
 		
-		collection.setName(nameField.getText().isBlank() ? null : nameField.getText().strip());
+		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());
 		
 		bookCollectionRepository.save(collection);
@@ -62,11 +55,9 @@ public class NewBookCollectionPaneController implements Initializable, EntityFor
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		new MyComboxCallBack<BookCollection>(supercollectionField);
-		MyComboboxRefresher<BookCollection> supercollectionRefresher = new MyComboboxRefresher<BookCollection>(supercollectionField, bookCollectionRepository);
+		MyComboboxRefresher<BookCollection> supercollectionRefresher = new MyComboboxRefresher<>(supercollectionField, bookCollectionRepository);
 		
 		supercollectionField.setOnShowing(e -> supercollectionRefresher.refresh());
 		supercollectionRefresher.refresh();
 	}
-
-
 }

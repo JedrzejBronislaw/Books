@@ -17,27 +17,18 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
-
-
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewLocationPaneController implements Initializable, EntityFormController{
+public class NewLocationPaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private LocationRepository locationRepository;
+	@Autowired private LocationRepository locationRepository;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
-	
-	@FXML
-	private TextField nameField;
-	
-	@FXML
-	private ComboBox<Location> superlocationField;
-	
-	@FXML
-	private TextArea descriptionField;
+	@FXML private GridPane fieldsPane;
+	@FXML private TextField nameField;
+	@FXML private ComboBox<Location> superlocationField;
+	@FXML private TextArea descriptionField;
 
 	
 	@FXML
@@ -49,8 +40,8 @@ public class NewLocationPaneController implements Initializable, EntityFormContr
 	private void saveLocation() {
 		Location newLocation = new Location();
 		
-		newLocation.setName(nameField.getText().isBlank() ? null : nameField.getText().strip());
-		newLocation.setDescription(descriptionField.getText().isBlank() ? null : descriptionField.getText().strip());
+		newLocation.setName(       getText(nameField));
+		newLocation.setDescription(getText(descriptionField));
 		newLocation.setSuperLocation(superlocationField.getValue());
 		
 		locationRepository.save(newLocation);
@@ -65,7 +56,6 @@ public class NewLocationPaneController implements Initializable, EntityFormContr
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		updateLocationList();
 		
 		MyComboxCallBack<Location> locationCallFactory = new MyComboxCallBack<Location>();
@@ -80,11 +70,6 @@ public class NewLocationPaneController implements Initializable, EntityFormContr
 		
 		superlocationField.getItems().clear();
 		
-		locations.forEach(location -> {
-			superlocationField.getItems().add(location);
-		});
+		locations.forEach(superlocationField.getItems()::add);
 	}
-
-
-
 }

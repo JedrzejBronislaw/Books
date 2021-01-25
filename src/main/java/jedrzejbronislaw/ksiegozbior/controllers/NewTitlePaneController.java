@@ -26,42 +26,28 @@ import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
 import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
-@Component
-public class NewTitlePaneController implements Initializable, EntityFormController{
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
 
-	@Autowired
-	private TitleRepository titleRepository;
-	@Autowired
-	private AuthorRepository authorsRepository;
-	@Autowired
-	private AuthorshipRepository authorshipRepository;
-	@Autowired
-	private LanguageRepository languageRepository;
+@Component
+public class NewTitlePaneController implements Initializable, EntityFormController {
+
+	@Autowired private TitleRepository titleRepository;
+	@Autowired private AuthorRepository authorsRepository;
+	@Autowired private AuthorshipRepository authorshipRepository;
+	@Autowired private LanguageRepository languageRepository;
 	
 	private MyComboboxRefresher<Language> languageRefresher;
 	private MyComboboxRefresher<Author> authorRefresher;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
-	
-	@FXML
-	private TextField titleField;
-	
-	@FXML
-	private TextField subtitleField;
-
-	@FXML
-	private ComboBox<Author> authorField;
-	
-	@FXML
-	private TextField yearField;
-
-	@FXML
-	private ComboBox<Language> languageField;
-	
-	@FXML
-	private TextArea descriptionField;	
+	@FXML private GridPane fieldsPane;
+	@FXML private TextField titleField;
+	@FXML private TextField subtitleField;
+	@FXML private ComboBox<Author> authorField;
+	@FXML private TextField yearField;
+	@FXML private ComboBox<Language> languageField;
+	@FXML private TextArea descriptionField;	
 	
 	@FXML
 	private void addTitleAction() {
@@ -75,20 +61,14 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 		short year;
 		
 		//TODO validation
-		try {
-			year = Short.parseShort(yearField.getText());
-		} catch (NumberFormatException e) {
-			year = 0;
-		}
+		year = parseShort(yearField.getText(), (short)0);
 		
-		
-		newTitle.setTitle(titleField.getText().strip().isEmpty() ? null : titleField.getText());
-		newTitle.setSubtitle(subtitleField.getText().strip().isEmpty() ? null : subtitleField.getText());
+		newTitle.setTitle(   getText(titleField));
+		newTitle.setSubtitle(getText(subtitleField));
 		newTitle.setLanguage(languageField.getValue());
 
-		if (year!=0)
-		newTitle.setYear(year);
-		newTitle.setDescription(descriptionField.getText().strip().isEmpty() ? null : descriptionField.getText());
+		if (year != 0) newTitle.setYear(year);
+		newTitle.setDescription(getText(descriptionField));
 		titleRepository.save(newTitle);
 		
 		if (authorField.getValue() != null) {
@@ -119,21 +99,6 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 				authorField.setValue(authors.get(0).getAuthor());
 		}
 	}
-	
-//	@Override
-//	public void setEnable(boolean enable) {
-//		Node[] nodes = new Node[] {
-//			titleField,
-//			subtitleField,
-//			languageField,
-//			yearField,
-//			descriptionField,
-//			authorField
-//		};
-//		
-//		for(Node node : nodes)
-//			node.setDisable(!enable);
-//	}
 	
 	public void clearFields(){
 		titleField.clear();
@@ -175,5 +140,4 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 	public void enableAllFields() {
 		authorField.setDisable(false);
 	}
-
 }

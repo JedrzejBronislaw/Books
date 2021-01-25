@@ -14,24 +14,17 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
 
-
-
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewLanguagePaneController implements Initializable, EntityFormController{
+public class NewLanguagePaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private LanguageRepository languageRepository;
+	@Autowired private LanguageRepository languageRepository;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
-	
-	@FXML
-	private TextField langField;
-	
-	@FXML
-	private TextField abbrevField;
+	@FXML private GridPane fieldsPane;
+	@FXML private TextField langField;
+	@FXML private TextField abbrevField;
 
 	
 	@FXML
@@ -43,12 +36,11 @@ public class NewLanguagePaneController implements Initializable, EntityFormContr
 	private void saveLanguage() {
 		Language newLang = new Language();
 		
-		newLang.setName(langField.getText().isBlank() ? null : langField.getText());
-		newLang.setAbbr(abbrevField.getText().isBlank() ? null : abbrevField.getText());
+		newLang.setName(getText(langField));
+		newLang.setAbbr(getText(abbrevField));
 		
 		languageRepository.save(newLang);
 	}
-
 
 	public void clearFields(){
 		langField.clear();
@@ -56,10 +48,5 @@ public class NewLanguagePaneController implements Initializable, EntityFormContr
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-	}
-
-
-
+	public void initialize(URL arg0, ResourceBundle arg1) {}
 }

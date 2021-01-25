@@ -22,40 +22,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-public class MainViewController implements Initializable{
+public class MainViewController implements Initializable {
 
-	@Setter
-	private Consumer<Languages> changeGUILanguage;
+	@Setter private Consumer<Languages> changeGUILanguage;
 	
-	@FXML
-	private Label label1;
+	@FXML private Label label1;
 	
-	@FXML
-	@Getter
-	private AnchorPane mainPane;
+	@FXML @Getter private AnchorPane mainPane;
+	@FXML @Getter private Pane formBox; 
+	@FXML @Getter private AnchorPane sPane; 
+	@FXML @Getter private AnchorPane previewPane; 
+	@FXML @Getter private Label header1;
 	
-	@FXML
-	@Getter
-	private Pane formBox; 
-
-	@FXML
-	@Getter
-	private AnchorPane sPane; 
-
-	@FXML
-	@Getter
-	private AnchorPane previewPane; 
+	@FXML private Menu languageMenu;
 	
-	@FXML
-	@Getter
-	private Label header1;
-	
-	@FXML
-	private Menu languageMenu;
-	
-	@Setter
-	private View view;
-
+	@Setter private View view;
 	
 	
 	@FXML
@@ -124,25 +105,24 @@ public class MainViewController implements Initializable{
 			view.setView(Views.PublishingHouses);
 	}
 
-	public void setLanguageMenu(Languages current, Languages...lang) {
+	public void setLanguageMenu(Languages current, Languages...languages) {
 		languageMenu.getItems().clear();
 
-		if (lang == null) return;
+		if (languages == null) return;
 		
 		RadioMenuItem menuItem;
 		ToggleGroup group = new ToggleGroup();
-		for(int i=0; i<lang.length; i++) {
-			Languages l = lang[i];
+		
+		for (Languages lang : languages) {
 			
-			menuItem = new RadioMenuItem(Internationalization.get(l.getLabel()));
+			menuItem = new RadioMenuItem(Internationalization.get(lang.getLabel()));
 			menuItem.setToggleGroup(group);
+			menuItem.setSelected(lang.equals(current));
 			menuItem.setOnAction(e -> {
 				if(changeGUILanguage != null)
-					changeGUILanguage.accept(l);
+					changeGUILanguage.accept(lang);
 			});
-			if (l.equals(current))
-				menuItem.setSelected(true);
-			
+
 			languageMenu.getItems().add(menuItem);
 		}
 	}
@@ -152,5 +132,4 @@ public class MainViewController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		languageMenu.getItems().clear();
 	}
-
 }

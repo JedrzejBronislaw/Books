@@ -14,27 +14,19 @@ import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import lombok.Getter;
 
-
-
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewPublishingHousePaneController implements Initializable, EntityFormController{
+public class NewPublishingHousePaneController implements Initializable, EntityFormController {
 
-	@Autowired
-	private PublishingHouseRepository publishingHouseRepository;
+	@Autowired private PublishingHouseRepository publishingHouseRepository;
 
-	@FXML
 	@Getter
-	private GridPane fieldsPane;
+	@FXML private GridPane fieldsPane;
 	
-	@FXML
-	private TextField nameField;
-	
-	@FXML
-	private TextField abbrevField;
-	
-	@FXML
-	private TextField cityField;
+	@FXML private TextField nameField;
+	@FXML private TextField abbrevField;
+	@FXML private TextField cityField;
 
 	
 	@FXML
@@ -46,9 +38,9 @@ public class NewPublishingHousePaneController implements Initializable, EntityFo
 	private void savePublishingHouse() {
 		PublishingHouse newPublishingHouse = new PublishingHouse();
 		
-		newPublishingHouse.setName(nameField.getText().isBlank() ? null : nameField.getText().strip());
-		newPublishingHouse.setAbbr(abbrevField.getText().isBlank() ? null : abbrevField.getText().strip());
-		newPublishingHouse.setCity(cityField.getText().isBlank() ? null : cityField.getText().strip());
+		newPublishingHouse.setName(getText(nameField));
+		newPublishingHouse.setAbbr(getText(abbrevField));
+		newPublishingHouse.setCity(getText(cityField));
 
 		publishingHouseRepository.save(newPublishingHouse);
 	}
@@ -61,10 +53,5 @@ public class NewPublishingHousePaneController implements Initializable, EntityFo
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-	}
-
-
-
+	public void initialize(URL arg0, ResourceBundle arg1) {}
 }
