@@ -13,43 +13,29 @@ import lombok.Setter;
 @Component
 public class ViewController {
 
-	@Setter
-	private BorderPane mainPane;//TODO add to constructor
+	@Setter private BorderPane mainPane;//TODO add to constructor
 	
-//	@Setter
-//	private Pane newBookPane;
-//	@Setter
-//	private Pane bookDetailsPane;
-//	@Setter
-//	private Pane newUserPane;
-//	@Setter
-//	private Pane loginPanel;
-//	@Setter
-//	private Pane libraryPane;
-	
-	
-	private Map<Views, Pane> panes = new HashMap<Views, Pane>();
-	
+	private Map<Views, Pane> panes = new HashMap<>();
+
+
 	public void register(Views view, Pane pane) {
 		panes.put(view, pane);
-		
 	}
 	
 	public void set(Views view) {
 		Pane pane = panes.get(view);
-		if(pane != null) 
-			set(pane,true);
 		
+		if (pane != null) set(pane, true);
 	}
 	
 	private void set(Pane pane, boolean inScrollPane) {
-		if(pane != null)
-			if(inScrollPane) {
-				ScrollPane scrollPane = new ScrollPane(pane);
-				scrollPane.setFitToWidth(true);
-				mainPane.setCenter(scrollPane);
-			} else
-				mainPane.setCenter(pane);
+		if(pane == null) return;
 		
+		if (inScrollPane) {
+			ScrollPane scrollPane = new ScrollPane(pane);
+			scrollPane.setFitToWidth(true);
+			mainPane.setCenter(scrollPane);
+		} else
+			mainPane.setCenter(pane);
 	}
 }

@@ -55,13 +55,13 @@ public class Version2 extends ApplicationStarter {
 //		view.setNewUserPane(buildSignUpPane(controller));
 //		
 //		view.setLoginPanel(buildLogInPane(controller));
-		view.register(Views.NewBook, buildNewBookPane(controller));
+		view.register(Views.NEW_BOOK, buildNewBookPane(controller));
 		
-		view.register(Views.BookDetails, buildBookDetailsPane(controller));
+		view.register(Views.BOOK_DETAILS, buildBookDetailsPane(controller));
 		
-		view.register(Views.NewUser, buildSignUpPane(controller));
+		view.register(Views.NEW_USER, buildSignUpPane(controller));
 		
-		view.register(Views.LoginPanel, buildLogInPane(controller));
+		view.register(Views.LOGIN_PANEL, buildLogInPane(controller));
 
 		loadAllBooks(controller);
 

@@ -96,13 +96,13 @@ public class MainView2Controller implements Initializable {
 		searchField.setOnKeyReleased(e -> search(searchField.getText()));
 		
 		view.setMainPane(mainPane);
-		view.register(Views.Main, mainContent);
+		view.register(Views.MAIN, mainContent);
 		
-		seeLibrary  .setOnClicked(() -> setView(Views.Library, true));
-		addBook     .setOnClicked(() -> setView(Views.NewBook, true));
-		signUpButton.setOnAction(e   -> setView(Views.NewUser, true));
-		signInButton.setOnAction(e   -> setView(Views.LoginPanel, true));
-		backButton  .setOnAction(e   -> setView(Views.Main, false));
+		seeLibrary  .setOnClicked(() -> setView(Views.LIBRARY, true));
+		addBook     .setOnClicked(() -> setView(Views.NEW_BOOK, true));
+		signUpButton.setOnAction(e   -> setView(Views.NEW_USER, true));
+		signInButton.setOnAction(e   -> setView(Views.LOGIN_PANEL, true));
+		backButton  .setOnAction(e   -> setView(Views.MAIN, false));
 		logOutButton.setOnAction(e   -> session.logOut());
 		
 		search.setHeight(25);
@@ -126,7 +126,7 @@ public class MainView2Controller implements Initializable {
 	}
 
 	public void showBookDetailsPane() {
-		view.set(Views.BookDetails);
+		view.set(Views.BOOK_DETAILS);
 	}
 	
 	private void setView(Views viewType, boolean inScrollPane) {
