@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StringNumber<E extends Number> {
 
-	@NonNull
-	private E number;
+	@NonNull private E number;
 	
 	private String zeroStringValue = null;
 	private String negativeStringValue = null;
@@ -16,24 +15,15 @@ public class StringNumber<E extends Number> {
 	public String str() {
 		String outcome;
 		
-		if(number instanceof Integer)
-			outcome = Integer.toString((int)number);
-		else if(number instanceof Long)
-			outcome = Long.toString((long)number);
-		else if(number instanceof Short)
-			outcome = Short.toString((short)number);
-		else if(number instanceof Float)
-			outcome = Float.toString((float)number);
+		if(number instanceof Integer) outcome = Integer.toString((int)  number); else
+		if(number instanceof Long)    outcome = Long   .toString((long) number); else
+		if(number instanceof Short)   outcome = Short  .toString((short)number); else
+		if(number instanceof Float)   outcome = Float  .toString((float)number); else
+									  outcome ="error";
 		
-		//TODO etc.
-		else outcome ="error";
-		
-		if(zeroStringValue != null && outcome.equals("0"))
-			outcome = zeroStringValue;
-		else if(negativeStringValue != null && outcome.charAt(0) == '-')
-			outcome = negativeStringValue;
-		else if(positiveStringValue != null)
-			outcome = positiveStringValue;
+		if(    zeroStringValue != null && outcome.equals("0"))      outcome =     zeroStringValue; else
+		if(negativeStringValue != null && outcome.charAt(0) == '-') outcome = negativeStringValue; else
+		if(positiveStringValue != null)                             outcome = positiveStringValue;
 		
 		return outcome;
 	}
@@ -55,7 +45,6 @@ public class StringNumber<E extends Number> {
 		positiveStringValue = positiveValue;
 		return this;
 	}
-	
 	
 	@Override
 	public String toString() {

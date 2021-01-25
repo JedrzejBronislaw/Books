@@ -8,8 +8,7 @@ public class NotNullString {
 
 	private boolean emptyAsNull = false;
 	
-	@NonNull
-	private String defaultString;
+	@NonNull private String defaultString;
 	
 	public String get(String s) {
 		if (s == null)

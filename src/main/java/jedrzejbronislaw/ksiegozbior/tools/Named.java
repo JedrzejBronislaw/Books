@@ -1,17 +1,16 @@
 package jedrzejbronislaw.ksiegozbior.tools;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface Named {
 
 	public String getName();
 	
-	static List<String> convertListToNamesList(List<? extends Named> list){
-		List<String> namesList = new ArrayList<String>();
+	static List<String> convertListToNamesList(List<? extends Named> list) {
 		
-		list.forEach(c -> namesList.add(c.getName()));	
-
-		return namesList;
+		return list.stream()
+			.map(element -> element.getName())
+			.collect(Collectors.toList());
 	}
 }

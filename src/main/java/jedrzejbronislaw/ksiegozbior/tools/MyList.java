@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyList<T> {
 
-	@NonNull
-	private List<T> list;
+	@NonNull private List<T> list;
 
 	
 	public T get(int index){
