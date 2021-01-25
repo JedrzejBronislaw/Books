@@ -1,12 +1,12 @@
 package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
-import jedrzejbronislaw.ksiegozbior.model.projections.TheEnt;
 
-public abstract class MultiEntityViewControllerStrategy{
+public abstract class MultiEntityViewControllerStrategy {
+
 	public abstract boolean delAction(Ent entity);
 	public abstract void addAction();
 	public abstract void listClickAction(Ent entity);
@@ -14,12 +14,8 @@ public abstract class MultiEntityViewControllerStrategy{
 	
 	
 	public List<EntWithLabel> getLabeledList() {
-		List<EntWithLabel> list = new LinkedList<EntWithLabel>();
-
-		getList().forEach(e -> list.add(
-				new EntWithLabel(e, TheEnt.generateLabel(e))
-				));
-		
-		return list;
+		return getList().stream()
+				.map(EntWithLabel::new)
+				.collect(Collectors.toList());
 	}
 }

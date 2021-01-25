@@ -12,31 +12,39 @@ import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 
 @Component
-public class TitleCollectionListPreviewController extends MultiEntityViewControllerStrategy{
+public class TitleCollectionListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private TitleCollectionRepository repository;
+	@Autowired private TitleCollectionRepository repository;
+	@Autowired private CollectionPreviewController previewController;
 
-	@Autowired
-	private CollectionPreviewController previewController;
-	
+
 	@Override
 	public boolean delAction(Ent entity) {
 		if(entity instanceof TitleCollection) {
+
 			TitleCollection collection = (TitleCollection) entity;
-			
-			if(repository.numberOfElements(collection.getId()) != 0 ||
-				repository.numberOfSubcollections(collection.getId()) != 0)
-				return false;
-			
-			try {
-				repository.delete(collection);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+			return (isLeaf(collection)) ? delete(collection) : false;
+
 		} else
 			return false;
+	}
+
+	private boolean delete(TitleCollection collection) {
+		try {
+			
+			repository.delete(collection);
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean isLeaf(TitleCollection collection) {
+		long id = collection.getId();
+		
+		return repository.numberOfElements(      id) == 0
+			&& repository.numberOfSubcollections(id) == 0;
 	}
 
 	@Override
@@ -54,12 +62,10 @@ public class TitleCollectionListPreviewController extends MultiEntityViewControl
 	
 	@Override
 	public List<? extends Ent> getList() {
-		List<Ent> list = new LinkedList<Ent>();
+		List<Ent> list = new LinkedList<>();
 
-		repository.findAll().forEach(e -> list.add(e));
+		repository.findAll().forEach(list::add);
 		
 		return list;
 	}
-
-
 }

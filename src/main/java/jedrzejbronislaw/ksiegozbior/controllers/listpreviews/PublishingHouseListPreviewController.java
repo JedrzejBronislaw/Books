@@ -11,33 +11,32 @@ import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 
 @Component
-public class PublishingHouseListPreviewController extends MultiEntityViewControllerStrategy{
+public class PublishingHouseListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private PublishingHouseRepository repository;
+	@Autowired private PublishingHouseRepository repository;
+	@Autowired private PublisherPreviewController previewController;
 
-	@Autowired
-	private PublisherPreviewController previewController;
-	
+
 	@Override
 	public boolean delAction(Ent entity) {
-		if(entity instanceof PublishingHouse) {
-			PublishingHouse publisher = (PublishingHouse) entity;
-			try {
-				publisher.setRemoved(true);
-				repository.save(publisher);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		} else
+		return (entity instanceof PublishingHouse) ? setAsRemoved((PublishingHouse) entity) : false;
+	}
+
+	private boolean setAsRemoved(PublishingHouse publisher) {
+		try {
+			
+			publisher.setRemoved(true);
+			repository.save(publisher);
+			return true;
+			
+		} catch (Exception e) {
 			return false;
+		}
 	}
 
 	@Override
 	public void addAction() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -50,5 +49,4 @@ public class PublishingHouseListPreviewController extends MultiEntityViewControl
 	public List<? extends Ent> getList() {
 		return repository.findAllNotRemoved();
 	}
-
 }

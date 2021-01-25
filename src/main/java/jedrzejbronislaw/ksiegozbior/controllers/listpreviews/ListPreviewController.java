@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Component;
 
@@ -17,15 +18,8 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 @Component
 public class ListPreviewController extends MultiEntityViewController implements Initializable {
 
-
-	
-
-
-	@FXML
-	private Label title;
-	@FXML
-	private ListView<EntWithLabel> list;
-	
+	@FXML private Label title;
+	@FXML private ListView<EntWithLabel> list;
 
 	
 	public void set(String header, List<EntWithLabel> elements) {
@@ -38,32 +32,33 @@ public class ListPreviewController extends MultiEntityViewController implements 
 		list.getItems().clear();
 		
 		if(elements != null)
-			for(EntWithLabel e : elements) {
-				list.getItems().add(e);
-			}
+			list.getItems().addAll(elements);
 	}
-		
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		list.setCellFactory(new Callback<ListView<EntWithLabel>, ListCell<EntWithLabel>>() {
+		list.setCellFactory(createCellFactory(ent -> ent.getLabel()));
+		
+		//list.setCellFactory(new MyComboxCallBack<EntWithLabel>());
+	}
+
+	private Callback<ListView<EntWithLabel>, ListCell<EntWithLabel>> createCellFactory(Function<EntWithLabel, String> converter) {
+		return new Callback<ListView<EntWithLabel>, ListCell<EntWithLabel>>() {
 			
 			@Override
 			public ListCell<EntWithLabel> call(ListView<EntWithLabel> arg0) {
-
+				
 				return new ListCell<EntWithLabel>() {
 					@Override
 					protected void updateItem(EntWithLabel element, boolean empty) {
 						super.updateItem(element, empty);
 						if(!empty || element != null)
-							setText(element.getLabel());
-						else
+							setText(converter.apply(element)); else
 							setText(null);
 					}
 				};
 			}
-		});
-		
-//		list.setCellFactory(new MyComboxCallBack<EntWithLabel>());
+		};
 	}
 
 	@Override
@@ -75,7 +70,4 @@ public class ListPreviewController extends MultiEntityViewController implements 
 	protected boolean isSelectedItem() {
 		return (list.getSelectionModel().getSelectedIndex() > -1);
 	}
-
-
-
 }

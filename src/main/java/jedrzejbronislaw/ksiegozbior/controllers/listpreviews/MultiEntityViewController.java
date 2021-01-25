@@ -13,34 +13,30 @@ public abstract class MultiEntityViewController {
 	protected MultiEntityViewControllerStrategy strategy;
 	
 	abstract public void set(String header, List<EntWithLabel> elements);
-//	abstract protected void listRefresh(Iterable<? extends Ent> elements);
 	abstract protected void listRefresh(List<EntWithLabel> elements);
 	abstract protected Ent getSelectedItem();
 	abstract protected boolean isSelectedItem();
-//	void setStrategy(MultiEntityViewControllerStrategy strategy);
 	
 	@FXML
 	protected void addAction() {
-		if(strategy != null) strategy.addAction();
+		if(strategy == null) return;
+		
+		strategy.addAction();
 	}
 	
 	@FXML
 	protected void deleteAction() {
-		if(strategy != null) {
-			Ent entity = getSelectedItem();//list.getSelectionModel().getSelectedItem();
-			if(strategy.delAction(entity)) {
-//				list.getItems().remove(entity);
-				listRefresh(strategy.getLabeledList());
-			}
-		}
+		if(strategy == null) return;
+
+		if (strategy.delAction(getSelectedItem()))
+			listRefresh(strategy.getLabeledList());
 	}
 
 	@FXML
 	protected void clickAction(MouseEvent event) {
-//		int selectedIndex = list.getSelectionModel().getSelectedIndex();
-		if (isSelectedItem()/*selectedIndex > -1*/ && event.getClickCount() == 1) {			
-			if(strategy != null)
-				strategy.listClickAction(getSelectedItem());//list.getSelectionModel().getSelectedItem());
-		}
+		if(strategy == null) return;
+		
+		if (isSelectedItem() && event.getClickCount() == 1)
+			strategy.listClickAction(getSelectedItem());
 	}
 }

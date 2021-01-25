@@ -9,6 +9,10 @@ public interface HierarhicalEnt extends Ent,Named {
 
 	public HierarhicalEnt getSuper();
 	
+	public default boolean isRoot() {
+		return getSuper() == null;
+	}
+	
 	public default List<String> getSupercollections() {
 		ArrayList<String> supercollections = new ArrayList<String>();
 		HierarhicalEnt supercoll;

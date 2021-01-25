@@ -1,9 +1,10 @@
 package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -19,13 +20,10 @@ import jedrzejbronislaw.ksiegozbior.model.entities.HierarhicalEnt;
 
 @Component
 public class TreePreviewController extends MultiEntityViewController implements Initializable {
-	
-	
-	@FXML
-	private Label title;
-	@FXML
-	private TreeView<EntWithLabel> tree;
-	
+
+	@FXML private Label title;
+	@FXML private TreeView<EntWithLabel> tree;
+
 
 	@Override
 	public void set(String header, List<EntWithLabel> elements) {
@@ -35,64 +33,76 @@ public class TreePreviewController extends MultiEntityViewController implements 
 
 	@Override
 	protected void listRefresh(List<EntWithLabel> elements) {	
-		TreeItem<EntWithLabel> root = new TreeItem<EntWithLabel>();
+		TreeItem<EntWithLabel> root = new TreeItem<>();
+		
 		tree.setRoot(root);
 		tree.setShowRoot(false);
-		boolean found;
-		HierarhicalEnt hEnt;
-		TreeItem<EntWithLabel> item2;
 		
-		if(elements == null) return;
+		if (elements == null) return;
 		
-		List<TreeItem<EntWithLabel>> items = new ArrayList<TreeItem<EntWithLabel>>();
+		List<TreeItem<EntWithLabel>> items = elements.stream()
+				.filter(e -> (e.getEntity() instanceof HierarhicalEnt))
+				.map(TreeItem::new)
+				.collect(Collectors.toList());
 		
-		for(EntWithLabel e : elements) {
-			if(e.getEntity() instanceof HierarhicalEnt)
-				items.add(new TreeItem<EntWithLabel>(e));
-		}
-		
-		for(TreeItem<EntWithLabel> item : items) {
-			hEnt = (HierarhicalEnt)item.getValue().getEntity();
-			
-			found = false;	
+		createTree(root, items);
+	}
 
-			if(hEnt.getSuper() != null)
-				for(int i=0; i<items.size(); i++) {
-					item2 = items.get(i);
-					if(((HierarhicalEnt)item2.getValue().getEntity()).getId() == hEnt.getSuper().getId()) {
-						item2.getChildren().add(item);
-						found = true;
-						break;
-					}
-				}
+	private void createTree(TreeItem<EntWithLabel> root, List<TreeItem<EntWithLabel>> items) {
+		HierarhicalEnt ent;
+		
+		for (TreeItem<EntWithLabel> item : items) {
 			
-			if(!found)
+			ent = (HierarhicalEnt) item.getValue().getEntity();
+			
+			if (ent.isRoot() || !moveItemToSuperitem(items, item))
 				root.getChildren().add(item);
 		}
+	}
+
+	private boolean moveItemToSuperitem(List<TreeItem<EntWithLabel>> items, TreeItem<EntWithLabel> subItem) {
+
+		for (TreeItem<EntWithLabel> item : items) {
 			
+			if (isSubItem(subItem, item)) {
+				item.getChildren().add(subItem);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	private boolean isSubItem(TreeItem<EntWithLabel> subItem, TreeItem<EntWithLabel> item) {
+		HierarhicalEnt subEntity = (HierarhicalEnt)subItem.getValue().getEntity();
+		HierarhicalEnt entity    = (HierarhicalEnt)item   .getValue().getEntity();
+		
+		return entity.getId() == subEntity.getSuper().getId();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tree.setCellFactory(new Callback<TreeView<EntWithLabel>, TreeCell<EntWithLabel>>() {
+		tree.setCellFactory(createCallFactory(ent -> ent.getLabel()));
+	}
+
+	private Callback<TreeView<EntWithLabel>, TreeCell<EntWithLabel>> createCallFactory(Function<EntWithLabel, String> converter) {
+		return new Callback<TreeView<EntWithLabel>, TreeCell<EntWithLabel>>() {
 			
 			@Override
 			public TreeCell<EntWithLabel> call(TreeView<EntWithLabel> arg0) {
-				// TODO Auto-generated method stub
 				return new TreeCell<EntWithLabel>() {
+					
 					@Override
 					protected void updateItem(EntWithLabel element, boolean empty) {
-						// TODO Auto-generated method stub
 						super.updateItem(element, empty);
+						
 						if(!empty || element != null)
-							setText(element.getLabel());
-						else
+							setText(converter.apply(element)); else
 							setText(null);
 					}
 				};
 			}
-		});
-		
+		};
 	}
 
 	@Override
@@ -103,6 +113,4 @@ public class TreePreviewController extends MultiEntityViewController implements 
 	protected boolean isSelectedItem() {
 		return (tree.getSelectionModel().getSelectedIndex() > -1);
 	}
-
-
 }

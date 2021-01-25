@@ -11,27 +11,26 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 
 @Component
-public class LocationListPreviewController extends MultiEntityViewControllerStrategy{
+public class LocationListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private LocationRepository repository;
-
-	@Autowired
-	private LocationPreviewController previewController;
+	@Autowired private LocationRepository repository;
+	@Autowired private LocationPreviewController previewController;
 	
 	@Override
 	public boolean delAction(Ent entity) {
-		if(entity instanceof Location) {
-			Location location = (Location) entity;
-			try {
-				location.setRemoved(true);
-				repository.save(location);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		} else
+		return (entity instanceof Location) ? setAsRemoved((Location) entity) : false;
+	}
+
+	private boolean setAsRemoved(Location location) {
+		try {
+
+			location.setRemoved(true);
+			repository.save(location);
+			return true;
+
+		} catch (Exception e) {
 			return false;
+		}
 	}
 
 	@Override
@@ -42,6 +41,7 @@ public class LocationListPreviewController extends MultiEntityViewControllerStra
 	@Override
 	public void listClickAction(Ent entity) {
 		System.out.println("Klik! -> " + entity.toString());
+
 		if (entity instanceof Location)
 			previewController.setLocation((Location) entity);
 	}
@@ -50,5 +50,4 @@ public class LocationListPreviewController extends MultiEntityViewControllerStra
 	public List<? extends Ent> getList() {
 		return repository.findAllNotRemoved();
 	}
-
 }

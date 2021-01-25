@@ -12,13 +12,10 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 
 @Component
-public class LanguageListPreviewController extends MultiEntityViewControllerStrategy{
+public class LanguageListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private LanguageRepository repository;
-
-	@Autowired
-	private LanguagePreviewController previewController;
+	@Autowired private LanguageRepository repository;
+	@Autowired private LanguagePreviewController previewController;
 	
 	@Override
 	public boolean delAction(Ent entity) {//TODO
@@ -43,18 +40,16 @@ public class LanguageListPreviewController extends MultiEntityViewControllerStra
 
 	@Override
 	public void listClickAction(Ent entity) {
-//		System.out.println("Klik! -> " + entity.toString());
 		if (entity instanceof Language)
 			previewController.setLanguage((Language) entity);
 	}
 	
 	@Override
 	public List<? extends Ent> getList() {
-		ArrayList<Language> list = new ArrayList<Language>();
+		ArrayList<Language> list = new ArrayList<>();
 		
-		repository.findAll().forEach(l -> list.add(l));
+		repository.findAll().forEach(list::add);
 		
 		return list;
 	}
-
 }

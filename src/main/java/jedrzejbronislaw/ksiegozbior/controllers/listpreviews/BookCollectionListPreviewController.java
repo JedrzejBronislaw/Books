@@ -12,31 +12,39 @@ import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 
 @Component
-public class BookCollectionListPreviewController extends MultiEntityViewControllerStrategy{
+public class BookCollectionListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private BookCollectionRepository repository;
+	@Autowired private BookCollectionRepository repository;
+	@Autowired private CollectionPreviewController previewController;
 
-	@Autowired
-	private CollectionPreviewController previewController;
-	
+
 	@Override
 	public boolean delAction(Ent entity) {
-		if(entity instanceof BookCollection) {
+		if (entity instanceof BookCollection) {
+			
 			BookCollection collection = (BookCollection) entity;
-		
-			if(repository.numberOfElements(collection.getId()) != 0 ||
-				repository.numberOfSubcollections(collection.getId()) != 0)
-				return false;
-				
-			try {
-				repository.delete(collection);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+			return (isLeaf(collection)) ? delete(collection) : false;
+			
 		} else
 			return false;
+	}
+
+	private boolean delete(BookCollection collection) {
+		try {
+			
+			repository.delete(collection);
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean isLeaf(BookCollection collection) {
+		long id = collection.getId();
+		
+		return repository.numberOfElements(      id) == 0
+			&& repository.numberOfSubcollections(id) == 0;
 	}
 
 	@Override
@@ -47,18 +55,17 @@ public class BookCollectionListPreviewController extends MultiEntityViewControll
 	@Override
 	public void listClickAction(Ent entity) {
 		System.out.println("Klik! -> " + entity.toString());
+
 		if (entity instanceof BookCollection)
 			previewController.setBookCollection((BookCollection) entity);
 	}
 	
 	@Override
 	public List<? extends Ent> getList() {
-		List<Ent> list = new LinkedList<Ent>();
+		List<Ent> list = new LinkedList<>();
 
-		repository.findAll().forEach(e -> list.add(e));
+		repository.findAll().forEach(list::add);
 		
 		return list;
 	}
-
-
 }

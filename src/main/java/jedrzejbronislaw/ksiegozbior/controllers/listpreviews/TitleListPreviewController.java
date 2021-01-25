@@ -11,33 +11,31 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 
 @Component
-public class TitleListPreviewController extends MultiEntityViewControllerStrategy{
+public class TitleListPreviewController extends MultiEntityViewControllerStrategy {
 
-	@Autowired
-	private TitleRepository repository;
-
-	@Autowired
-	private TitlePreviewController titlePreviewController;
+	@Autowired private TitleRepository repository;
+	@Autowired private TitlePreviewController titlePreviewController;
 	
 	@Override
 	public boolean delAction(Ent entity) {
-		if(entity instanceof Title) {
-			Title title = (Title) entity;
-			try {
-				title.setRemoved(true);
-				repository.save(title);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
-		} else
+		return (entity instanceof Title) ? setAsRemoved((Title) entity) : false;
+	}
+
+	private boolean setAsRemoved(Title title) {
+		try {
+			
+			title.setRemoved(true);
+			repository.save(title);
+			return true;
+			
+		} catch (Exception e) {
 			return false;
+		}
 	}
 
 	@Override
 	public void addAction() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -50,5 +48,4 @@ public class TitleListPreviewController extends MultiEntityViewControllerStrateg
 	public List<? extends Ent> getList() {
 		return repository.findAllNotRemoved();
 	}
-
 }
