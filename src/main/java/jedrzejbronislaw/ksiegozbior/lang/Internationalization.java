@@ -9,9 +9,7 @@ public class Internationalization {
 	static final String resourceLocation = "jedrzejbronislaw.ksiegozbior.lang.Labels";
 	private static ResourceBundle rb = ResourceBundle.getBundle(resourceLocation);
 	
-	
-	@Getter
-	private static Languages currentLanguage;
+	@Getter private static Languages currentLanguage;
 	
 	
 	public static String get(String key) {

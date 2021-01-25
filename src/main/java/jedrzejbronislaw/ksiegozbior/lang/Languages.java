@@ -1,36 +1,26 @@
 package jedrzejbronislaw.ksiegozbior.lang;
 
 import java.util.Locale;
+import java.util.stream.Stream;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public enum Languages {
 	POLISH(new Locale("pl","PL"), "polish"),
 	ENGLISH(Locale.ENGLISH, "english");
 	
 	private static Languages defaultLanguage = ENGLISH;
 	
-	
-	@Getter
-	private Locale locale;
-	@Getter
-	private String label;
-	
-	private Languages(Locale locale, String label) {
-		this.locale = locale;
-		this.label = label;
-	}
-	
-	Languages get(Locale language) {
-		if (language == null) return defaultLanguage;
-		
-		Languages[] langs = Languages.values();
-		
-		for(Languages l : langs)
-			if (l.locale.equals(language))
-				return l;
-		
-		return defaultLanguage;
-	}
+	@Getter private final Locale locale;
+	@Getter private final String label;
 
+
+	Languages get(Locale language) {
+		return Stream.of(Languages.values())
+				.filter(l -> l.locale.equals(language))
+				.findAny()
+				.orElse(defaultLanguage);
+	}
 }
