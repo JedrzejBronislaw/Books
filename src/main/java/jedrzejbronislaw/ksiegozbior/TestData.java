@@ -50,46 +50,27 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.UserRepository;
 @Component("testData")
 public class TestData {
 
-	@Autowired
-	private UserRepository userRepositiry;
-	@Autowired
-	private LibraryRepository libraryRepository; 
+	@Autowired private UserRepository userRepositiry;
+	@Autowired private LibraryRepository libraryRepository;
 	
-	@Autowired
-	private LanguageRepository languageRepository;
-	@Autowired
-	private LocationRepository locationRepository;
-	@Autowired
-	private PublishingHouseRepository publishingHouseRepository;
-	@Autowired
-	private AuthorRepository authorRepository;
-	@Autowired
-	private AuthorshipRepository authorshipRepository;
-	@Autowired
-	private TitleRepository titleRepository;
-	@Autowired
-	private EditionRepository editionRepository;
-	@Autowired
-	private Edition_TitleRepository edition_TitleRepository;
-	@Autowired
-	private BookRepository bookRepository;
-	@Autowired
-	private TitleCollectionRepository titleCollectionRepository;
-	@Autowired
-	private TitleCollectionLinkRepository titleCollectionLinkRepository;
-	@Autowired
-	private EditionCollectionRepository editionCollectionRepository;
-	@Autowired
-	private EditionCollectionLinkRepository editionCollectionLinkRepository;
-	@Autowired
-	private BookCollectionRepository bookCollectionRepository;
-	@Autowired
-	private BookCollectionLinkRepository bookCollectionLinkRepository;
-	
+	@Autowired private LanguageRepository languageRepository;
+	@Autowired private LocationRepository locationRepository;
+	@Autowired private PublishingHouseRepository publishingHouseRepository;
+	@Autowired private AuthorRepository authorRepository;
+	@Autowired private AuthorshipRepository authorshipRepository;
+	@Autowired private TitleRepository titleRepository;
+	@Autowired private EditionRepository editionRepository;
+	@Autowired private Edition_TitleRepository edition_TitleRepository;
+	@Autowired private BookRepository bookRepository;
+	@Autowired private TitleCollectionRepository titleCollectionRepository;
+	@Autowired private TitleCollectionLinkRepository titleCollectionLinkRepository;
+	@Autowired private EditionCollectionRepository editionCollectionRepository;
+	@Autowired private EditionCollectionLinkRepository editionCollectionLinkRepository;
+	@Autowired private BookCollectionRepository bookCollectionRepository;
+	@Autowired private BookCollectionLinkRepository bookCollectionLinkRepository;
 	
 	
 	public void save() {
-		
 		saveTestUsersAndLibraries();
 		
 		saveTestLanguages();

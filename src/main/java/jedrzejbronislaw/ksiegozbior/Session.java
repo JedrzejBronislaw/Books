@@ -18,12 +18,11 @@ public class Session {
 	
 	
 	public boolean logIn(User user) {
-		if(user != null) {
-			loggedInUser = user;
-			logInListiners.forEach(l -> l.accept(user));
-			return true;
-		} else
-			return false;
+		if(user == null) return false;
+		
+		loggedInUser = user;
+		logInListiners.forEach(l -> l.accept(user));
+		return true;
 	}
 	
 	public void logOut() {
@@ -31,7 +30,7 @@ public class Session {
 		logOutListiners.forEach(l -> l.run());
 	}
 	
-	public boolean isLogged(){
+	public boolean isLogged() {
 		return (loggedInUser != null);
 	}
 	

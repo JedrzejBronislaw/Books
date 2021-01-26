@@ -1,5 +1,7 @@
 package jedrzejbronislaw.ksiegozbior;
 
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,29 +10,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 
-//@SpringBootApplication
 @Controller
-public class Controller_A{
+public class Controller_A {
 	
-	@Autowired
-	public AuthorRepository autorRepository;
+	@Autowired private AuthorRepository authorRepository;
+	
 	
 	@RequestMapping("/db")
     @ResponseBody
     public String test1() {
-    	StringBuilder sb = new StringBuilder();
-    	Author author1 = new Author();
-    	
-    	author1.setName("Henryk");
-    	author1.setSurname("Sienkiewicz");
-    	author1.setDescription("autor Quo Vadis");
-    	
-    	autorRepository.save(author1);
-    	
-    	for(Author a : autorRepository.findAll()) {
-    		sb.append(a.toString()).append("<br>");
-    	}
-    	
-    	return sb.toString();
+		saveNewAuthor();
+    	return getAuthors();
     }
+
+	private void saveNewAuthor() {
+		Author author = new Author();
+    	
+    	author.setName("Henryk");
+    	author.setSurname("Sienkiewicz");
+    	author.setDescription("autor Quo Vadis");
+    	
+    	authorRepository.save(author);
+	}
+	
+	private String getAuthors() {
+		StringBuilder sb = new StringBuilder();
+		
+		Stream.of(authorRepository.findAll())
+		.map(a -> a.toString())
+		.forEach(a -> sb.append(a).append("<BR>"));
+		
+		return sb.toString();
+	}
 }

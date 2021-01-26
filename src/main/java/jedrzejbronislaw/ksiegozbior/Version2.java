@@ -24,13 +24,11 @@ import jedrzejbronislaw.ksiegozbior.view2.Views;
 @Component
 public class Version2 extends ApplicationStarter {
 
-	@Autowired
-	private ViewController view;
-	@Autowired
-	private MyFXMLLoader fxmlLoader;
+	@Autowired private ViewController view;
+	@Autowired private MyFXMLLoader fxmlLoader;
 	
 	private MainView2Controller controller;
-	private NodeAndController bookDetailsNAC;
+	private BookDetailsController bookDetailsController;
 	
 	
 	public Version2() {
@@ -38,124 +36,95 @@ public class Version2 extends ApplicationStarter {
 	}
 
 	protected Parent buildRootNode() throws IOException {
-		FXMLLoader fxmlLoader = getFXMLLoader("../" + newFxmlDir + newMainViewFXMLFile);
+		FXMLLoader fxmlLoader = getFXMLLoader("../" + NEW_FXML_DIR + NEW_MAIN_VIEW_FXML_FILE);
 		Parent rootNode = fxmlLoader.load();
 		controller = fxmlLoader.getController();
 
-		rootNode.getStylesheets().add(getClass().getResource(cssLocation).toExternalForm());
-
+		rootNode.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
 
 		SearchController searcher =  buildSearcher(controller.getSearchResultPane());
-		controller.setSearchAction(phrase -> searcher.newSearchPhrase(phrase));
+		controller.setSearchAction(searcher::newSearchPhrase);
 
-//		view.setNewBookPane(buildNewBookPane(controller));
-//		
-//		view.setBookDetailsPane(buildBookDetailsPane(controller));
-//		
-//		view.setNewUserPane(buildSignUpPane(controller));
-//		
-//		view.setLoginPanel(buildLogInPane(controller));
-		view.register(Views.NEW_BOOK, buildNewBookPane(controller));
-		
-		view.register(Views.BOOK_DETAILS, buildBookDetailsPane(controller));
-		
-		view.register(Views.NEW_USER, buildSignUpPane(controller));
-		
-		view.register(Views.LOGIN_PANEL, buildLogInPane(controller));
+		view.register(Views.NEW_BOOK,     buildNewBookPane());
+		view.register(Views.BOOK_DETAILS, buildBookDetailsPane());
+		view.register(Views.NEW_USER,     buildSignUpPane());
+		view.register(Views.LOGIN_PANEL,  buildLogInPane());
 
 		loadAllBooks(controller);
 
 		return rootNode;
 	}
 
-	private Pane buildSignUpPane(MainView2Controller controller) throws IOException {
-		NodeAndController signUpNAC = fxmlLoader.create(newFxmlDir + "newUser.fxml");
-//		NewUserController bdontroller = (NewUserController) signUpNAC.getController();
-		
-//		String dir = fxmlDir + firstVersionfxmlDir + "entitypreviews/";
-//		bdontroller.setAuthorPreview(fxmlLoader.create(dir + "AuthorPreview.fxml"));
-//		bdontroller.setTitlePreview(fxmlLoader.create(dir + "TitlePreview.fxml"));
-//		bdontroller.setEditionPreview(fxmlLoader.create(dir + "EditionPreview.fxml"));
-//		bdontroller.setBookPreview(fxmlLoader.create(dir + "BookPreview.fxml"));
-		
-//		controller.setNewUserPane((Pane) signUpNAC.getNode());
-		return (Pane) signUpNAC.getNode();
+	private Pane buildSignUpPane() throws IOException {
+		return (Pane) fxmlLoader.create(NEW_FXML_DIR + "newUser.fxml").getNode();
 	}
 
-	private Pane buildLogInPane(MainView2Controller controller) throws IOException {
-		NodeAndController logInNAC = fxmlLoader.create(newFxmlDir + "loginPanel.fxml");
-		
-//		controller.setLoginPanel((Pane) logInNAC.getNode());
-		return (Pane) logInNAC.getNode();
+	private Pane buildLogInPane() throws IOException {
+		return (Pane) fxmlLoader.create(NEW_FXML_DIR + "loginPanel.fxml").getNode();
 	}
 
-	private Pane buildBookDetailsPane(MainView2Controller controller) throws IOException {
-		bookDetailsNAC = fxmlLoader.create(newFxmlDir + "BookDetails.fxml");
-		BookDetailsController bdontroller = (BookDetailsController) bookDetailsNAC.getController();
+	private Pane buildBookDetailsPane() throws IOException {
+		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + "entitypreviews/";
 		
-		String dir = fxmlDir + firstVersionfxmlDir + "entitypreviews/";
-		bdontroller.setAuthorPreview(fxmlLoader.create(dir + "AuthorPreview.fxml"));
-		bdontroller.setTitlePreview(fxmlLoader.create(dir + "TitlePreview.fxml"));
-		bdontroller.setEditionPreview(fxmlLoader.create(dir + "EditionPreview.fxml"));
-		bdontroller.setBookPreview(fxmlLoader.create(dir + "BookPreview.fxml"));
+		NodeAndController bookDetailsNAC = fxmlLoader.create(NEW_FXML_DIR + "BookDetails.fxml");
+		BookDetailsController controller = (BookDetailsController) bookDetailsNAC.getController();
 		
-//		controller.setBookDetailsPane((Pane) bookDetailsNAC.getNode());
+		controller.setAuthorPreview( fxmlLoader.create(dir + "AuthorPreview.fxml"));
+		controller.setTitlePreview(  fxmlLoader.create(dir + "TitlePreview.fxml"));
+		controller.setEditionPreview(fxmlLoader.create(dir + "EditionPreview.fxml"));
+		controller.setBookPreview(   fxmlLoader.create(dir + "BookPreview.fxml"));
+		
+		bookDetailsController = controller;
+		
 		return (Pane) bookDetailsNAC.getNode();
 	}
 
 
-	private Pane buildNewBookPane(MainView2Controller controller) throws IOException {
-		NodeAndController newBookNAC = fxmlLoader.create(newFxmlDir + "NewBook.fxml");
+	private Pane buildNewBookPane() throws IOException {
+		NodeAndController newBookNAC = fxmlLoader.create(NEW_FXML_DIR + "NewBook.fxml");
 		NewBookController nbController = (NewBookController) newBookNAC.getController();
 
-		String dir = fxmlDir + firstVersionfxmlDir;
-		nbController.setAuthorForm(fxmlLoader.create(dir + "newAuthorPane.fxml"));
-		nbController.setTitleForm(fxmlLoader.create(dir + "newTitlePane.fxml"));
+		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR;
+		nbController.setAuthorForm( fxmlLoader.create(dir + "newAuthorPane.fxml"));
+		nbController.setTitleForm(  fxmlLoader.create(dir + "newTitlePane.fxml"));
 		nbController.setEditionForm(fxmlLoader.create(dir + "newEditionPane.fxml"));
-		nbController.setBookForm(fxmlLoader.create(dir + "newBookPane.fxml"));
+		nbController.setBookForm(   fxmlLoader.create(dir + "newBookPane.fxml"));
 
-//		controller.setNewBookPane((Pane) newBookNAC.getNode());
 		return (Pane) newBookNAC.getNode();
 	}
 
 
 	private SearchController buildSearcher(Pane resultPane) {
-//		Pane searchResultPane = controller.getSearchResultPane();
 		SearchController searcher = context.getBean(SearchController.class);
 		
 		searcher.setClearShearchResults(() -> resultPane.getChildren().clear());
 		searcher.setShowSearchItem(book -> resultPane.getChildren().add(createResultItem(book)));
+		
 		return searcher;
-//		controller.setSearchAction(phrase -> searcher.newSearchPhrase(phrase));
 	}
 
 	private void loadAllBooks(MainView2Controller controller) throws IOException {
+		
 		Repositories.getBookRepository().findAllNotRemoved().forEach(book -> 
 			controller.addResultItem(createResultItem(book))
 		);
-		
-//		List<Book> books = Repositories.getBookRepository().findAllNotRemoved();
-//		for (int i = 0; i < books.size(); i++) {	
-//			controller.addResultItem(createResultItem(books.get(i)));
-//		}
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		NodeAndController x = fxmlLoader.create("view2/" + "ResultItem.fxml");
+		NodeAndController nac = fxmlLoader.create(NEW_FXML_DIR + "ResultItem.fxml");
 		
-		ResultItemController controller = (ResultItemController) x.getController();
+		ResultItemController controller = (ResultItemController) nac.getController();
 		controller.setContent(ent);
 		controller.setOnClick(() -> {
 			if(ent instanceof Book)
 				showBookDetails((Book) ent);
 		});
 		
-		return (Pane) x.getNode();
+		return (Pane) nac.getNode();
 	}
 
 	private void showBookDetails(Book book) {
-//		NodeAndController x = fxmlLoader.create("view2/" + "BookDetails.fxml");
-		((BookDetailsController)bookDetailsNAC.getController()).set(book);
+		bookDetailsController.set(book);
 		controller.showBookDetailsPane();
 	}
 }

@@ -18,21 +18,16 @@ import jedrzejbronislaw.ksiegozbior.lang.Languages;
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan
-//@EnableJpaRepositories(basePackageClasses = AuthorRepository.class)
-public class App extends Application
-{
+public class App extends Application {
+	
 	private ConfigurableApplicationContext springContext;
-	
 	private Stage theStage;
-	
-//	public static Version2 starter;
 	public static ApplicationStarter starter;
 	
-    public static void main( String[] args )
-    {
+	
+    public static void main( String[] args ) {
     	launch(args);
     }
-    
 
     @Override
     public void init() throws Exception {
@@ -49,7 +44,7 @@ public class App extends Application
 //    	starter = springContext.getBean(Version1.class);
     	starter = springContext.getBean(Version2.class);
     	buildView(Languages.POLISH);
-    	starter.setChangeGUILanguage(language -> buildView(language));
+    	starter.setChangeGUILanguage(this::buildView);
     }
     
     @Override
@@ -69,7 +64,6 @@ public class App extends Application
 		}
     	
     }
-    
     
     private void setScene(Scene scene) {
     	theStage.setTitle(Internationalization.get("application.name"));

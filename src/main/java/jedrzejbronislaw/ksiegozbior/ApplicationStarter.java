@@ -19,23 +19,25 @@ public abstract class ApplicationStarter implements ApplicationContextAware {
 	private double sceneWidth = 1200;
 	private double sceneHeight = 600;
 	
-	protected static final String cssLocation = "view/firstCss.css";
-	protected static final String newFxmlDir = "view2/";
-	protected static final String fxmlDir = "view/";
-	protected static final String firstVersionfxmlDir = "firstVer/";
-	protected static final String newMainViewFXMLFile = "mainView.fxml";
-	protected static final String mainViewFXMLFile = "mainView.fxml";
-	protected static final String langResourceLocation = "jedrzejbronislaw.ksiegozbior.lang.Labels";
+	protected static final String  LANG_RESOURCE_LOCATION = "jedrzejbronislaw.ksiegozbior.lang.Labels";
+	protected static final String            CSS_LOCATION = "view/firstCss.css";
+	protected static final String                FXML_DIR = "view/";
+	protected static final String            NEW_FXML_DIR = "view2/";
+	protected static final String  FIRST_VERSION_FXML_DIR = "firstVer/";
+	protected static final String NEW_MAIN_VIEW_FXML_FILE = "mainView.fxml";
+	protected static final String     MAIN_VIEW_FXML_FILE = "mainView.fxml";
 
+	protected ApplicationContext context;
+	
 	@Setter
 	protected Consumer<Languages> changeGUILanguage; 
 	
-	protected ApplicationContext context;
-    
+	
 	protected abstract Parent buildRootNode() throws IOException;
 	
-	public ApplicationStarter() {
-	}
+	
+	public ApplicationStarter() {}
+	
 	public ApplicationStarter(double width, double height) {
 		sceneWidth = width;
 		sceneHeight = height;
@@ -50,8 +52,8 @@ public abstract class ApplicationStarter implements ApplicationContextAware {
     	FXMLLoader fxmlLoader = new FXMLLoader();
     	
     	fxmlLoader.setControllerFactory(context::getBean);
-		fxmlLoader.setLocation(getClass().getResource(fxmlDir+fxmlFile));
-		fxmlLoader.setResources(ResourceBundle.getBundle(langResourceLocation));
+		fxmlLoader.setLocation(getClass().getResource(FXML_DIR + fxmlFile));
+		fxmlLoader.setResources(ResourceBundle.getBundle(LANG_RESOURCE_LOCATION));
 		
 		return fxmlLoader;
     }
