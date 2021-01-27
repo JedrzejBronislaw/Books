@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,45 +18,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Book implements Ent{
+@Getter @Setter
+public class Book implements Ent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
 	private long id;
-
-	@ManyToOne
-	@Getter @Setter
-	private Edition edition;
 	
-	@ManyToOne
-	@Getter @Setter
-	private Location location;
-	
-	@Column
-	@Getter @Setter
 	private Date purchaseDate;
-	
-	@ManyToOne
-	@Getter @Setter
-	private Library library;
-	
-	@Column
-	@Getter @Setter
 	private byte visibility;
-	
-	@Column
-	@Getter @Setter
 	private boolean removed;
-	
+
+	@ManyToOne private Edition edition;
+	@ManyToOne private Location location;
+	@ManyToOne private Library library;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	@Getter @Setter
-	private Set<BookComment> comments = new HashSet<BookComment>();
+	private Set<BookComment> comments = new HashSet<>();
 	
 	@OneToMany(mappedBy="element")
-	@Getter @Setter
 	private Set<BookCollectionLink> collections;
+	
 	
 	@Override
 	public String toString() {

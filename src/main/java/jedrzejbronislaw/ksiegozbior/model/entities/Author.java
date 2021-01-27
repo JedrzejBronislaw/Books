@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,44 +15,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Getter @Setter
 public class Author implements Ent{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
 	private long id;
-	
-	@Column
-	@Getter @Setter
 	private String name;
-	
-	@Column
-	@Getter @Setter
 	private String surname;
-	
-	@Column
-	@Getter @Setter
 	private Date birthDate;
-	
-	@Column
-	@Getter @Setter
 	private Date deathDate;
-	
-//	private narodowosc;
-	
-	@Column
+//	private nationality;
 	@Lob
-	@Getter @Setter
 	private String description;
-	
-	@Column
-	@Getter @Setter
 	private boolean removed;
 
-	
 	@OneToMany(mappedBy="author")
-	@Getter @Setter
-	private Set<Authorship> titles;// HashSet<Title>();
+	private Set<Authorship> titles;
 	
 
 	@Override

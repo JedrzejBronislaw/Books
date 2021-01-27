@@ -9,50 +9,33 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @IdClass(AuthorshipId.class)
-//@NoArgsConstructor
-//@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter @Setter
 public class Authorship {
 	
-	@Id
-	@Column(name = "author_id")
-	@Getter @Setter
-	private Long authorId;
-
-
-	@Id
-	@Column(name = "title_id")
-	@Getter @Setter
-	private Long titleId;
+	@Id @Column(name = "author_id") private Long authorId;
+	@Id @Column(name = "title_id")  private Long titleId;
 	
-	@ManyToOne//(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "author_id", insertable = false, updatable = false)
-//	@NonNull
-	@Getter @Setter
 	private Author author;
 
-//	@NonNull
+	@ManyToOne
 	@JoinColumn(name = "title_id", insertable = false, updatable = false)
-	@ManyToOne//(fetch=FetchType.EAGER)
-	@Getter @Setter
 	private Title title;
 	
-	@Column
-	@Getter @Setter
-	private short number;
-	
-	@Column
 	@Lob
-	@Getter @Setter
 	private String description;
+	private short number;
 
-	public Authorship() {}
-	
-	public Authorship(Author author_, Title title_) {
-		setAuthorId(author_.getId());
-		setTitleId(title_.getId());
+
+	public Authorship(Author author, Title title) {
+		setAuthorId(author.getId());
+		setTitleId(title.getId());
 	}
 }

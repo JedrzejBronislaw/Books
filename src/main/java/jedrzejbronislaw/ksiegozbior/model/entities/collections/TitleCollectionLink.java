@@ -35,7 +35,6 @@ public class TitleCollectionLink {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private TitleCollection collection;
 	
-	@Column
 	private short number;
 
 	

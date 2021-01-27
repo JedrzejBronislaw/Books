@@ -4,10 +4,10 @@ import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import lombok.Getter;
 
 public enum Visibility {
-	Default((byte)0, "visibility.default"),
+	Default(  (byte)0, "visibility.default"),
 	OwnerOnly((byte)1, "visibility.ownerOnly"),
-	Friends((byte)2, "visibility.friends"),
-	All((byte)3, "visibility.all");
+	Friends(  (byte)2, "visibility.friends"),
+	All(      (byte)3, "visibility.all");
 
 	@Getter
 	private byte value;
@@ -26,5 +26,4 @@ public enum Visibility {
 			return description;
 		}
 	}
-
 }

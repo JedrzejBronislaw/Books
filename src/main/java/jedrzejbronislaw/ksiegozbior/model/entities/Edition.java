@@ -2,7 +2,6 @@ package jedrzejbronislaw.ksiegozbior.model.entities;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,66 +16,33 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Edition implements Ent{
+@Getter @Setter
+public class Edition implements Ent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
 	private long id;
 
-	@Column
-	@Getter @Setter
 	private String title;
-
-	@Column
-	@Getter @Setter
 	private String subtitle;
-
-	@ManyToOne
-	@Getter @Setter
-	private Language language;
-
-	@ManyToOne
-	@Getter @Setter
-	private PublishingHouse publishingHouse;
-
-	@Column
-	@Getter @Setter
 	private short year;
-
-	@Column
-	@Getter @Setter
 	private short numOfPages;
-
-	@Column
-	@Getter @Setter
 	private Long ISBN;
-	
-	@Column
-	@Getter @Setter
 	private short number;
-
-	@Column
-	@Getter @Setter
 	private boolean hardCover;
-
-	@Column
 	@Lob
-	@Getter @Setter
 	private String description;
-
-	@Column
-	@Getter @Setter
 	private boolean removed;
 	
+	@ManyToOne private Language language;
+	@ManyToOne private PublishingHouse publishingHouse;
 	
 	@OneToMany(mappedBy="element")
-	@Getter @Setter
 	private Set<EditionCollectionLink> collections;
 
 	@OneToMany(mappedBy="edition", fetch=FetchType.EAGER)
-	@Getter @Setter
 	private Set<Edition_Title> titles;
+	
 	
 	@Override
 	public String toString() {

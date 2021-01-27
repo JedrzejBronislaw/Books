@@ -2,7 +2,6 @@ package jedrzejbronislaw.ksiegozbior.model.entities.collections;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,13 +18,12 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class EditionCollection implements HierarhicalEnt{
+public class EditionCollection implements HierarhicalEnt {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column
 	private String name;
 	
 	@ManyToOne

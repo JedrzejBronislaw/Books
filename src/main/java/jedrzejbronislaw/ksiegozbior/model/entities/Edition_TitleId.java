@@ -11,14 +11,10 @@ import lombok.Setter;
 @SuppressWarnings("serial")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
 public class Edition_TitleId implements Serializable {
 
-	@Getter
-	@Setter
 	private Long editionId;
-
-	@Getter
-	@Setter
 	private Long titleId;
 
 	@Override
@@ -35,6 +31,4 @@ public class Edition_TitleId implements Serializable {
 	public int hashCode() {
 		return Objects.hash(editionId, titleId);
 	}
-	
-	
 }

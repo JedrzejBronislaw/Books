@@ -34,7 +34,6 @@ public class BookCollectionLink {
 	@ManyToOne
 	private BookCollection collection;
 	
-	@Column
 	private short number;
 	
 	

@@ -34,7 +34,6 @@ public class EditionCollectionLink {
 	@ManyToOne
 	private EditionCollection collection;
 		
-	@Column
 	private short number;
 
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 
-public interface HierarhicalEnt extends Ent,Named {
+public interface HierarhicalEnt extends Ent, Named {
 
 	public HierarhicalEnt getSuper();
 	
@@ -22,7 +22,6 @@ public interface HierarhicalEnt extends Ent,Named {
 			supercoll = supercoll.getSuper();
 			supercollections.add(supercoll.getName());
 		}
-		
 			
 		return supercollections;
 	}

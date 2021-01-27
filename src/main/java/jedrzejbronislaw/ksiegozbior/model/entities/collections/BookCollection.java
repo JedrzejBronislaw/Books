@@ -2,7 +2,6 @@ package jedrzejbronislaw.ksiegozbior.model.entities.collections;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +24,6 @@ public class BookCollection implements HierarhicalEnt {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column
 	private String name;
 	
 	@ManyToOne
