@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ThePublishingHouse implements TheEnt {
 	
-	@NonNull
-	private PublishingHouse publisher;
+	@NonNull private PublishingHouse publisher;
+
 
 	public String getAbbrev() {
 		return publisher.getAbbr();

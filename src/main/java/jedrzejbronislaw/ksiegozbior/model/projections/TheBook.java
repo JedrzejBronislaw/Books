@@ -1,17 +1,16 @@
 package jedrzejbronislaw.ksiegozbior.model.projections;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
-import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 
-public class TheBook extends TheEdition implements TheEnt{
+public class TheBook extends TheEdition implements TheEnt {
 
 	private Book book;
+
 
 	public TheBook(Book book) {
 		super(book.getEdition());
@@ -28,17 +27,15 @@ public class TheBook extends TheEdition implements TheEnt{
 	}
 
 	public MyList<String> getComments(){
-		Set<BookComment> comments = book.getComments();
-		List<String> outcome = new ArrayList<String>();
-
-//		comments.forEach(c -> outcome.add(" - " + c.getContent()));
-		comments.forEach(c -> outcome.add(c.getContent()));
+		List<String> comments = book.getComments().stream()
+			.map(c -> c.getContent())
+			.collect(Collectors.toUnmodifiableList());
 		
-		return new MyList<>(outcome);
+		return new MyList<>(comments);
 	}
 	
 	public String getCommentsText() {
-		return getComments().serialize(System.lineSeparator()+System.lineSeparator());
+		return getComments().serialize(System.lineSeparator() + System.lineSeparator());
 	}
 
 
@@ -46,7 +43,6 @@ public class TheBook extends TheEdition implements TheEnt{
 	public String getLabel() {
 		return getTitle();
 	}
-
 
 	public Edition getEdition() {
 		return book.getEdition();

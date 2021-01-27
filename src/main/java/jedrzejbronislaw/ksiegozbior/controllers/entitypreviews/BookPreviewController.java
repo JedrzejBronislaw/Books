@@ -50,7 +50,7 @@ public class BookPreviewController implements Initializable {
 		libraryLabel        .setText(theBook.getLibrary());
 		publicationDateLabel.setText(theBook.getPublicationYear().str());
 		pagesLabel          .setText(theBook.getPages().str());
-		hardCoverLabel      .setText(theBook.getHardCoverStr());
+		hardCoverLabel      .setText(theBook.isHardCoverStr());
 		
 		titlesLabel         .setText(theBook.getTitlesText());
 		commentsField       .setText(theBook.getCommentsText());

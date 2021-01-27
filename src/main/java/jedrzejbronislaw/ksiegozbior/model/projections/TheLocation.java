@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TheLocation implements TheEnt {
 	
-	@NonNull
-	private Location location;
+	@NonNull private Location location;
+	
 	
 	public String getName() {
 		return location.getName();
@@ -45,7 +45,6 @@ public class TheLocation implements TheEnt {
 					)
 				);
 	}
-
 
 	@Override
 	public String getLabel() {

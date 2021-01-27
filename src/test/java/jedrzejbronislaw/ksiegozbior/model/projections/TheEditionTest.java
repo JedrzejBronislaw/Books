@@ -237,7 +237,7 @@ public class TheEditionTest {
 	public void testGetTitlesText8() {
 		assertEqualsAlt(
 				new TheEdition(edition8).getTitlesText(),
-				TheEdition.noTitleName
+				TheEdition.NO_TITLE_NAME
 				);
 	}
 	
@@ -330,7 +330,7 @@ public class TheEditionTest {
 		TheEdition theEdition = new TheEdition(edition8);
 		
 		assertEquals("Fail. Actual value:" + theEdition.getTitle(),
-				"",
+				TheEdition.NO_TITLE_NAME,
 				theEdition.getTitle()
 				);
 	}

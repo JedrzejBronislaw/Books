@@ -1,16 +1,17 @@
 package jedrzejbronislaw.ksiegozbior.model.projections;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
-import jedrzejbronislaw.ksiegozbior.model.entities.Authorship;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
+import jedrzejbronislaw.ksiegozbior.model.entities.Language;
+import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.tools.ISBN;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
@@ -23,173 +24,134 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TheEdition implements TheEnt {
 
-	public static final String noTitleName = "["+Internationalization.get("no_title")+"]";
+	public static final String NO_TITLE_NAME = "[" + Internationalization.get("no_title") + "]";
+	public static final String DEF_SUBTITLE  = "";
 	
-	@NonNull
-	private Edition edition;
+	@NonNull private Edition edition;
 	
-	private NotNullString notnullTitle = new NotNullString(noTitleName).emptyAsNull(true);
+	private NotNullString notnullTitle = new NotNullString(NO_TITLE_NAME).emptyAsNull(true);
 	
 	
 	public String getTitle(){
-		if(edition.getTitle() != null && !edition.getTitle().isBlank())
-			return edition.getTitle();
-		else if (edition.getTitles() != null && edition.getTitles().size() > 1)
-			return "";
-		else if (edition.getTitles() != null && edition.getTitles().size() > 0) {
-						
-			Edition_Title et = edition.getTitles().iterator().next();
-			if(et.getTitle() != null && !et.getTitle().isBlank())
-				return notnullTitle.get(et.getTitle().strip());
-			
-			Title title = et.getTitleObj();
-			if(title != null && title.getTitle() != null)
-				return notnullTitle.get(title.getTitle().strip());
-			else 
-				return "";
-			
-		} else {
+		if (is(editionTitle()))    return editionTitle(); else
+		if (numberOfTitles()  > 1) return ""; else
+		if (numberOfTitles() == 1) return title(getFirstET()); else
 			return "";	
-		}
 	}
 	
-	public String getTitlesText(){
+	public String getTitlesText() {
 		
-//		System.out.println(" --- " + edition.getTitles() + " (" + ((edition.getTitles()==null ? "-" : edition.getTitles().size())) + ")");
+		if (numberOfTitles() > 1) {
+			
+			List<String> titleList = titles().stream()
+				.map(this::title)
+				.collect(Collectors.toList());
+			
+			return String.join(", ", titleList);
+			
+		} else
+		if (is(editionTitle()))    return editionTitle(); else
+		if (numberOfTitles() == 1) return title(getFirstET()); else
+			                       return notnullTitle.get(null);
+	}
+	
+	private String title(Edition_Title et) {
+		String titleInEdition = et.getTitle();
+		String orygTitle      = et.getTitleObj().getTitle();
 		
-		if (edition.getTitles() != null && edition.getTitles().size() > 1) {
-//			System.out.println("?");
-			
-			
-			StringBuffer titlesSB = new StringBuffer();
-			
-			for(Edition_Title et : edition.getTitles()) 
-				if(et.getTitle() != null && !et.getTitle().isBlank())
-					titlesSB.append(notnullTitle.get(et.getTitle()) + ", ");
-				else
-					titlesSB.append(notnullTitle.get(et.getTitleObj().getTitle()) + ", ");
-			
-			titlesSB.deleteCharAt(titlesSB.length()-2);
-			return titlesSB.toString().strip();
-			
-			
-		} else if (edition.getTitle() != null)
-			return edition.getTitle();
-		else if (edition.getTitles() != null && edition.getTitles().size() > 0 && edition.getTitles().iterator().next().getTitle() != null)
-			return edition.getTitles().iterator().next().getTitle();
-		else if (edition.getTitles() != null && edition.getTitles().size() > 0 && edition.getTitles().iterator().next().getTitleObj().getTitle() != null)
-			return edition.getTitles().iterator().next().getTitleObj().getTitle();
-		else if (edition.getTitles() != null && edition.getTitles().size() == 0)
-			return "";
-		else
-			return notnullTitle.get(null);
-		
+		if (is(titleInEdition)) return titleInEdition; else
+		if (is(orygTitle))      return orygTitle;      else
+			                    return notnullTitle.get(null);
+	}
+
+	private Edition_Title getFirstET() {
+		return titles().iterator().next();
 	}
 	
 	public Set<Title> getTitles(){
-		Set<Title> outcome = new HashSet<Title>();
-		
-		if (edition.getTitles() != null)
-			for(Edition_Title et : edition.getTitles()) 
-				outcome.add(et.getTitleObj());
-		
-		return Collections.unmodifiableSet(outcome);
+		return titles().stream()
+				.map(t -> t.getTitleObj())
+				.collect(Collectors.toSet());
 	}
 	
 	public String getSubtitle(){
-		if(edition.getTitle() != null && !edition.getTitle().isBlank()) {
-			if(edition.getSubtitle() != null)
-				return edition.getSubtitle();
-			else
-				return "";
-		}
-		
-		else if (edition.getTitles() != null && edition.getTitles().size() > 1)
-			return "";
-		else if (edition.getTitles() != null && edition.getTitles().size() == 1) {
+		if (is(editionTitle()))    return subtitle(edition.getSubtitle()); else
+		if (numberOfTitles()  > 1) return DEF_SUBTITLE; else
+		if (numberOfTitles() == 1) {
 						
-			Edition_Title et = edition.getTitles().iterator().next();
-			if(et.getTitle() != null && !et.getTitle().isBlank()) {
-				if (et.getSubtitle() != null)
-					return et.getSubtitle().strip();
-				else
-					return "";
-			}
+			Edition_Title et = getFirstET();
+			if (is(et.getTitle())) return subtitle(et.getSubtitle());
 			
 			Title title = et.getTitleObj();
-			if(title != null && title.getSubtitle() != null)
-				return title.getSubtitle().strip();
-			else 
-				return "";
+			return (title != null) ? subtitle(title.getSubtitle()) : DEF_SUBTITLE;
 			
-		} else {
-			return "";	
-		}
+		} else
+			return DEF_SUBTITLE;
+	}
 
+	private String subtitle(String subtitle) {
+		return (subtitle != null) ? subtitle : DEF_SUBTITLE;
+	}
+
+	private String editionTitle() {
+		return edition.getTitle();
 	}
 	
-	public MyList<Author> getAuthors(){
-		Set<Author> authorsSet = new HashSet<Author>();
-		List<Author> authorsList = new ArrayList<Author>();
+	public MyList<Author> getAuthors() {
 		
-		if(edition.getTitles() != null && edition.getTitles().size() > 0)
-			for(Edition_Title et : edition.getTitles()) {
-				List<Authorship> authorships = et.getTitleObj().getAuthors();
-				if (authorships != null && authorships.size() > 0) 
-					for(Authorship as : authorships)
-						authorsSet.add(as.getAuthor());
-			}
+		List<Author> authors = titles().stream()
+			.map(    t -> t.getTitleObj().getAuthors())
+			.filter( a -> a != null)
+			.flatMap(a -> a.stream())
+			.map(    a -> a.getAuthor())
+			.distinct()
+			.collect(Collectors.toUnmodifiableList());
 		
-		authorsSet.forEach(a -> authorsList.add(a));
-		
-		return new MyList<Author>(authorsList);
+		return new MyList<Author>(authors);
 	}
-	
-//	public MyList getAuthorsStrings() {
-//		Set<Author> authors = getAuthors();
-//		List<String> authorsStrings = new ArrayList<String>();
-//		
-//		authors.forEach(a -> authorsStrings.add(a.toString()));
-//		
-//		return new MyList(authorsStrings);
-//	}
+
+	private boolean is(String text) {
+		return text != null && !text.isBlank();
+	}
+
+	private int numberOfTitles() {
+		return titles().size();
+	}
+
+	private Set<Edition_Title> titles() {
+		Set<Edition_Title> titles = edition.getTitles();
+		return (titles != null) ? titles : Collections.emptySet();
+	}
 	
 	public StringNumber<Short> getNumer() {
 		return new StringNumber<Short>(edition.getNumber()).setZero("");
 	}
 
 	public String getNumerRoman() {
-		if (edition.getNumber() > 0)
-			return RomanNumber.toRoman(edition.getNumber());
-		else
-			return "";
+		short number = edition.getNumber();
+		return (number > 0) ? RomanNumber.toRoman(number) : "";
 	}
 
 	public String getLanguageName() {
-		if(edition.getLanguage() != null)
-			return edition.getLanguage().getName();
-		else
-			return "";
+		Language language = edition.getLanguage();
+		return (language != null) ? language.getName() : "";
 	}
 
 	public String getPublisherName() {
-		if(edition.getPublishingHouse() != null)
-			return edition.getPublishingHouse().getName();
-		else
-			return "";
+		PublishingHouse publishingHouse = edition.getPublishingHouse();
+		return (publishingHouse != null) ? publishingHouse.getName() : "";
 	}
 
 	public StringNumber<Short> getPages() {
 		return new StringNumber<Short>(edition.getNumOfPages()).setZero("");
 	}
 
-	public boolean getHardCover() {
+	public boolean isHardCover() {
 		return edition.isHardCover();
 	}
-	public String getHardCoverStr()
-	{
-		return getHardCover() ? 
-				Internationalization.get("yes") : 
+	public String isHardCoverStr() {
+		return isHardCover() ?
+				Internationalization.get("yes") :
 				Internationalization.get("no");
 	}
 
@@ -197,10 +159,11 @@ public class TheEdition implements TheEnt {
 		return edition.getISBN();
 	}
 	public String getISBNFormatted() {
-		if (edition.getISBN() == null || edition.getISBN() == 0) 
-			return "";
-
-		return new ISBN(edition.getISBN()).getFormattedString();	
+		Long isbn = edition.getISBN();
+		
+		if (isbn == null || isbn == 0)
+			return ""; else
+			return new ISBN(isbn).getFormattedString();
 	}
 
 	public StringNumber<Short> getPublicationYear() {
@@ -214,27 +177,15 @@ public class TheEdition implements TheEnt {
 	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringJoiner str = new StringJoiner(", ");
 		
-		sb.append(notnullTitle.get(getTitle()));
+		str.add(notnullTitle.get(getTitle()));
+
+		if (is(getPublisherName()))          str.add(getPublisherName());
+		if (getPublicationYear().num() != 0) str.add(getPublicationYear().str());
+		if (getNumer().num() > 0)            str.add(Internationalization.get("edition") + ": " + getNumerRoman());
 		
-		if (!getPublisherName().isBlank()) {
-			sb.append(", ");
-			sb.append(getPublisherName());
-		}
-		
-		if (getPublicationYear().num() != 0) {
-			sb.append(", ");
-			sb.append(getPublicationYear().str());
-		}
-		
-		if (getNumer().num() > 0) {
-			sb.append(", ");
-			sb.append(Internationalization.get("edition"));
-			sb.append(": " + getNumerRoman());
-		}
-		
-		return sb.toString();
+		return str.toString();
 	}
 
 	@Override

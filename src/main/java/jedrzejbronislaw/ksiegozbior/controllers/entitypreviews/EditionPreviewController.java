@@ -48,7 +48,7 @@ public class EditionPreviewController implements Initializable {
 		isbnLabel           .setText(theEdition.getISBNFormatted());
 		publicationDateLabel.setText(theEdition.getPublicationYear().str());
 		pagesLabel          .setText(theEdition.getPages().str());
-		hardCoverLabel      .setText(theEdition.getHardCoverStr());
+		hardCoverLabel      .setText(theEdition.isHardCoverStr());
 		
 		titlesLabel         .setText(theEdition.getTitlesText());
 	}

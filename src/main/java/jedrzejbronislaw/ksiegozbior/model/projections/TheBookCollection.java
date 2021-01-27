@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TheBookCollection extends TheCollection {
 
-	@NonNull
-	private BookCollection collection;
+	@NonNull private BookCollection collection;
+	
 	
 	@Override
 	public String getName() {
@@ -50,5 +50,4 @@ public class TheBookCollection extends TheCollection {
 					)
 				);
 	}
-
 }

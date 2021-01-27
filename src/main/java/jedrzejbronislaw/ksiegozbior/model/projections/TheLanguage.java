@@ -16,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TheLanguage implements TheEnt {
 	
-	@NonNull
-	private Language language;
+	@NonNull private Language language;
+	
 	
 	public String getName() {
 		return language.getName();
@@ -47,7 +47,6 @@ public class TheLanguage implements TheEnt {
 
 	public List<Book> getBooks() {
 		return Repositories.getLanguageRepository().getBooks(language);
-		
 	}
 	public List<Edition> getEditions() {
 		return Repositories.getLanguageRepository().getEditions(language);
@@ -76,5 +75,4 @@ public class TheLanguage implements TheEnt {
 	public String getLabel() {
 		return getName();
 	}
-
 }

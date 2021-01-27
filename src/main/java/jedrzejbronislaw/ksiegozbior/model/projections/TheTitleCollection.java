@@ -9,16 +9,14 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class TheTitleCollection extends TheCollection{
+public class TheTitleCollection extends TheCollection {
 	
-	@NonNull
-	private TitleCollection collection;
+	@NonNull private TitleCollection collection;
 
 
 	public String getName() {
 		return collection.getName();
 	}
-
 
 	@Override
 	public StringNumber<Long> getNumberOfElements() {
@@ -51,6 +49,4 @@ public class TheTitleCollection extends TheCollection{
 					)
 				);
 	}
-	
-	
 }

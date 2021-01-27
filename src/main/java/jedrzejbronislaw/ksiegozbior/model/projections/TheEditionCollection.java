@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TheEditionCollection extends TheCollection {
 	
-	@NonNull
-	private EditionCollection collection;
+	@NonNull private EditionCollection collection;
 
+	
 	@Override
 	public String getName() {
 		return collection.getName();
@@ -50,5 +50,4 @@ public class TheEditionCollection extends TheCollection {
 					)
 				);
 	}
-
 }
