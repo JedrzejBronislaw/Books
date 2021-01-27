@@ -12,7 +12,6 @@ import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection
 
 public interface EditionCollectionLinkRepository extends CrudRepository<EditionCollectionLink, CollectionLinkId> {
 
-
 	@Query(value="SELECT count(*) FROM edition_collection WHERE super_collection_id = :collectionId",
 			nativeQuery = true)
 	Long numberOfSubcollections(Long collectionId);

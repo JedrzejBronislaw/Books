@@ -30,5 +30,4 @@ public interface EditionRepository extends CrudRepository<Edition, Long> {
 			+ "AND e.removed=false"
 			)
 	public List<Edition> findByTitlePhrase(String phrase);
-
 }

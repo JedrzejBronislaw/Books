@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
 
-public interface EditionCollectionRepository extends CrudRepository<EditionCollection, Long>{
+public interface EditionCollectionRepository extends CrudRepository<EditionCollection, Long> {
 
 	@Query(value="SELECT count(*) FROM edition_collection WHERE super_collection_id = :collectionId",
 			nativeQuery = true)

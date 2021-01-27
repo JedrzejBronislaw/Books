@@ -10,5 +10,4 @@ public interface Edition_TitleRepository extends CrudRepository<Edition_Title, E
 
 	@Query("SELECT count(*) FROM Edition_Title WHERE edition_id = ?1")
 	long countTitlesByEdition(long editionId);
-	
 }

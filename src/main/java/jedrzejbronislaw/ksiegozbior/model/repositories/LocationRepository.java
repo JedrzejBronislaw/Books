@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 
-public interface LocationRepository extends CrudRepository<Location, Long>{
+public interface LocationRepository extends CrudRepository<Location, Long> {
 
 	@Query(value="SELECT * FROM location WHERE name=:name",
 			nativeQuery=true)

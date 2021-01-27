@@ -9,49 +9,30 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 
 @Component
-public class Repositories implements ApplicationContextAware{
+public class Repositories implements ApplicationContextAware {
 
-	@Getter
-	private static TitleRepository titleRepository;
-
-	@Getter
-	private static BookRepository bookRepository;
-
-	@Getter
-	private static PublishingHouseRepository publishingHouseRepository;
-	
-	@Getter
-	private static TitleCollectionRepository titleCollectionRepository;
-	
-	@Getter
-	private static EditionCollectionRepository editionCollectionRepository;
-	
-	@Getter
-	private static BookCollectionRepository bookCollectionRepository;
-	
-	@Getter
-	private static LocationRepository locationRepository; 
-	
-	@Getter
-	private static LanguageRepository languageRepository;
-	
+	@Getter private static TitleRepository titleRepository;
+	@Getter private static BookRepository bookRepository;
+	@Getter private static PublishingHouseRepository publishingHouseRepository;
+	@Getter private static TitleCollectionRepository titleCollectionRepository;
+	@Getter private static EditionCollectionRepository editionCollectionRepository;
+	@Getter private static BookCollectionRepository bookCollectionRepository;
+	@Getter private static LocationRepository locationRepository;
+	@Getter private static LanguageRepository languageRepository;
 	
 	@Autowired
-	@Getter
-	private static AuthorshipRepository authorshipRepository;
+	@Getter private static AuthorshipRepository authorshipRepository;
 
 	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		titleRepository = applicationContext.getBean(TitleRepository.class);
-		bookRepository = applicationContext.getBean(BookRepository.class);
-		publishingHouseRepository = applicationContext.getBean(PublishingHouseRepository.class);
-		titleCollectionRepository = applicationContext.getBean(TitleCollectionRepository.class);
+		titleRepository             = applicationContext.getBean(TitleRepository.class);
+		bookRepository              = applicationContext.getBean(BookRepository.class);
+		publishingHouseRepository   = applicationContext.getBean(PublishingHouseRepository.class);
+		titleCollectionRepository   = applicationContext.getBean(TitleCollectionRepository.class);
 		editionCollectionRepository = applicationContext.getBean(EditionCollectionRepository.class);
-		bookCollectionRepository = applicationContext.getBean(BookCollectionRepository.class);
-		locationRepository = applicationContext.getBean(LocationRepository.class);
-		languageRepository = applicationContext.getBean(LanguageRepository.class);
+		bookCollectionRepository    = applicationContext.getBean(BookCollectionRepository.class);
+		locationRepository          = applicationContext.getBean(LocationRepository.class);
+		languageRepository          = applicationContext.getBean(LanguageRepository.class);
 	}
-
-
 }

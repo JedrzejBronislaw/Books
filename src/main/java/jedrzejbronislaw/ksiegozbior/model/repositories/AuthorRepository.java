@@ -25,5 +25,4 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 			+ "OR upper(a.surname) LIKE concat('%', upper(:phrase), '%')) "
 			+ "AND removed = false")
 	public List<Author> findByPhrase(String phrase);
-
 }

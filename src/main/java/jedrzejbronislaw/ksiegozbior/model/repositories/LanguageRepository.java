@@ -45,5 +45,4 @@ public interface LanguageRepository extends CrudRepository<Language, Long> {
 	@Query("SELECT t FROM Title t "
 			+ "WHERE t.language=:language")
 	public List<Title> getTitles(@NonNull Language language);
-
 }
