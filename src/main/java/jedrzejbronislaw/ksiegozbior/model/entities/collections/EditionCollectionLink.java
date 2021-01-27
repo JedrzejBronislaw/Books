@@ -9,37 +9,34 @@ import javax.persistence.ManyToOne;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @IdClass(CollectionLinkId.class)
+@Getter @Setter
+@NoArgsConstructor
 public class EditionCollectionLink {
 
 	@Id
 	@Column(name="collection_id")
-	@Getter @Setter
 	private Long collectionId;
 	
 	@Id
 	@Column(name="element_Id")
-	@Getter @Setter
 	private Long elementId;
 	
 	@JoinColumn(name="element_id", insertable=false, updatable=false)
 	@ManyToOne
-	@Getter @Setter
 	private Edition element;
 
 	@JoinColumn(name="collection_id", insertable=false, updatable=false)
 	@ManyToOne
-	@Getter @Setter
 	private EditionCollection collection;
 		
 	@Column
-	@Getter @Setter
 	private short number;
 
-	public EditionCollectionLink(){}
 	
 	public EditionCollectionLink(EditionCollection collection, Edition edition, short number) {
 		setCollectionId(collection.getId());

@@ -13,34 +13,31 @@ import javax.persistence.OneToMany;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.HierarhicalEnt;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-public class BookCollection implements HierarhicalEnt{
+@Getter @Setter
+@NoArgsConstructor
+public class BookCollection implements HierarhicalEnt {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
 	private long id;
 	
 	@Column
-	@Getter @Setter
 	private String name;
 	
 	@ManyToOne
-	@Getter @Setter
 	private BookCollection superCollection;
 	
 	
 	@OneToMany(mappedBy="superCollection", fetch=FetchType.EAGER)
-	@Getter @Setter
 	private Set<BookCollection> subCollections;
 	
 	@OneToMany(mappedBy="collection")
-	@Getter @Setter
 	private Set<BookCollectionLink> elements;
 
-	public BookCollection() {}
 	
 	public BookCollection(String name) {
 		setName(name);

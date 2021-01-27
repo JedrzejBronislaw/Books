@@ -10,37 +10,34 @@ import javax.persistence.ManyToOne;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @IdClass(CollectionLinkId.class)
+@Getter @Setter
+@NoArgsConstructor
 public class TitleCollectionLink {
 
 	@Id
 	@Column(name="collection_id")
-	@Getter @Setter
 	private Long collectionId;
 	
 	@Id
 	@Column(name="element_Id")
-	@Getter @Setter
 	private Long elementId;
 	
 	@JoinColumn(name="element_id", insertable=false, updatable=false)
 	@ManyToOne
-	@Getter @Setter
 	private Title element;
 
 	@JoinColumn(name="collection_id", insertable=false, updatable=false)
 	@ManyToOne(fetch=FetchType.EAGER)
-	@Getter @Setter
 	private TitleCollection collection;
 	
 	@Column
-	@Getter @Setter
 	private short number;
 
-	public TitleCollectionLink(){}
 	
 	public TitleCollectionLink(TitleCollection collection, Title title, short number) {
 		setCollectionId(collection.getId());

@@ -11,13 +11,12 @@ import lombok.Setter;
 @SuppressWarnings("serial")
 @NoArgsConstructor
 @AllArgsConstructor
-public class CollectionLinkId implements Serializable{
+@Getter @Setter
+public class CollectionLinkId implements Serializable {
 
-	@Getter @Setter
 	private Long elementId;
-
-	@Getter @Setter
 	private Long collectionId;
+
 	
 	@Override
 	public boolean equals(Object o) {
