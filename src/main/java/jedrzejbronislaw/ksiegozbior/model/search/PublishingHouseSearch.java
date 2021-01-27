@@ -9,12 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository
 @Component
 public class PublishingHouseSearch implements Search {
 
-	@Autowired
-	private PublishingHouseRepository repository;
+	@Autowired private PublishingHouseRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends Ent> all() {
 		return repository.findAll();
 	}
-
 }

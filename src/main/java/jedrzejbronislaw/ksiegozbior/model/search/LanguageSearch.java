@@ -9,12 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 @Component
 public class LanguageSearch implements Search {
 
-	@Autowired
-	private LanguageRepository repository;
+	@Autowired private LanguageRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends Ent> all() {
 		return repository.findAll();
 	}
-
 }

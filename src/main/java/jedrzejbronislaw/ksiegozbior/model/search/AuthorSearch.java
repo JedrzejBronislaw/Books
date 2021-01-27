@@ -9,12 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 @Component
 public class AuthorSearch implements Search {
 
-	@Autowired
-	private AuthorRepository repository;
+	@Autowired private AuthorRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends Ent> all() {
 		return repository.findAll();
 	}
-
 }

@@ -9,12 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 @Component
 public class BookCollectionSearch implements Search {
 
-	@Autowired
-	private BookCollectionRepository repository;
+	@Autowired private BookCollectionRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends HierarhicalEnt> all() {
 		return repository.findAll();
 	}
-
 }

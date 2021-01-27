@@ -9,12 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 @Component
 public class TitleSearch implements Search {
 
-	@Autowired
-	private TitleRepository repository;
+	@Autowired private TitleRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends Ent> all() {
 		return repository.findAll();
 	}
-
 }

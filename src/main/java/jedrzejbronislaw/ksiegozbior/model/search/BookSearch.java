@@ -7,11 +7,12 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 
 @Component
-public class BookSearch implements Search{
+public class BookSearch implements Search {
 
-	@Autowired
-	BookRepository repository;
+	@Autowired BookRepository repository;
 	
+	
+	@Override
 	public Iterable<Book> all(){
 		return repository.findAll();
 	}

@@ -9,13 +9,11 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 @Component
 public class LocationSearch implements Search {
 
-	@Autowired
-	private LocationRepository repository;
+	@Autowired private LocationRepository repository;
+	
 	
 	@Override
 	public Iterable<? extends HierarhicalEnt> all() {
-//	public Iterable<? extends Ent> all() {
 		return repository.findAll();
 	}
-
 }
