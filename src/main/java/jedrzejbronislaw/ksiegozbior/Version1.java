@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,7 @@ import jedrzejbronislaw.ksiegozbior.view.PanePlusControl;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
-import jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType;
+import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.*;
 
 @Component
 public class Version1 extends ApplicationStarter {
@@ -56,6 +57,17 @@ public class Version1 extends ApplicationStarter {
 			"entitypreviews/LocationPreview.fxml",
 			"entitypreviews/LanguagePreview.fxml"
 	};
+	
+	@Autowired AuthorListPreviewController                       authorListPreviewController;
+	@Autowired TitleListPreviewController                         titleListPreviewController;
+	@Autowired BookListPreviewController                           bookListPreviewController;
+	@Autowired EditionListPreviewController                     editionListPreviewController;
+	@Autowired PublishingHouseListPreviewController     publishingHouseListPreviewController;
+	@Autowired LanguageListPreviewController                   languageListPreviewController;
+	@Autowired LocationListPreviewController                   locationListPreviewController;
+	@Autowired BookCollectionListPreviewController       bookCollectionListPreviewController;
+	@Autowired EditionCollectionListPreviewController editionCollectionListPreviewController;
+	@Autowired TitleCollectionListPreviewController     titleCollectionListPreviewController;
 	
 	
 	@Override
@@ -102,8 +114,8 @@ public class Version1 extends ApplicationStarter {
     		if (i == 12) treePreviewController = fxmlLoader.getController();
     	}
     	
-    	view.addMultiEntityView(MultiEntityViewType.LIST, new PanePlusControl(panes[11], listPreviewController));
-    	view.addMultiEntityView(MultiEntityViewType.TREE, new PanePlusControl(panes[12], treePreviewController));
+    	view.addMultiEntityView(LIST, new PanePlusControl(panes[11], listPreviewController));
+    	view.addMultiEntityView(TREE, new PanePlusControl(panes[12], treePreviewController));
     	
     	addPanes(view, panes);
     	
@@ -122,19 +134,21 @@ public class Version1 extends ApplicationStarter {
 	}
 
 	private void addPanes(View view, Pane[] panes) {
-		Pane nullPane = new Pane(new Label("NULL")); //TODO delete
-    	
-		view.addPanes(Views.AUTHORS,             new PaneSet(panes[0], panes[11], panes[14], MultiEntityViewType.LIST, context.getBean(AuthorListPreviewController.class)));
-		view.addPanes(Views.TITLES,              new PaneSet(panes[1], panes[11], panes[15], MultiEntityViewType.LIST, context.getBean(TitleListPreviewController.class)));
-		view.addPanes(Views.BOOKS,               new PaneSet(panes[2], panes[11], panes[10], MultiEntityViewType.LIST, context.getBean(BookListPreviewController.class)));
-		view.addPanes(Views.EDITIONS,            new PaneSet(panes[3], panes[11], panes[13], MultiEntityViewType.LIST, context.getBean(EditionListPreviewController.class)));
-		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(panes[4], panes[11], panes[16], MultiEntityViewType.LIST, context.getBean(PublishingHouseListPreviewController.class)));
-		view.addPanes(Views.LANGUAGES,           new PaneSet(panes[5], panes[11], panes[19], MultiEntityViewType.LIST, context.getBean(LanguageListPreviewController.class)));
-		view.addPanes(Views.LOCATIONS,           new PaneSet(panes[6], panes[12], panes[18], MultiEntityViewType.TREE, context.getBean(LocationListPreviewController.class)));
-		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(panes[7], panes[12], panes[17], MultiEntityViewType.TREE, context.getBean(BookCollectionListPreviewController.class)));
-		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(panes[8], panes[12], panes[17], MultiEntityViewType.TREE, context.getBean(EditionCollectionListPreviewController.class)));
-		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(panes[9], panes[12], panes[17], MultiEntityViewType.TREE, context.getBean(TitleCollectionListPreviewController.class)));
+		view.addPanes(Views.AUTHORS,             new PaneSet(panes[0], panes[11], panes[14], LIST, authorListPreviewController));
+		view.addPanes(Views.TITLES,              new PaneSet(panes[1], panes[11], panes[15], LIST, titleListPreviewController));
+		view.addPanes(Views.BOOKS,               new PaneSet(panes[2], panes[11], panes[10], LIST, bookListPreviewController));
+		view.addPanes(Views.EDITIONS,            new PaneSet(panes[3], panes[11], panes[13], LIST, editionListPreviewController));
+		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(panes[4], panes[11], panes[16], LIST, publishingHouseListPreviewController));
+		view.addPanes(Views.LANGUAGES,           new PaneSet(panes[5], panes[11], panes[19], LIST, languageListPreviewController));
+		view.addPanes(Views.LOCATIONS,           new PaneSet(panes[6], panes[12], panes[18], TREE, locationListPreviewController));
+		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(panes[7], panes[12], panes[17], TREE, bookCollectionListPreviewController));
+		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(panes[8], panes[12], panes[17], TREE, editionCollectionListPreviewController));
+		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(panes[9], panes[12], panes[17], TREE, titleCollectionListPreviewController));
 		
-		view.addPanes(Views.WELCOME,             new PaneSet(new Pane(new Label("Welcome")), new Pane(new Label("Welcome")), nullPane, MultiEntityViewType.NONE));
+		view.addPanes(Views.WELCOME,             new PaneSet(
+													new Pane(new Label("Welcome")),
+													new Pane(new Label("Welcome")),
+													new Pane(new Label("NULL")),
+													NONE));
 	}
 }
