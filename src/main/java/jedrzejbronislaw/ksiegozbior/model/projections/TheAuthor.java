@@ -6,18 +6,32 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorshipRepository;
+import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheAuthor implements TheEnt {
 
-	@NonNull private Author author;
+	@Autowired TitleRepository titleRepository;
+	@Autowired AuthorshipRepository authorshipRepository;
+	
+	@Setter @NonNull private Author author;
 
 	
 	public String getName() {
@@ -73,13 +87,13 @@ public class TheAuthor implements TheEnt {
 	}
 
 	public List<Title> getTitles() {
-		List<Title> list = Repositories.getTitleRepository().findByAuthorAndPenNames(author.getId());
+		List<Title> list = titleRepository.findByAuthorAndPenNames(author.getId());
 		
 		return Collections.unmodifiableList(list);
 	}
 	
 	public List<Title> getTitlesAsHimself() {
-		List<Title> list = Repositories.getTitleRepository().findByAuthorId(author.getId());
+		List<Title> list = titleRepository.findByAuthorId(author.getId());
 		
 		return Collections.unmodifiableList(list);
 		
@@ -98,7 +112,7 @@ public class TheAuthor implements TheEnt {
 	public StringNumber<Integer> getTitlesCount() {
 		int count = 0;
 		
-		count += Repositories.getAuthorshipRepository().countTitlesByAuthorId(author.getId());
+		count += authorshipRepository.countTitlesByAuthorId(author.getId());
 //TODO	count += penNameAuthorshipRepository.countTitlesByAuthor(author);
 		
 		return new StringNumber<Integer>(count);

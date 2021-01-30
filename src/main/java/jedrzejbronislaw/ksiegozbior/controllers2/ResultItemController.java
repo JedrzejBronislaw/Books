@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers2;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,7 @@ public class ResultItemController implements Initializable {
 	private static final Paint mouseEnterColor = Color.LIGHTGRAY;
 	private static final Paint mousePressColor = Color.DARKGRAY;
 	
+	@Autowired TheAuthor theAuthor;
 	
 	@FXML private HBox mainPane;
 	
@@ -129,7 +131,7 @@ public class ResultItemController implements Initializable {
 	public void setAuthor(Author author) {
 		content = author;
 		contentType = ContentType.AUTHOR;
-		TheAuthor theAuthor = new TheAuthor(author);
+		theAuthor.setAuthor(author);
 		
 		titleLabel.setText(theAuthor.getName());
 		authorLabel.setText(theAuthor.getLiveDates());

@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public class LanguagePreviewController implements Initializable {
 
 	private final boolean lazy = true;
 	
-	private TheLanguage theLanguage;
+	@Autowired private TheLanguage theLanguage;
 	
 	@FXML private Label abbrevLabel;
 	@FXML private Label nameLabel;
@@ -37,7 +38,7 @@ public class LanguagePreviewController implements Initializable {
 	 
 
 	public void setLanguage(Language language) {
-		theLanguage = new TheLanguage(language);
+		theLanguage.setLanguage(language);
 		refresh();
 	}
 	

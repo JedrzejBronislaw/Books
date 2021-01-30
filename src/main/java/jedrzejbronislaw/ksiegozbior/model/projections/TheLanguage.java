@@ -2,21 +2,33 @@ package jedrzejbronislaw.ksiegozbior.model.projections;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheLanguage implements TheEnt {
 	
-	@NonNull private Language language;
+	@Autowired LanguageRepository languageRepository;
+	
+	@Setter @NonNull private Language language;
 	
 	
 	public String getName() {
@@ -29,30 +41,30 @@ public class TheLanguage implements TheEnt {
 
 	public StringNumber<Long> getNumberOfBooks() {
 		return new StringNumber<Long>(
-				Repositories.getLanguageRepository().numberOfBooks(language.getId())
+				languageRepository.numberOfBooks(language.getId())
 				);
 	}
 
 	public StringNumber<Long> getNumberOfEditinos() {
 		return new StringNumber<Long>(
-				Repositories.getLanguageRepository().numberOfEditions(language.getId())
+				languageRepository.numberOfEditions(language.getId())
 				);
 	}
 
 	public StringNumber<Long> getNumberOfTitles() {
 		return new StringNumber<Long>(
-				Repositories.getLanguageRepository().numberOfTitles(language.getId())
+				languageRepository.numberOfTitles(language.getId())
 				);
 	}
 
 	public List<Book> getBooks() {
-		return Repositories.getLanguageRepository().getBooks(language);
+		return languageRepository.getBooks(language);
 	}
 	public List<Edition> getEditions() {
-		return Repositories.getLanguageRepository().getEditions(language);
+		return languageRepository.getEditions(language);
 	}
 	public List<Title> getTitles() {
-		return Repositories.getLanguageRepository().getTitles(language);
+		return languageRepository.getTitles(language);
 	}
 
 	public MyList<String> getBooksNames() {
