@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.controllers2.ResultItemController;
 import jedrzejbronislaw.ksiegozbior.controllers2.SearchController;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
 import jedrzejbronislaw.ksiegozbior.view2.ViewController;
@@ -26,6 +26,8 @@ public class Version2 extends ApplicationStarter {
 
 	@Autowired private ViewController view;
 	@Autowired private MyFXMLLoader fxmlLoader;
+
+	@Autowired private BookRepository bookRepository;
 	
 	private MainView2Controller controller;
 	private BookDetailsController bookDetailsController;
@@ -105,9 +107,9 @@ public class Version2 extends ApplicationStarter {
 
 	private void loadAllBooks(MainView2Controller controller) throws IOException {
 		
-		Repositories.getBookRepository().findAllNotRemoved().forEach(book -> 
-			controller.addResultItem(createResultItem(book))
-		);
+		bookRepository.findAllNotRemoved().stream()
+			.map(this::createResultItem)
+			.forEach(controller::addResultItem);
 	}
 	
 	private Pane createResultItem(Ent ent) {
