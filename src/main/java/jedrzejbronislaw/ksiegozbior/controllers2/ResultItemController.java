@@ -43,6 +43,7 @@ public class ResultItemController implements Initializable {
 	
 	@Autowired private TheAuthor theAuthor;
 	@Autowired private TheEdition theEdition;
+	@Autowired private TheBook theBook;
 	
 	@FXML private HBox mainPane;
 	
@@ -141,7 +142,7 @@ public class ResultItemController implements Initializable {
 	public void setBook(Book book) {
 		content = book;
 		contentType = ContentType.BOOK;
-		TheBook theBook = new TheBook(book);
+		theBook.setBook(book);
 		
 		titleLabel.setText(theBook.getTitle());
 		authorLabel.setText(theBook.getAuthors().serialize_newLine());

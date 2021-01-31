@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
 @Component
 public class BookPreviewController implements Initializable {
 	
-	private TheBook theBook;
+	@Autowired private TheBook theBook;
 	
 	@FXML private Label titleLabel;
 	@FXML private Label subtitleLabel;
@@ -33,7 +34,7 @@ public class BookPreviewController implements Initializable {
 
 	
 	public void setBook(Book book) {
-		theBook = new TheBook(book);
+		theBook.setBook(book);
 		refresh();
 	}
 	

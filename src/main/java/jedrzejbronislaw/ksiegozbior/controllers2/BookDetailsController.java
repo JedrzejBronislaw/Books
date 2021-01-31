@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ public class BookDetailsController implements Initializable {
 
 	@FXML private VBox vbox;
 	
+	@Autowired private TheBook theBook;
 	private Book book;
 	
 	private NodeAndController bookNAC;
@@ -90,7 +92,7 @@ public class BookDetailsController implements Initializable {
 		if (book == null) return;
 		
 		this.book = book;
-		TheBook theBook = new TheBook(book);
+		theBook.setBook(book);
 		
 		if(authorNAC != null) {
 			MyList<Author> authors = theBook.getAuthors();
