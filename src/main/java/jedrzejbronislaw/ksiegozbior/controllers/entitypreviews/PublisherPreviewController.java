@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.ThePublishingHouse;
 @Component
 public class PublisherPreviewController implements Initializable {
 
-	private ThePublishingHouse thePublisher;
+	@Autowired private ThePublishingHouse thePublisher;
 	
 	@FXML private Label abbrevLabel;
 	@FXML private Label nameLabel;
@@ -24,7 +25,7 @@ public class PublisherPreviewController implements Initializable {
 	
 
 	public void setPublisher(PublishingHouse publisher) {
-		thePublisher = new ThePublishingHouse(publisher);
+		thePublisher.setPublisher(publisher);
 		refresh();
 	}
 	

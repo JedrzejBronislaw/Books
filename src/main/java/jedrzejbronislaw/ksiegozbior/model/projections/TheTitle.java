@@ -3,19 +3,28 @@ package jedrzejbronislaw.ksiegozbior.model.projections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheTitle implements TheEnt {
 	
-	@NonNull private Title title;
+	@Setter @NonNull private Title title;
 	
 	
 	public String getTitle() {

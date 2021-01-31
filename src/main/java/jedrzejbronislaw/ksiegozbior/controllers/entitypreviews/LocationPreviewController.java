@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheLocation;
 @Component
 public class LocationPreviewController implements Initializable {
 
-	private TheLocation theLocation;
+	@Autowired private TheLocation theLocation;
 	
 	@FXML private Label nameLabel;
 	@FXML private Label superlocationLabel;
@@ -26,7 +27,7 @@ public class LocationPreviewController implements Initializable {
 	
 
 	public void setLocation(Location location) {
-		theLocation = new TheLocation(location);
+		theLocation.setLocation(location);
 		refresh();
 	}
 	

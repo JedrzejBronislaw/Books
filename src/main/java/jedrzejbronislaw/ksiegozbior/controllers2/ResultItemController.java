@@ -42,6 +42,7 @@ public class ResultItemController implements Initializable {
 	private static final Paint mousePressColor = Color.DARKGRAY;
 	
 	@Autowired private TheAuthor theAuthor;
+	@Autowired private TheTitle theTitle;
 	@Autowired private TheEdition theEdition;
 	@Autowired private TheBook theBook;
 	
@@ -160,7 +161,7 @@ public class ResultItemController implements Initializable {
 	public void setTitle(Title title) {
 		content = title;
 		contentType = ContentType.TITLE;
-		TheTitle theTitle = new TheTitle(title);
+		theTitle.setTitle(title);
 		
 		titleLabel.setText(theTitle.getTitle());
 		authorLabel.setText(theTitle.getAuthors().serialize_newLine());

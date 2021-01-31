@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
 @Component
 public class TitlePreviewController implements Initializable {
 	
-	private TheTitle theTitle;
+	@Autowired private TheTitle theTitle;
 	
 	@FXML private Label titleLabel;
 	@FXML private Label subtitleLabel;
@@ -28,7 +29,7 @@ public class TitlePreviewController implements Initializable {
 	
 
 	public void setTitle(Title title) {
-		theTitle = new TheTitle(title);
+		theTitle.setTitle(title);
 		refresh();
 	}
 	

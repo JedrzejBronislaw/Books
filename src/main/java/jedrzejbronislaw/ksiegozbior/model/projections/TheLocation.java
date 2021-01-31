@@ -1,17 +1,29 @@
 package jedrzejbronislaw.ksiegozbior.model.projections;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheLocation implements TheEnt {
 	
-	@NonNull private Location location;
+	@Autowired private LocationRepository locationRepository;
+	
+	@Setter @NonNull private Location location;
 	
 	
 	public String getName() {
@@ -24,7 +36,7 @@ public class TheLocation implements TheEnt {
 
 	public StringNumber<Long> getNumberOfBooks() {
 		return new StringNumber<Long>(
-				Repositories.getLocationRepository().numberOfBooks(location.getId())
+					locationRepository.numberOfBooks(location.getId())
 				);
 	}
 	
@@ -34,14 +46,14 @@ public class TheLocation implements TheEnt {
 	
 	public MyList<String> getSublocationsNames() {
 		return new MyList<>(
-				Repositories.getLocationRepository().getSublocationsNames(location.getId())
+				locationRepository.getSublocationsNames(location.getId())
 				);
 	}
 
 	public MyList<String> getBooksNames() {
 		return new MyList<>(
 					Named.convertListToNamesList(
-						Repositories.getLocationRepository().getBooks(location)
+						locationRepository.getBooks(location)
 					)
 				);
 	}
