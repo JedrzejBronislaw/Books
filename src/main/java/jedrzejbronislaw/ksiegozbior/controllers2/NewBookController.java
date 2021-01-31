@@ -43,6 +43,8 @@ public class NewBookController implements Initializable {
 	
 	@Autowired private SearchController searcher;
 	@Autowired private MyFXMLLoader fxmlLoader;
+	
+	@Autowired TheEdition theEdition;
 
 	@FXML private GridPane searchTitlePane;
 	@FXML private GridPane searchOriTitlePane;
@@ -229,7 +231,7 @@ public class NewBookController implements Initializable {
 	}
 	
 	private void fillEdition(Edition edition) {
-		TheEdition theEdition = new TheEdition(edition);
+		theEdition.setEdition(edition);
 		
 		setEditionDetails(edition);
 		

@@ -37,6 +37,8 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	@Autowired private EditionRepository editionRepository;
 	@Autowired private LocationRepository locationRepository;
 	@Autowired private BookCommentRepository bookCommentRepository;
+	
+	@Autowired private TheEdition theEdition;
 
 	MyComboboxRefresher<Edition> editionRefresher;
 	MyComboboxRefresher<Location> locationRefresher;
@@ -124,7 +126,7 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		editionRefresher  = new MyComboboxRefresher<Edition> (editionField,  editionRepository);
 		locationRefresher = new MyComboboxRefresher<Location>(locationField, locationRepository);
 
-		new MyComboxCallBack<Edition>(editionField, e-> new TheEdition(e).toString());
+		new MyComboxCallBack<Edition>(editionField);
 		new MyComboxCallBack<Location>(locationField);
 		
 		updateLists();
@@ -165,16 +167,15 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		visibilityField.getItems().addAll(vis);
 	}
 	
-	private void loadEditionDetails(Edition e) {
-		if(e == null) return;
+	private void loadEditionDetails(Edition edition) {
+		if(edition == null) return;
+		theEdition.setEdition(edition);
 		
-		TheEdition edition = new TheEdition(e);
-		
-		editionTitle    .setText(edition.getTitle());	
-		editionAuthor   .setText(edition.getAuthors().serialize_newLine());
-		editionLanguage .setText(edition.getLanguageName());
-		editionPublisher.setText(edition.getPublisherName());
-		editionNumber   .setText(edition.getNumerRoman());
+		editionTitle    .setText(theEdition.getTitle());
+		editionAuthor   .setText(theEdition.getAuthors().serialize_newLine());
+		editionLanguage .setText(theEdition.getLanguageName());
+		editionPublisher.setText(theEdition.getPublisherName());
+		editionNumber   .setText(theEdition.getNumerRoman());
 	}
 
 	public void setEdition(Edition edition) {

@@ -42,6 +42,7 @@ public class ResultItemController implements Initializable {
 	private static final Paint mousePressColor = Color.DARKGRAY;
 	
 	@Autowired TheAuthor theAuthor;
+	@Autowired TheEdition theEdition;
 	
 	@FXML private HBox mainPane;
 	
@@ -149,7 +150,7 @@ public class ResultItemController implements Initializable {
 	public void setEdition(Edition edition) {
 		content = edition;
 		contentType = ContentType.EDITION;
-		TheEdition theEdition = new TheEdition(edition);
+		theEdition.setEdition(edition);
 		
 		titleLabel.setText(theEdition.getTitle());
 		authorLabel.setText(theEdition.getAuthors().serialize_newLine());

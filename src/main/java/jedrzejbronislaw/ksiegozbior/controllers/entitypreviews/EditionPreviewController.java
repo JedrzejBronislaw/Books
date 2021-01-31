@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 @Component
 public class EditionPreviewController implements Initializable {
 	
-	private TheEdition theEdition;
+	@Autowired private TheEdition theEdition;
 	
 	@FXML Label titleLabel;
 	@FXML Label subtitleLabel;
@@ -31,7 +32,7 @@ public class EditionPreviewController implements Initializable {
 	
 
 	public void setEdition(Edition edition) {
-		theEdition = new TheEdition(edition);
+		theEdition.setEdition(edition);
 		refresh();
 	}
 	

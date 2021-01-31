@@ -6,6 +6,10 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
@@ -18,16 +22,21 @@ import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.NotNullString;
 import jedrzejbronislaw.ksiegozbior.tools.RomanNumber;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheEdition implements TheEnt {
 
 	public static final String NO_TITLE_NAME = "[" + Internationalization.get("no_title") + "]";
 	public static final String DEF_SUBTITLE  = "";
 	
-	@NonNull private Edition edition;
+	@Setter @NonNull private Edition edition;
 	
 	private NotNullString notnullTitle = new NotNullString(NO_TITLE_NAME).emptyAsNull(true);
 	
