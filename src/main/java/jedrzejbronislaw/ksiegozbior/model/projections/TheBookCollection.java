@@ -1,17 +1,29 @@
 package jedrzejbronislaw.ksiegozbior.model.projections;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheBookCollection extends TheCollection {
 
-	@NonNull private BookCollection collection;
+	@Autowired private BookCollectionRepository bookCollectionRepository;
+	
+	@Setter @NonNull private BookCollection collection;
 	
 	
 	@Override
@@ -22,7 +34,7 @@ public class TheBookCollection extends TheCollection {
 	@Override
 	public StringNumber<Long> getNumberOfElements() {
 		return new StringNumber<Long>(
-				Repositories.getBookCollectionRepository().numberOfElements(collection.getId())
+				bookCollectionRepository.numberOfElements(collection.getId())
 				);
 	}
 
@@ -37,7 +49,7 @@ public class TheBookCollection extends TheCollection {
 	public MyList<String> getSubcollections() {
 		return new MyList<>(
 					Named.convertListToNamesList(
-						Repositories.getBookCollectionRepository().findSubcollections(collection.getId())
+						bookCollectionRepository.findSubcollections(collection.getId())
 					)
 				);
 	}
@@ -46,7 +58,7 @@ public class TheBookCollection extends TheCollection {
 	public MyList<String> getElements() {
 		return new MyList<>(
 					Named.convertListToNamesList(
-						Repositories.getBookCollectionRepository().findElements(collection.getId())
+						bookCollectionRepository.findElements(collection.getId())
 					)
 				);
 	}

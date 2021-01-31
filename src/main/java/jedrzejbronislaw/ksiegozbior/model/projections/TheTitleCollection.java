@@ -1,17 +1,29 @@
 package jedrzejbronislaw.ksiegozbior.model.projections;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Repositories;
+import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Component
+@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class TheTitleCollection extends TheCollection {
 	
-	@NonNull private TitleCollection collection;
+	@Autowired TitleCollectionRepository titleCollectionRepository;
+	
+	@Setter @NonNull private TitleCollection collection;
 
 
 	public String getName() {
@@ -21,7 +33,7 @@ public class TheTitleCollection extends TheCollection {
 	@Override
 	public StringNumber<Long> getNumberOfElements() {
 		return new StringNumber<Long>(
-				Repositories.getTitleCollectionRepository().numberOfElements(collection.getId())
+				titleCollectionRepository.numberOfElements(collection.getId())
 				);
 	}
 
@@ -36,7 +48,7 @@ public class TheTitleCollection extends TheCollection {
 	public MyList<String> getSubcollections() {
 		return new MyList<>(
 					Named.convertListToNamesList(
-						Repositories.getTitleCollectionRepository().findSubcollections(collection.getId())
+						titleCollectionRepository.findSubcollections(collection.getId())
 					)
 				);
 	}
@@ -45,7 +57,7 @@ public class TheTitleCollection extends TheCollection {
 	public MyList<String> getElements() {
 		return new MyList<>(
 					Named.convertListToNamesList(
-						Repositories.getTitleCollectionRepository().findElements(collection.getId())
+						titleCollectionRepository.findElements(collection.getId())
 					)
 				);
 	}

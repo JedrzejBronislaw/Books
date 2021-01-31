@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -19,6 +20,10 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheTitleCollection;
 @Component
 public class CollectionPreviewController implements Initializable {
 
+	@Autowired private TheBookCollection    theBookCollection;
+	@Autowired private TheEditionCollection theEditionCollection;
+	@Autowired private TheTitleCollection   theTitleCollection;
+	
 	private TheCollection theCollection;
 	
 	@FXML private Label nameLabel;
@@ -28,17 +33,20 @@ public class CollectionPreviewController implements Initializable {
 	
 
 	public void setTitleCollection(TitleCollection collection) {
-		theCollection = new TheTitleCollection(collection);
+		theTitleCollection.setCollection(collection);
+		theCollection = theTitleCollection;
 		refresh();
 	}
 
 	public void setEditionCollection(EditionCollection collection) {
-		theCollection = new TheEditionCollection(collection);
+		theEditionCollection.setCollection(collection);
+		theCollection = theEditionCollection;
 		refresh();	
 	}
 
 	public void setBookCollection(BookCollection collection) {
-		theCollection = new TheBookCollection(collection);
+		theBookCollection.setCollection(collection);
+		theCollection = theBookCollection;
 		refresh();	
 	}
 	
