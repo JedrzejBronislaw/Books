@@ -17,18 +17,18 @@ public class EditionPreviewController implements Initializable {
 	
 	@Autowired private TheEdition theEdition;
 	
-	@FXML Label titleLabel;
-	@FXML Label subtitleLabel;
-	@FXML Label authorsLabel;
-	@FXML Label publisherLabel;
-	@FXML Label languageLabel;
-	@FXML Label editionNumberLabel;
-	@FXML Label isbnLabel;
-	@FXML Label publicationDateLabel;
-	@FXML Label pagesLabel;
-	@FXML Label hardCoverLabel;
+	@FXML private Label titleLabel;
+	@FXML private Label subtitleLabel;
+	@FXML private Label authorsLabel;
+	@FXML private Label publisherLabel;
+	@FXML private Label languageLabel;
+	@FXML private Label editionNumberLabel;
+	@FXML private Label isbnLabel;
+	@FXML private Label publicationDateLabel;
+	@FXML private Label pagesLabel;
+	@FXML private Label hardCoverLabel;
 
-	@FXML Label titlesLabel;
+	@FXML private Label titlesLabel;
 	
 
 	public void setEdition(Edition edition) {

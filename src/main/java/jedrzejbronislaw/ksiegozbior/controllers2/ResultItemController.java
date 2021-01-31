@@ -41,8 +41,8 @@ public class ResultItemController implements Initializable {
 	private static final Paint mouseEnterColor = Color.LIGHTGRAY;
 	private static final Paint mousePressColor = Color.DARKGRAY;
 	
-	@Autowired TheAuthor theAuthor;
-	@Autowired TheEdition theEdition;
+	@Autowired private TheAuthor theAuthor;
+	@Autowired private TheEdition theEdition;
 	
 	@FXML private HBox mainPane;
 	

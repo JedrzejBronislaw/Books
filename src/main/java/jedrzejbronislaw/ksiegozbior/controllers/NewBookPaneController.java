@@ -40,8 +40,8 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	
 	@Autowired private TheEdition theEdition;
 
-	MyComboboxRefresher<Edition> editionRefresher;
-	MyComboboxRefresher<Location> locationRefresher;
+	private MyComboboxRefresher<Edition> editionRefresher;
+	private MyComboboxRefresher<Location> locationRefresher;
 
 	@Getter
 	@FXML private GridPane fieldsPane;
