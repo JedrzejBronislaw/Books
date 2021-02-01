@@ -22,7 +22,7 @@ import jedrzejbronislaw.ksiegozbior.view2.ViewController;
 import jedrzejbronislaw.ksiegozbior.view2.Views;
 
 @Component
-public class Version2 extends ApplicationStarter {
+public class GuiVer2 extends Gui {
 
 	@Autowired private ViewController view;
 	@Autowired private MyFXMLLoader fxmlLoader;
@@ -33,7 +33,7 @@ public class Version2 extends ApplicationStarter {
 	private BookDetailsController bookDetailsController;
 	
 	
-	public Version2() {
+	public GuiVer2() {
 		super(1000, 600);
 	}
 

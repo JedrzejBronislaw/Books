@@ -32,7 +32,7 @@ import jedrzejbronislaw.ksiegozbior.view.Views;
 import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.*;
 
 @Component
-public class Version1 extends ApplicationStarter {
+public class GuiVer1 extends Gui {
 	
 	private static final String[] FXML_PATHS = {
 			"NewAuthorPane.fxml",

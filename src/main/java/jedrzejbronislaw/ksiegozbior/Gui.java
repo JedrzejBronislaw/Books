@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import lombok.Setter;
 
-public abstract class ApplicationStarter implements ApplicationContextAware {
+public abstract class Gui implements ApplicationContextAware {
 
 	private double sceneWidth = 1200;
 	private double sceneHeight = 600;
@@ -36,9 +36,9 @@ public abstract class ApplicationStarter implements ApplicationContextAware {
 	protected abstract Parent buildRootNode() throws IOException;
 	
 	
-	public ApplicationStarter() {}
+	public Gui() {}
 	
-	public ApplicationStarter(double width, double height) {
+	public Gui(double width, double height) {
 		sceneWidth = width;
 		sceneHeight = height;
 	}

@@ -22,7 +22,7 @@ public class App extends Application {
 	
 	private ConfigurableApplicationContext springContext;
 	private Stage theStage;
-	public static ApplicationStarter starter;
+	public static Gui gui;
 	private static int guiVersion = 1;
 	
 	
@@ -50,17 +50,17 @@ public class App extends Application {
     	td.save();
     	
     	theStage = primagestage;
-    	starter = getGuiBean();
+    	gui = getGuiBean();
     	buildView(Languages.POLISH);
-    	starter.setChangeGUILanguage(this::buildView);
+    	gui.setChangeGUILanguage(this::buildView);
     }
 
-	private ApplicationStarter getGuiBean() {
+	private Gui getGuiBean() {
 		switch (guiVersion) {
-			case 1 : return (ApplicationStarter) springContext.getBean(Version1.class);
-			case 2 : return (ApplicationStarter) springContext.getBean(Version2.class);
+			case 1 : return (Gui) springContext.getBean(GuiVer1.class);
+			case 2 : return (Gui) springContext.getBean(GuiVer2.class);
 			
-			default: return (ApplicationStarter) springContext.getBean(Version1.class);
+			default: return (Gui) springContext.getBean(GuiVer1.class);
 		}
 	}
     
@@ -74,7 +74,7 @@ public class App extends Application {
     		Internationalization.setLanguage(language);
     	
     	try {
-			setScene(starter.createScene());
+			setScene(gui.createScene());
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
