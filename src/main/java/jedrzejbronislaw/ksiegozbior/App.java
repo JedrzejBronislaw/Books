@@ -23,11 +23,20 @@ public class App extends Application {
 	private ConfigurableApplicationContext springContext;
 	private Stage theStage;
 	public static ApplicationStarter starter;
+	private static int guiVersion = 1;
 	
 	
     public static void main( String[] args ) {
+    	handleArgs(args);
     	launch(args);
     }
+
+	private static void handleArgs(String[] args) {
+		if (args.length < 1) return;
+		
+		if (args[0].equals("1")) guiVersion = 1;
+		if (args[0].equals("2")) guiVersion = 2;
+	}
 
     @Override
     public void init() throws Exception {
@@ -41,11 +50,19 @@ public class App extends Application {
     	td.save();
     	
     	theStage = primagestage;
-//    	starter = springContext.getBean(Version1.class);
-    	starter = springContext.getBean(Version2.class);
+    	starter = getGuiBean();
     	buildView(Languages.POLISH);
     	starter.setChangeGUILanguage(this::buildView);
     }
+
+	private ApplicationStarter getGuiBean() {
+		switch (guiVersion) {
+			case 1 : return (ApplicationStarter) springContext.getBean(Version1.class);
+			case 2 : return (ApplicationStarter) springContext.getBean(Version2.class);
+			
+			default: return (ApplicationStarter) springContext.getBean(Version1.class);
+		}
+	}
     
     @Override
     public void stop() throws Exception {
