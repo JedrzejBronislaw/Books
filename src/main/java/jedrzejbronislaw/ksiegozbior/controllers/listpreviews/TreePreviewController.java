@@ -17,52 +17,53 @@ import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.HierarhicalEnt;
+import jedrzejbronislaw.ksiegozbior.model.projections.TheEnt;
 
 @Component
 public class TreePreviewController extends MultiEntityViewController implements Initializable {
 
 	@FXML private Label title;
-	@FXML private TreeView<EntWithLabel> tree;
+	@FXML private TreeView<Ent> tree;
 
 
 	@Override
-	public void set(String header, List<EntWithLabel> elements) {
+	protected void set(String header, List<Ent> elements) {
 		title.setText(header);
 		listRefresh(elements);
 	}
 
 	@Override
-	protected void listRefresh(List<EntWithLabel> elements) {	
-		TreeItem<EntWithLabel> root = new TreeItem<>();
+	protected void listRefresh(List<Ent> elements) {
+		TreeItem<Ent> root = new TreeItem<>();
 		
 		tree.setRoot(root);
 		tree.setShowRoot(false);
 		
 		if (elements == null) return;
 		
-		List<TreeItem<EntWithLabel>> items = elements.stream()
-				.filter(e -> (e.getEntity() instanceof HierarhicalEnt))
+		List<TreeItem<Ent>> items = elements.stream()
+				.filter(e -> (e instanceof HierarhicalEnt))
 				.map(TreeItem::new)
 				.collect(Collectors.toList());
 		
 		createTree(root, items);
 	}
 
-	private void createTree(TreeItem<EntWithLabel> root, List<TreeItem<EntWithLabel>> items) {
+	private void createTree(TreeItem<Ent> root, List<TreeItem<Ent>> items) {
 		HierarhicalEnt ent;
 		
-		for (TreeItem<EntWithLabel> item : items) {
+		for (TreeItem<Ent> item : items) {
 			
-			ent = (HierarhicalEnt) item.getValue().getEntity();
+			ent = (HierarhicalEnt) item.getValue();
 			
 			if (ent.isRoot() || !moveItemToSuperitem(items, item))
 				root.getChildren().add(item);
 		}
 	}
 
-	private boolean moveItemToSuperitem(List<TreeItem<EntWithLabel>> items, TreeItem<EntWithLabel> subItem) {
+	private boolean moveItemToSuperitem(List<TreeItem<Ent>> items, TreeItem<Ent> subItem) {
 
-		for (TreeItem<EntWithLabel> item : items) {
+		for (TreeItem<Ent> item : items) {
 			
 			if (isSubItem(subItem, item)) {
 				item.getChildren().add(subItem);
@@ -73,27 +74,27 @@ public class TreePreviewController extends MultiEntityViewController implements 
 		return false;
 	}
 
-	private boolean isSubItem(TreeItem<EntWithLabel> subItem, TreeItem<EntWithLabel> item) {
-		HierarhicalEnt subEntity = (HierarhicalEnt)subItem.getValue().getEntity();
-		HierarhicalEnt entity    = (HierarhicalEnt)item   .getValue().getEntity();
+	private boolean isSubItem(TreeItem<Ent> subItem, TreeItem<Ent> item) {
+		HierarhicalEnt subEntity = (HierarhicalEnt)subItem.getValue();
+		HierarhicalEnt entity    = (HierarhicalEnt)item   .getValue();
 		
 		return entity.getId() == subEntity.getSuper().getId();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tree.setCellFactory(createCallFactory(ent -> ent.getLabel()));
+		tree.setCellFactory(createCallFactory(TheEnt::generateLabel));
 	}
 
-	private Callback<TreeView<EntWithLabel>, TreeCell<EntWithLabel>> createCallFactory(Function<EntWithLabel, String> converter) {
-		return new Callback<TreeView<EntWithLabel>, TreeCell<EntWithLabel>>() {
+	private Callback<TreeView<Ent>, TreeCell<Ent>> createCallFactory(Function<Ent, String> converter) {
+		return new Callback<TreeView<Ent>, TreeCell<Ent>>() {
 			
 			@Override
-			public TreeCell<EntWithLabel> call(TreeView<EntWithLabel> arg0) {
-				return new TreeCell<EntWithLabel>() {
+			public TreeCell<Ent> call(TreeView<Ent> arg0) {
+				return new TreeCell<Ent>() {
 					
 					@Override
-					protected void updateItem(EntWithLabel element, boolean empty) {
+					protected void updateItem(Ent element, boolean empty) {
 						super.updateItem(element, empty);
 						
 						if(!empty || element != null)
@@ -107,7 +108,7 @@ public class TreePreviewController extends MultiEntityViewController implements 
 
 	@Override
 	protected Ent getSelectedItem() {
-		return tree.getSelectionModel().getSelectedItem().getValue().getEntity();
+		return tree.getSelectionModel().getSelectedItem().getValue();
 	}
 	@Override
 	protected boolean isSelectedItem() {

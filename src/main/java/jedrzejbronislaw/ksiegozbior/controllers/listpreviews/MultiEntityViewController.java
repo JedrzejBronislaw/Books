@@ -1,5 +1,6 @@
 package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -12,10 +13,15 @@ public abstract class MultiEntityViewController {
 	@Setter
 	protected MultiEntityViewControllerStrategy strategy;
 	
-	abstract public void set(String header, List<EntWithLabel> elements);
-	abstract protected void listRefresh(List<EntWithLabel> elements);
+	abstract protected void set(String header, List<Ent> elements);
+	abstract protected void listRefresh(List<Ent> elements);
 	abstract protected Ent getSelectedItem();
 	abstract protected boolean isSelectedItem();
+	
+
+	public void setContent(String header, List<? extends Ent> elements) {
+		set(header, convert(elements));
+	}
 	
 	@FXML
 	protected void addAction() {
@@ -29,7 +35,15 @@ public abstract class MultiEntityViewController {
 		if(strategy == null) return;
 
 		if (strategy.delAction(getSelectedItem()))
-			listRefresh(strategy.getLabeledList());
+			listRefresh(convert(strategy.getList()));
+	}
+	
+	private List<Ent> convert(List<? extends Ent> listIn) {
+		List<Ent> list = new ArrayList<>(listIn.size());
+		
+		listIn.stream().forEach(list::add);
+		
+		return list;
 	}
 
 	@FXML

@@ -14,21 +14,22 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
+import jedrzejbronislaw.ksiegozbior.model.projections.TheEnt;
 
 @Component
 public class ListPreviewController extends MultiEntityViewController implements Initializable {
 
 	@FXML private Label title;
-	@FXML private ListView<EntWithLabel> list;
+	@FXML private ListView<Ent> list;
 
 	
-	public void set(String header, List<EntWithLabel> elements) {
+	protected void set(String header, List<Ent> elements) {
 		title.setText(header);
 		listRefresh(elements);
 	}
 
 	@Override
-	protected void listRefresh(List<EntWithLabel> elements) {
+	protected void listRefresh(List<Ent> elements) {
 		list.getItems().clear();
 		
 		if(elements != null)
@@ -37,20 +38,20 @@ public class ListPreviewController extends MultiEntityViewController implements 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		list.setCellFactory(createCellFactory(ent -> ent.getLabel()));
+		list.setCellFactory(createCellFactory(TheEnt::generateLabel));
 		
 		//list.setCellFactory(new MyComboxCallBack<EntWithLabel>());
 	}
 
-	private Callback<ListView<EntWithLabel>, ListCell<EntWithLabel>> createCellFactory(Function<EntWithLabel, String> converter) {
-		return new Callback<ListView<EntWithLabel>, ListCell<EntWithLabel>>() {
+	private Callback<ListView<Ent>, ListCell<Ent>> createCellFactory(Function<Ent, String> converter) {
+		return new Callback<ListView<Ent>, ListCell<Ent>>() {
 			
 			@Override
-			public ListCell<EntWithLabel> call(ListView<EntWithLabel> arg0) {
+			public ListCell<Ent> call(ListView<Ent> arg0) {
 				
-				return new ListCell<EntWithLabel>() {
+				return new ListCell<Ent>() {
 					@Override
-					protected void updateItem(EntWithLabel element, boolean empty) {
+					protected void updateItem(Ent element, boolean empty) {
 						super.updateItem(element, empty);
 						if(!empty || element != null)
 							setText(converter.apply(element)); else
@@ -63,7 +64,7 @@ public class ListPreviewController extends MultiEntityViewController implements 
 
 	@Override
 	protected Ent getSelectedItem() {
-		return list.getSelectionModel().getSelectedItem().getEntity();
+		return list.getSelectionModel().getSelectedItem();
 	}
 
 	@Override

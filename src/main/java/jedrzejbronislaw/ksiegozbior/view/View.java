@@ -57,7 +57,7 @@ public class View {
 		header.setText(headerStr);
 		
 		multi.controller.setStrategy(viewPanes.multiEntityPreviewStrategy);
-		multi.controller.set(headerStr, viewPanes.multiEntityPreviewStrategy.getLabeledList());
+		multi.controller.setContent(headerStr, viewPanes.multiEntityPreviewStrategy.getList());
 		
 		
 		return true;
