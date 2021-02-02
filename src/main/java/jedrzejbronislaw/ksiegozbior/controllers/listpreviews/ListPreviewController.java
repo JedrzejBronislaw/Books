@@ -3,7 +3,6 @@ package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,11 +10,10 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
+import jedrzejbronislaw.ksiegozbior.view.SimpleCallback;
 
 @Component
 public class ListPreviewController extends MultiEntityViewController implements Initializable {
@@ -41,28 +39,7 @@ public class ListPreviewController extends MultiEntityViewController implements 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		list.setCellFactory(createCellFactory(entity -> theEntGenerator.generate(entity).getLabel()));
-		
-		//list.setCellFactory(new MyComboxCallBack<EntWithLabel>());
-	}
-
-	private Callback<ListView<Ent>, ListCell<Ent>> createCellFactory(Function<Ent, String> converter) {
-		return new Callback<ListView<Ent>, ListCell<Ent>>() {
-			
-			@Override
-			public ListCell<Ent> call(ListView<Ent> arg0) {
-				
-				return new ListCell<Ent>() {
-					@Override
-					protected void updateItem(Ent element, boolean empty) {
-						super.updateItem(element, empty);
-						if(!empty || element != null)
-							setText(converter.apply(element)); else
-							setText(null);
-					}
-				};
-			}
-		};
+		list.setCellFactory(new SimpleCallback<Ent>(entity -> theEntGenerator.generate(entity).getLabel()));
 	}
 
 	@Override

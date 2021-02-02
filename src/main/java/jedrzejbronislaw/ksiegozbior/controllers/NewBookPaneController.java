@@ -27,7 +27,6 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
-import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
 
 @Component
@@ -126,9 +125,6 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		editionRefresher  = new MyComboboxRefresher<Edition> (editionField,  editionRepository);
 		locationRefresher = new MyComboboxRefresher<Location>(locationField, locationRepository);
 
-		new MyComboxCallBack<Edition>(editionField);
-		new MyComboxCallBack<Location>(locationField);
-		
 		updateLists();
 		
 		editionField .setOnShowing(e -> editionRefresher .refresh());

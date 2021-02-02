@@ -1,5 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -23,11 +26,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorshipRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
-import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
-
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
 
 @Component
 public class NewTitlePaneController implements Initializable, EntityFormController {
@@ -112,13 +111,8 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 
-		new MyComboxCallBack<Author>(authorField);
-		
 		authorRefresher = new MyComboboxRefresher<Author>(authorField, authorsRepository);
 		authorField.setOnShowing(e -> authorRefresher.refresh());
-		
-		
-		new MyComboxCallBack<Language>(languageField);
 		
 		languageRefresher = new MyComboboxRefresher<Language>(languageField, languageRepository);
 		languageField.setOnShowing(e -> languageRefresher.refresh());

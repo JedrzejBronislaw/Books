@@ -1,5 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,10 +16,7 @@ import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
-import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
-
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
 public class NewBookCollectionPaneController implements Initializable, EntityFormController {
@@ -54,7 +53,6 @@ public class NewBookCollectionPaneController implements Initializable, EntityFor
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		new MyComboxCallBack<BookCollection>(supercollectionField);
 		MyComboboxRefresher<BookCollection> supercollectionRefresher = new MyComboboxRefresher<>(supercollectionField, bookCollectionRepository);
 		
 		supercollectionField.setOnShowing(e -> supercollectionRefresher.refresh());

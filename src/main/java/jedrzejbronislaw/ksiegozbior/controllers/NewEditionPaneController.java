@@ -1,5 +1,9 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseLong;
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,12 +31,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.Edition_TitleRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
-import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
-
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseLong;
 
 @Component
 public class NewEditionPaneController implements Initializable, EntityFormController {
@@ -191,21 +190,6 @@ public class NewEditionPaneController implements Initializable, EntityFormContro
 			
 			updateTitlePrompText();
 		});
-		
-		
-		MyComboxCallBack<Language> langCellFactory = new MyComboxCallBack<Language>();
-		languageField.setButtonCell(langCellFactory.call(null));
-		languageField.setCellFactory(langCellFactory);
-		
-		MyComboxCallBack<Title> titleCellFactory = new MyComboxCallBack<Title>();
-		newTitleField.setButtonCell(titleCellFactory.call(null));
-		newTitleField.setCellFactory(titleCellFactory);
-
-		titleListField.setCellFactory(titleCellFactory);
-		
-		MyComboxCallBack<PublishingHouse> publisherCellFactory = new MyComboxCallBack<PublishingHouse>();
-		publisherField.setButtonCell(publisherCellFactory.call(null));
-		publisherField.setCellFactory(publisherCellFactory);
 		
 		
 		updateLists();

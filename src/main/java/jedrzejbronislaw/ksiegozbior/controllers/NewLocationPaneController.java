@@ -1,5 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,10 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
-import jedrzejbronislaw.ksiegozbior.view.MyComboxCallBack;
 import lombok.Getter;
-
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
 public class NewLocationPaneController implements Initializable, EntityFormController {
@@ -57,10 +56,6 @@ public class NewLocationPaneController implements Initializable, EntityFormContr
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		updateLocationList();
-		
-		MyComboxCallBack<Location> locationCallFactory = new MyComboxCallBack<Location>();
-		superlocationField.setButtonCell(locationCallFactory.call(null));
-		superlocationField.setCellFactory(locationCallFactory);
 		
 		superlocationField.setOnShowing(e -> updateLocationList());
 	}
