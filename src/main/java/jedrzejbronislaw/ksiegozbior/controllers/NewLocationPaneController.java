@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
+import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
@@ -55,16 +56,6 @@ public class NewLocationPaneController implements Initializable, EntityFormContr
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		updateLocationList();
-		
-		superlocationField.setOnShowing(e -> updateLocationList());
-	}
-
-	private void updateLocationList() {
-		Iterable<Location> locations = locationRepository.findAll();
-		
-		superlocationField.getItems().clear();
-		
-		locations.forEach(superlocationField.getItems()::add);
+		Refresher.setOnShowing(superlocationField, locationRepository);
 	}
 }

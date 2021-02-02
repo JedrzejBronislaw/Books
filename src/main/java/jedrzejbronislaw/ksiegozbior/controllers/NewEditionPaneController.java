@@ -31,6 +31,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.Edition_TitleRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
+import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
@@ -192,10 +193,9 @@ public class NewEditionPaneController implements Initializable, EntityFormContro
 		});
 		
 		
-		updateLists();
-		newTitleField.setOnShowing(e -> updateTitleList());
-		publisherField.setOnShowing(e -> updatePublisherList());
-		languageField.setOnShowing(e -> updateLanguageList());
+		Refresher.setOnShowing(languageField, languageRepository);
+		Refresher.setOnShowing(newTitleField, titleRepository);
+		Refresher.setOnShowing(publisherField, publishingHouseRepository);
 	}
 
 	private void updateTitlePrompText() {
@@ -213,36 +213,6 @@ public class NewEditionPaneController implements Initializable, EntityFormContro
 			titleField.setPromptText("");
 			subtitleField.setPromptText("");
 		}
-	}
-
-	private void updateLists() {
-		updateTitleList();
-		updatePublisherList();
-		updateLanguageList();
-	}
-
-	private void updateLanguageList() {
-		Iterable<Language> langs = languageRepository.findAll();
-		
-		languageField.getItems().clear();
-		
-		langs.forEach(languageField.getItems()::add);
-	}
-
-	private void updateTitleList() {
-		Iterable<Title> titles = titleRepository.findAllNotRemoved();
-		
-		newTitleField.getItems().clear();
-		
-		titles.forEach(newTitleField.getItems()::add);
-	}
-
-	private void updatePublisherList() {
-		Iterable<PublishingHouse> publishers = publishingHouseRepository.findAll();
-		
-		publisherField.getItems().clear();
-		
-		publishers.forEach(publisherField.getItems()::add);
 	}
 
 	public void setTitle(Title title) {
