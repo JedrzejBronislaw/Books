@@ -26,7 +26,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.BookCommentRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
-import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
+import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
@@ -38,9 +38,6 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	@Autowired private BookCommentRepository bookCommentRepository;
 	
 	@Autowired private TheEdition theEdition;
-
-	private MyComboboxRefresher<Edition> editionRefresher;
-	private MyComboboxRefresher<Location> locationRefresher;
 
 	@Getter
 	@FXML private GridPane fieldsPane;
@@ -122,13 +119,10 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		editionRefresher  = new MyComboboxRefresher<Edition> (editionField,  editionRepository);
-		locationRefresher = new MyComboboxRefresher<Location>(locationField, locationRepository);
-
-		updateLists();
-		
-		editionField .setOnShowing(e -> editionRefresher .refresh());
-		locationField.setOnShowing(e -> locationRefresher.refresh());
+		Refresher.setOnShowing(editionField,  editionRepository);
+		Refresher.setOnShowing(locationField, locationRepository);
+		Refresher.loadAll(editionField,  editionRepository);
+		Refresher.loadAll(locationField, locationRepository);
 		
 		autographCheck.setOnAction(e -> autographClickAction());
 		
@@ -149,11 +143,6 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 		if(autograph)
 			autographField.setStyle("-fx-text-fill: #000;"); else
 			autographField.setStyle("-fx-text-fill: #888;");
-	}
-
-	private void updateLists() {
-		editionRefresher.refresh();
-		locationRefresher.refresh();
 	}
 	
 	private void loadVisibilityList() {

@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
-import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
+import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
@@ -52,10 +52,7 @@ public class NewTitleCollectionPaneController implements Initializable, EntityFo
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		MyComboboxRefresher<TitleCollection> supercollectionRefresher = new MyComboboxRefresher<TitleCollection>(supercollectionField, titleCollectionRepository);
-		
-		supercollectionField.setOnShowing(e -> supercollectionRefresher.refresh());
-		supercollectionRefresher.refresh();
+		Refresher.setOnShowing(supercollectionField, titleCollectionRepository);
+		Refresher.loadAll(supercollectionField, titleCollectionRepository);
 	}
 }

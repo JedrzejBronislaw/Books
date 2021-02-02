@@ -25,7 +25,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorshipRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
-import jedrzejbronislaw.ksiegozbior.view.MyComboboxRefresher;
+import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
@@ -35,9 +35,6 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 	@Autowired private AuthorRepository authorsRepository;
 	@Autowired private AuthorshipRepository authorshipRepository;
 	@Autowired private LanguageRepository languageRepository;
-	
-	private MyComboboxRefresher<Language> languageRefresher;
-	private MyComboboxRefresher<Author> authorRefresher;
 
 	@Getter
 	@FXML private GridPane fieldsPane;
@@ -110,19 +107,10 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
-
-		authorRefresher = new MyComboboxRefresher<Author>(authorField, authorsRepository);
-		authorField.setOnShowing(e -> authorRefresher.refresh());
-		
-		languageRefresher = new MyComboboxRefresher<Language>(languageField, languageRepository);
-		languageField.setOnShowing(e -> languageRefresher.refresh());
-		
-		updateLists();
-	}
-	
-	private void updateLists(){
-		authorRefresher.refresh();
-		languageRefresher.refresh();
+		Refresher.setOnShowing(authorField,   authorsRepository);
+		Refresher.setOnShowing(languageField, languageRepository);
+		Refresher.loadAll(authorField,   authorsRepository);
+		Refresher.loadAll(languageField, languageRepository);
 	}
 
 	public void setAuthor(Author author) {
