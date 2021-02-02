@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
@@ -22,15 +24,12 @@ import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.NotNullString;
 import jedrzejbronislaw.ksiegozbior.tools.RomanNumber;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Component
+@Primary
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class TheEdition implements TheEnt {
 
 	public static final String NO_TITLE_NAME = "[" + Internationalization.get("no_title") + "]";
@@ -200,5 +199,13 @@ public class TheEdition implements TheEnt {
 	@Override
 	public String getLabel() {
 		return toString();
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof Edition)) return false;
+		
+		setEdition((Edition) entity);
+		return true;
 	}
 }

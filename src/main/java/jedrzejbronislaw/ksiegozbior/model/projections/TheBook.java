@@ -9,13 +9,12 @@ import org.springframework.stereotype.Component;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
 public class TheBook extends TheEdition implements TheEnt {
 
 	@NonNull private Book book;
@@ -25,12 +24,6 @@ public class TheBook extends TheEdition implements TheEnt {
 		setEdition(book.getEdition());
 		this.book = book;
 	}
-	
-	public TheBook(Book book) {
-		super(book.getEdition());
-		this.book = book;
-	}
-	
 
 	public String getPurchaseDate() {
 		return (book.getPurchaseDate() != null) ? book.getPurchaseDate().toString() : "-";
@@ -56,6 +49,14 @@ public class TheBook extends TheEdition implements TheEnt {
 	@Override
 	public String getLabel() {
 		return getTitle();
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof Book)) return false;
+		
+		setBook((Book) entity);
+		return true;
 	}
 
 	public Edition getEdition() {

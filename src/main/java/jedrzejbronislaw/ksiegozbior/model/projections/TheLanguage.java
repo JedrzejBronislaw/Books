@@ -9,21 +9,18 @@ import org.springframework.stereotype.Component;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class TheLanguage implements TheEnt {
 	
 	@Autowired LanguageRepository languageRepository;
@@ -86,5 +83,13 @@ public class TheLanguage implements TheEnt {
 	@Override
 	public String getLabel() {
 		return getName();
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof Language)) return false;
+		
+		setLanguage((Language) entity);
+		return true;
 	}
 }

@@ -29,6 +29,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
+import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
@@ -44,6 +45,7 @@ public class NewBookController implements Initializable {
 	@Autowired private SearchController searcher;
 	@Autowired private MyFXMLLoader fxmlLoader;
 	
+	@Autowired TheEntGenerator theEntGenerator;
 	@Autowired TheEdition theEdition;
 
 	@FXML private GridPane searchTitlePane;
@@ -216,7 +218,7 @@ public class NewBookController implements Initializable {
 	}
 	
 	private void fillTitle(Title title) {
-		TheTitle theEdition = new TheTitle(title);
+		TheTitle theEdition = (TheTitle) theEntGenerator.generate(title);
 
 		setTitleDetails(title);
 		

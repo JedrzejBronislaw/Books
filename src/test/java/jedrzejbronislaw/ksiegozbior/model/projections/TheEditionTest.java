@@ -126,6 +126,13 @@ public class TheEditionTest {
 	}
 
 
+	private TheEdition newTheEdition(Edition edition) {
+		TheEdition theEdition = new TheEdition();
+		theEdition.setEdition(edition);
+		return theEdition;
+	}
+
+
 	private static void assertEqualsAlt(Object actual, Object...expectedAlternatives) {
 		boolean match = Stream.of(expectedAlternatives).anyMatch(actual::equals);
 		
@@ -142,7 +149,7 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText1() {
 		assertEqualsAlt(
-				new TheEdition(edition1).getTitlesText(),
+				newTheEdition(edition1).getTitlesText(),
 				"Title 1 PL, Title 2 PL",
 				"Title 2 PL, Title 1 PL");
 	}
@@ -150,7 +157,7 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText1_negative() {
 		assertNotEqualsAlt(
-				new TheEdition(edition1).getTitlesText(),
+				newTheEdition(edition1).getTitlesText(),
 				"Title 1 PL, Title 2 PL+",
 				"Title 2 PL, Title 1 PL+");
 	}
@@ -158,7 +165,7 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText2() {
 		assertEqualsAlt(
-				new TheEdition(edition2).getTitlesText(),
+				newTheEdition(edition2).getTitlesText(),
 				"Title 1 PL, Original title 2",
 				"Original title 2, Title 1 PL"
 				);
@@ -167,7 +174,7 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText3() {
 		assertEqualsAlt(
-				new TheEdition(edition3).getTitlesText(),
+				newTheEdition(edition3).getTitlesText(),
 				"Original title 1, Title 2 PL",
 				"Title 2 PL, Original title 1");
 	}
@@ -175,7 +182,7 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText4() {
 		assertEqualsAlt(
-				new TheEdition(edition4).getTitlesText(),
+				newTheEdition(edition4).getTitlesText(),
 				"Original title 1, Original title 2",
 				"Original title 2, Original title 1");
 	}
@@ -183,35 +190,35 @@ public class TheEditionTest {
 	@Test
 	public void testGetTitlesText5() {
 		assertEqualsAlt(
-				new TheEdition(edition5).getTitlesText(),
+				newTheEdition(edition5).getTitlesText(),
 				"Title Edition 5");
 	}
 	
 	@Test
 	public void testGetTitlesText6() {
 		assertEqualsAlt(
-				new TheEdition(edition6).getTitlesText(),
+				newTheEdition(edition6).getTitlesText(),
 				"Title Edition 6");
 	}
 	
 	@Test
 	public void testGetTitlesText7() {
 		assertEqualsAlt(
-				new TheEdition(edition7).getTitlesText(),
+				newTheEdition(edition7).getTitlesText(),
 				"ET Title 7");
 	}
 	
 	@Test
 	public void testGetTitlesText8() {
 		assertEqualsAlt(
-				new TheEdition(edition8).getTitlesText(),
+				newTheEdition(edition8).getTitlesText(),
 				TheEdition.NO_TITLE_NAME);
 	}
 	
 	@Test
 	public void testGetTitlesText9() {
 		assertEqualsAlt(
-				new TheEdition(edition9).getTitlesText(),
+				newTheEdition(edition9).getTitlesText(),
 				"Original title 2");
 	}
 
@@ -221,63 +228,63 @@ public class TheEditionTest {
 
 	@Test
 	public void testGetTitle1() {
-		TheEdition theEdition = new TheEdition(edition1);
+		TheEdition theEdition = newTheEdition(edition1);
 		
 		assertEquals("Title Edition 1", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle2() {
-		TheEdition theEdition = new TheEdition(edition2);
+		TheEdition theEdition = newTheEdition(edition2);
 		
 		assertEquals("Title Edition 2", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle3() {
-		TheEdition theEdition = new TheEdition(edition3);
+		TheEdition theEdition = newTheEdition(edition3);
 
 		assertEquals("", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle4() {
-		TheEdition theEdition = new TheEdition(edition4);
+		TheEdition theEdition = newTheEdition(edition4);
 		
 		assertEquals("", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle5() {
-		TheEdition theEdition = new TheEdition(edition5);
+		TheEdition theEdition = newTheEdition(edition5);
 		
 		assertEquals("Title Edition 5", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle6() {
-		TheEdition theEdition = new TheEdition(edition6);
+		TheEdition theEdition = newTheEdition(edition6);
 		
 		assertEquals("Title Edition 6", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle7() {
-		TheEdition theEdition = new TheEdition(edition7);
+		TheEdition theEdition = newTheEdition(edition7);
 		
 		assertEquals("ET Title 7", theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle8() {
-		TheEdition theEdition = new TheEdition(edition8);
+		TheEdition theEdition = newTheEdition(edition8);
 		
 		assertEquals(TheEdition.NO_TITLE_NAME, theEdition.getTitle());
 	}
 	
 	@Test
 	public void testGetTitle9() {
-		TheEdition theEdition = new TheEdition(edition9);
+		TheEdition theEdition = newTheEdition(edition9);
 		
 		assertEquals("Original title 2", theEdition.getTitle());
 	}
@@ -290,70 +297,70 @@ public class TheEditionTest {
 	public void testGetTitles1() {
 		assertEquals(
 				Set.of(title1, title2),
-				new TheEdition(edition1).getTitles());
+				newTheEdition(edition1).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles1_negative() {
 		assertNotEquals(
 				Set.of(title1),
-				new TheEdition(edition1).getTitles());
+				newTheEdition(edition1).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles2() {
 		assertEquals(
 				Set.of(title1, title2),
-				new TheEdition(edition2).getTitles());
+				newTheEdition(edition2).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles3() {
 		assertEquals(
 				Set.of(title1, title2),
-				new TheEdition(edition3).getTitles());
+				newTheEdition(edition3).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles4() {
 		assertEquals(
 				Set.of(title1, title2),
-				new TheEdition(edition4).getTitles());
+				newTheEdition(edition4).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles5() {
 		assertEquals(
 				Set.of(title1),
-				new TheEdition(edition5).getTitles());
+				newTheEdition(edition5).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles6() {
 		assertEquals(
 				Set.of(title1),
-				new TheEdition(edition6).getTitles());
+				newTheEdition(edition6).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles7() {
 		assertEquals(
 				Set.of(title1),
-				new TheEdition(edition7).getTitles());
+				newTheEdition(edition7).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles8() {
 		assertEquals(
 				Set.of(title4),
-				new TheEdition(edition8).getTitles());
+				newTheEdition(edition8).getTitles());
 	}
 	
 	@Test
 	public void testGetTitles9() {
 		assertEquals(
 				Set.of(title2),
-				new TheEdition(edition9).getTitles());
+				newTheEdition(edition9).getTitles());
 	}
 
 	
@@ -362,77 +369,77 @@ public class TheEditionTest {
 
 	@Test
 	public void testGetSubtitle01() {
-		TheEdition theEdition = new TheEdition(edition1);
+		TheEdition theEdition = newTheEdition(edition1);
 		
 		assertEquals("Subtitle Edition 1", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle02() {
-		TheEdition theEdition = new TheEdition(edition2);
+		TheEdition theEdition = newTheEdition(edition2);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle03() {
-		TheEdition theEdition = new TheEdition(edition3);
+		TheEdition theEdition = newTheEdition(edition3);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle04() {
-		TheEdition theEdition = new TheEdition(edition4);
+		TheEdition theEdition = newTheEdition(edition4);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle05() {
-		TheEdition theEdition = new TheEdition(edition5);
+		TheEdition theEdition = newTheEdition(edition5);
 		
 		assertEquals( "Subtitle Edition 5", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle06() {
-		TheEdition theEdition = new TheEdition(edition6);
+		TheEdition theEdition = newTheEdition(edition6);
 		
 		assertEquals("Subtitle Edition 6", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle07() {
-		TheEdition theEdition = new TheEdition(edition7);
+		TheEdition theEdition = newTheEdition(edition7);
 		
 		assertEquals( "ET Subtitle 7", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle08() {
-		TheEdition theEdition = new TheEdition(edition8);
+		TheEdition theEdition = newTheEdition(edition8);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle09() {
-		TheEdition theEdition = new TheEdition(edition9);
+		TheEdition theEdition = newTheEdition(edition9);
 		
 		assertEquals("Original subtitle 2", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle10() {
-		TheEdition theEdition = new TheEdition(edition10);
+		TheEdition theEdition = newTheEdition(edition10);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}
 	
 	@Test
 	public void testGetSubtitle11() {
-		TheEdition theEdition = new TheEdition(edition11);
+		TheEdition theEdition = newTheEdition(edition11);
 		
 		assertEquals("", theEdition.getSubtitle());
 	}

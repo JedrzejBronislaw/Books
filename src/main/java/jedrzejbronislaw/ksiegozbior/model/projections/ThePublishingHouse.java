@@ -5,18 +5,15 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class ThePublishingHouse implements TheEnt {
 	
 	@Autowired private PublishingHouseRepository publishingHouseRepository;
@@ -45,5 +42,13 @@ public class ThePublishingHouse implements TheEnt {
 	@Override
 	public String getLabel() {
 		return getAbbrev();
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof PublishingHouse)) return false;
+		
+		setPublisher((PublishingHouse) entity);
+		return true;
 	}
 }

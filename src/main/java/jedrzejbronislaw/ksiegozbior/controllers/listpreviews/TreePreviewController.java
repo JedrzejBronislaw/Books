@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -17,10 +18,12 @@ import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.HierarhicalEnt;
-import jedrzejbronislaw.ksiegozbior.model.projections.TheEnt;
+import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 
 @Component
 public class TreePreviewController extends MultiEntityViewController implements Initializable {
+
+	@Autowired TheEntGenerator theEntGenerator;
 
 	@FXML private Label title;
 	@FXML private TreeView<Ent> tree;
@@ -83,7 +86,7 @@ public class TreePreviewController extends MultiEntityViewController implements 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tree.setCellFactory(createCallFactory(TheEnt::generateLabel));
+		tree.setCellFactory(createCallFactory(entity -> theEntGenerator.generate(entity).getLabel()));
 	}
 
 	private Callback<TreeView<Ent>, TreeCell<Ent>> createCallFactory(Function<Ent, String> converter) {

@@ -5,20 +5,17 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.Named;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class TheTitleCollection extends TheCollection {
 	
 	@Autowired TitleCollectionRepository titleCollectionRepository;
@@ -60,5 +57,13 @@ public class TheTitleCollection extends TheCollection {
 						titleCollectionRepository.findElements(collection.getId())
 					)
 				);
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof TitleCollection)) return false;
+		
+		setCollection((TitleCollection) entity);
+		return true;
 	}
 }

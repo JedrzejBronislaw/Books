@@ -12,20 +12,17 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorshipRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import jedrzejbronislaw.ksiegozbior.tools.StringNumber;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class TheAuthor implements TheEnt {
 
 	@Autowired TitleRepository titleRepository;
@@ -127,6 +124,14 @@ public class TheAuthor implements TheEnt {
 	@Override
 	public String getLabel() {		
 		return author.toString();
+	}
+
+	@Override
+	public boolean setEnt(Ent entity) {
+		if (!(entity instanceof Author)) return false;
+		
+		setAuthor((Author) entity);
+		return true;
 	}
 
 	public String getLiveDates() {
