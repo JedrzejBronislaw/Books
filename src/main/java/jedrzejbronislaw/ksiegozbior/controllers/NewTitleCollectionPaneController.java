@@ -53,6 +53,5 @@ public class NewTitleCollectionPaneController implements Initializable, EntityFo
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(supercollectionField, titleCollectionRepository);
-		Refresher.loadAll(supercollectionField, titleCollectionRepository);
 	}
 }

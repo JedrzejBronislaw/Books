@@ -109,8 +109,6 @@ public class NewTitlePaneController implements Initializable, EntityFormControll
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 		Refresher.setOnShowing(authorField,   authorsRepository);
 		Refresher.setOnShowing(languageField, languageRepository);
-		Refresher.loadAll(authorField,   authorsRepository);
-		Refresher.loadAll(languageField, languageRepository);
 	}
 
 	public void setAuthor(Author author) {

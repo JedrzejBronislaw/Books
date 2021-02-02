@@ -121,8 +121,6 @@ public class NewBookPaneController implements Initializable, EntityFormControlle
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(editionField,  editionRepository);
 		Refresher.setOnShowing(locationField, locationRepository);
-		Refresher.loadAll(editionField,  editionRepository);
-		Refresher.loadAll(locationField, locationRepository);
 		
 		autographCheck.setOnAction(e -> autographClickAction());
 		

@@ -53,6 +53,5 @@ public class NewEditionCollectionPaneController implements Initializable, Entity
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(supercollectionField, editionCollectionRepository);
-		Refresher.loadAll(supercollectionField, editionCollectionRepository);
 	}
 }
