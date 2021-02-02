@@ -3,7 +3,6 @@ package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,12 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.util.Callback;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.HierarhicalEnt;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
+import jedrzejbronislaw.ksiegozbior.view.SimpleTreeCallback;
 
 @Component
 public class TreePreviewController extends MultiEntityViewController implements Initializable {
@@ -86,27 +84,7 @@ public class TreePreviewController extends MultiEntityViewController implements 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		tree.setCellFactory(createCallFactory(entity -> theEntGenerator.generate(entity).getLabel()));
-	}
-
-	private Callback<TreeView<Ent>, TreeCell<Ent>> createCallFactory(Function<Ent, String> converter) {
-		return new Callback<TreeView<Ent>, TreeCell<Ent>>() {
-			
-			@Override
-			public TreeCell<Ent> call(TreeView<Ent> arg0) {
-				return new TreeCell<Ent>() {
-					
-					@Override
-					protected void updateItem(Ent element, boolean empty) {
-						super.updateItem(element, empty);
-						
-						if(!empty || element != null)
-							setText(converter.apply(element)); else
-							setText(null);
-					}
-				};
-			}
-		};
+		tree.setCellFactory(new SimpleTreeCallback<Ent>(entity -> theEntGenerator.generate(entity).getLabel()));
 	}
 
 	@Override

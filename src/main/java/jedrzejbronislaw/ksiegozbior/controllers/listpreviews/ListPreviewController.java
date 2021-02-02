@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
-import jedrzejbronislaw.ksiegozbior.view.SimpleCallback;
+import jedrzejbronislaw.ksiegozbior.view.SimpleListCallback;
 
 @Component
 public class ListPreviewController extends MultiEntityViewController implements Initializable {
@@ -39,7 +39,7 @@ public class ListPreviewController extends MultiEntityViewController implements 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		list.setCellFactory(new SimpleCallback<Ent>(entity -> theEntGenerator.generate(entity).getLabel()));
+		list.setCellFactory(new SimpleListCallback<Ent>(entity -> theEntGenerator.generate(entity).getLabel()));
 	}
 
 	@Override
