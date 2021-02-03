@@ -20,6 +20,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import lombok.Setter;
 
 @Component
@@ -69,13 +70,13 @@ public class SearchController {
 	private void newSearch(String phrase, Function<String, List<? extends Ent>> search) {
 		new Thread(()->{
 			
-			if(clearShearchResults != null) Platform.runLater(clearShearchResults);
+			Platform.runLater(() -> Injection.run(clearShearchResults));
 			if(phrase.isBlank()) return;
 			
-			List<? extends Ent> results = (search != null) ? search.apply(phrase) : new ArrayList<>();
-			
+			List<? extends Ent> results = Injection.get(search, phrase, new ArrayList<>());
+
 			if(showSearchItem != null) Platform.runLater(() -> results.forEach(showSearchItem));
-			if(showSearchInfo != null) Platform.runLater(() -> showSearchInfo.accept(phrase, results.size()));
+			Platform.runLater(() -> Injection.run(showSearchInfo, phrase, results.size()));
 			
 		}).start();
 	}

@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
 import lombok.Getter;
@@ -118,10 +119,7 @@ public class MainViewController implements Initializable {
 			menuItem = new RadioMenuItem(Internationalization.get(lang.getLabel()));
 			menuItem.setToggleGroup(group);
 			menuItem.setSelected(lang.equals(current));
-			menuItem.setOnAction(e -> {
-				if(changeGUILanguage != null)
-					changeGUILanguage.accept(lang);
-			});
+			menuItem.setOnAction(e -> Injection.run(changeGUILanguage, lang));
 
 			languageMenu.getItems().add(menuItem);
 		}

@@ -28,6 +28,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheAuthor;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -88,29 +89,25 @@ public class ResultItemController implements Initializable {
 	@FXML
 	public void titleClick() {
 		System.out.println("title click");
-		if (onTitleClick != null)
-			onTitleClick.run();
+		Injection.run(onTitleClick);
 	}
 
 	@FXML
 	public void authorClick() {
 		System.out.println("author click");
-		if (onAuthorClick != null)
-			onAuthorClick.run();
+		Injection.run(onAuthorClick);
 	}
 	
 	@FXML
 	public void coverClick() {
 		System.out.println("cover Click");
-		if (onCoverClick != null)
-			onCoverClick.run();
+		Injection.run(onCoverClick);
 	}
 	
 	@FXML
 	public void paneClick() {
 		System.out.println("pane Click");
-		if (onClick != null)
-			onClick.run();
+		Injection.run(onClick);
 	}
 
 	public void setContent(Ent content) {

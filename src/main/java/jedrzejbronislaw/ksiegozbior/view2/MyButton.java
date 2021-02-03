@@ -9,6 +9,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -64,7 +65,7 @@ public class MyButton {
 		button.onMousePressedProperty() .bindBidirectional(text.onMousePressedProperty());
 		button.onMouseReleasedProperty().bindBidirectional(text.onMouseReleasedProperty());
 		
-		button.setOnMouseClicked(e -> {if(onClicked != null) onClicked.run();});
+		button.setOnMouseClicked(e -> Injection.run(onClicked));
 		
 		button.setOnMouseEntered(e -> button.setStrokeWidth(2));
 		button.setOnMouseExited( e -> button.setStrokeWidth(0));

@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import jedrzejbronislaw.ksiegozbior.Session;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.User;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 import jedrzejbronislaw.ksiegozbior.view2.ViewController;
 import jedrzejbronislaw.ksiegozbior.view2.Views;
@@ -116,9 +117,7 @@ public class MainView2Controller implements Initializable {
 
 	private void search(String phrase) {
 		System.out.println("Searching...");
-		
-		if (searchAction != null)
-			searchAction.accept(phrase);
+		Injection.run(searchAction, phrase);
 	}
 
 	public VBox getSearchResultPane() {

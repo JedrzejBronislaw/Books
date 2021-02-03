@@ -25,6 +25,7 @@ import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TitleListPreviewCon
 import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TreePreviewController;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
+import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.view.PanePlusControl;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet;
 import jedrzejbronislaw.ksiegozbior.view.View;
@@ -81,10 +82,7 @@ public class GuiVer1 extends Gui {
 		node.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
     	controller = fxmlLoader.getController();
     	
-    	controller.setChangeGUILanguage(language -> {
-    		if (changeGUILanguage != null)
-    			changeGUILanguage.accept(language);
-    	});
+    	controller.setChangeGUILanguage(language -> Injection.run(changeGUILanguage, language));
     	controller.setLanguageMenu(Internationalization.getCurrentLanguage(), Languages.values());
     	
     	view = createView(
