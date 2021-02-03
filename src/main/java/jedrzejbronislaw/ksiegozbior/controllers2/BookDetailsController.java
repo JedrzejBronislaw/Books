@@ -21,6 +21,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
+import lombok.NonNull;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 
 @Component
@@ -31,59 +32,43 @@ public class BookDetailsController implements Initializable {
 	@Autowired private TheBook theBook;
 	private Book book;
 	
-	private NodeAndController bookNAC;
-	private NodeAndController editionNAC;
-	private NodeAndController titleNAC;
-	private NodeAndController authorNAC;
+	private NodeAndController<BookPreviewController>    bookNAC;
+	private NodeAndController<EditionPreviewController> editionNAC;
+	private NodeAndController<TitlePreviewController>   titleNAC;
+	private NodeAndController<AuthorPreviewController>  authorNAC;
 	
 
-	public void setBookPreview(NodeAndController nac) {
-		if (nac != null && nac.getController() instanceof BookPreviewController)
-			bookNAC = nac; else
-			bookNAC = null;
-		
+	public void setBookPreview(@NonNull NodeAndController<BookPreviewController> nac) {
+		bookNAC = nac;
 		refreshPreview();
 	}
 
-	public void setEditionPreview(NodeAndController nac) {
-		if(nac != null && nac.getController() instanceof EditionPreviewController)
-			editionNAC = nac; else
-			editionNAC = null;
-		
+	public void setEditionPreview(@NonNull NodeAndController<EditionPreviewController> nac) {
+		editionNAC = nac;
 		refreshPreview();
 	}
 
-	public void setTitlePreview(NodeAndController nac) {
-		if(nac != null && nac.getController() instanceof TitlePreviewController)
-			titleNAC = nac; else
-			titleNAC = null;
-		
+	public void setTitlePreview(@NonNull NodeAndController<TitlePreviewController> nac) {
+		titleNAC = nac;
 		refreshPreview();
 	}
 
-	public void setAuthorPreview(NodeAndController nac) {
-		if(nac.getController() instanceof AuthorPreviewController)
-			authorNAC = nac; else
-			authorNAC = null;
-		
+	public void setAuthorPreview(@NonNull NodeAndController<AuthorPreviewController> nac) {
+		authorNAC = nac;
 		refreshPreview();
 	}
 	
 	private void refreshPreview() {
-		NodeAndController[] previews = new NodeAndController[] {
-				authorNAC,
-				bookNAC,
-				editionNAC,
-				titleNAC
-		};
-		
 		vbox.getChildren().clear();
-		Stream.of(previews).filter(p -> p != null).forEach(this::addPreview);
+		
+		Stream.of(authorNAC, bookNAC, editionNAC, titleNAC)
+			.filter(p -> p != null)
+			.forEach(this::addPreview);
 		
 		set(book);
 	}
 	
-	private void addPreview(NodeAndController preview) {
+	private void addPreview(NodeAndController<? extends Initializable> preview) {
 		vbox.getChildren().add(preview.getNode());
 	}
 	

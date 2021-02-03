@@ -1,14 +1,12 @@
 package jedrzejbronislaw.ksiegozbior;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
@@ -47,17 +45,11 @@ public abstract class Gui implements ApplicationContextAware {
 	public Scene createScene() throws IOException {
     	return new Scene(buildRootNode(), sceneWidth, sceneHeight);
 	}
-	
-    protected FXMLLoader getFXMLLoader(String fxmlFile) {
-    	FXMLLoader fxmlLoader = new FXMLLoader();
-    	
-    	fxmlLoader.setControllerFactory(context::getBean);
-		fxmlLoader.setLocation(getClass().getResource(FXML_DIR + fxmlFile));
-		fxmlLoader.setResources(ResourceBundle.getBundle(LANG_RESOURCE_LOCATION));
-		
-		return fxmlLoader;
-    }
     
+	protected void addCSS(Parent parent) {
+		parent.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
+	}
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		context = applicationContext;

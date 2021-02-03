@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 import lombok.Getter;
 
 public class Internationalization {
-	static final String resourceLocation = "jedrzejbronislaw.ksiegozbior.lang.Labels";
-	private static ResourceBundle rb = ResourceBundle.getBundle(resourceLocation);
+	public static final String RESOURCE_LOCATION = "jedrzejbronislaw.ksiegozbior.lang.Labels";
+	private static ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	
 	@Getter private static Languages currentLanguage;
 	
@@ -17,7 +17,7 @@ public class Internationalization {
 	}
 	
 	private static void refresh() {
-		rb = ResourceBundle.getBundle(resourceLocation);
+		rb = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	}
 	
 	public static void setLanguage(Languages language) {

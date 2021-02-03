@@ -1,6 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers2;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -87,10 +89,10 @@ public class NewBookController implements Initializable {
 	private MyButton addButton;
 	private MyButton noneButton;
 	
-	private NodeAndController authorForm;
-	private NodeAndController titleForm;
-	private NodeAndController editionForm;
-	private NodeAndController bookForm;
+	private NodeAndController<EntityFormController> authorForm;
+	private NodeAndController<EntityFormController> titleForm;
+	private NodeAndController<EntityFormController> editionForm;
+	private NodeAndController<EntityFormController> bookForm;
 
 	private boolean authorFormVisible  = true;
 	private boolean titleFormVisible   = true;
@@ -101,46 +103,38 @@ public class NewBookController implements Initializable {
 	private Steps currentStep;
 	
 
-	public void setAuthorForm(@NonNull NodeAndController authorForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.authorForm = authorForm;
-			addBorder(authorForm);
-			refreshFormsPanes();
-		}
+	public void setAuthorForm(@NonNull NodeAndController<EntityFormController> authorForm) {
+		this.authorForm = authorForm;
+		addBorder(authorForm);
+		refreshFormsPanes();
 	}
-	public void setTitleForm(@NonNull NodeAndController titleForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.titleForm = titleForm;
-			addBorder(titleForm);
-			refreshFormsPanes();
-		}
+	public void setTitleForm(@NonNull NodeAndController<EntityFormController> titleForm) {
+		this.titleForm = titleForm;
+		addBorder(titleForm);
+		refreshFormsPanes();
 	}
-	public void setEditionForm(@NonNull NodeAndController editionForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.editionForm = editionForm;
-			addBorder(editionForm);
-			refreshFormsPanes();
-		}
+	public void setEditionForm(@NonNull NodeAndController<EntityFormController> editionForm) {
+		this.editionForm = editionForm;
+		addBorder(editionForm);
+		refreshFormsPanes();
 	}
-	public void setBookForm(@NonNull NodeAndController bookForm) {
-		if (authorForm.getController() instanceof EntityFormController) {
-			this.bookForm = bookForm;
-			addBorder(bookForm);
-			refreshFormsPanes();
-		}
+	public void setBookForm(@NonNull NodeAndController<EntityFormController> bookForm) {
+		this.bookForm = bookForm;
+		addBorder(bookForm);
+		refreshFormsPanes();
 	}
 	
-	private void addBorder(NodeAndController form) {
+	private void addBorder(NodeAndController<EntityFormController> form) {
 		getFieldPane(form).setStyle("-fx-border-color: #000;");
 	}
 	
-	private NodeAndController[] getAllForms() {
-		return new NodeAndController[] {
+	private List<NodeAndController<EntityFormController>> getAllForms() {
+		return Arrays.asList(
 				authorForm,
 				titleForm,
 				editionForm,
 				bookForm
-		};
+		);
 	}
 	private boolean[] getAllFormsVisibility() {
 		return new boolean[] {
@@ -251,26 +245,24 @@ public class NewBookController implements Initializable {
 	
 	private void refreshFormsPanes() {
 		Pane fieldPane;
-		NodeAndController[] forms = getAllForms();
+		List<NodeAndController<EntityFormController>> forms = getAllForms();
 		boolean[] formsVisibility = getAllFormsVisibility();
 		
 		formPane.getChildren().clear();
 		
-		for (int i=0; i<forms.length; i++) {
-			if (!formsVisibility[i]) continue;
-			if (forms[i] == null)    continue;
+		for (int i=0; i<forms.size(); i++) {
+			if (!formsVisibility[i])  continue;
+			if (forms.get(i) == null) continue;
 			
-			fieldPane = getFieldPane(forms[i]);
-			if (fieldPane == null)   continue;
+			fieldPane = getFieldPane(forms.get(i));
+			if (fieldPane == null)    continue;
 			
 			formPane.getChildren().add(fieldPane);
 		}
 	}
 	
-	private Pane getFieldPane(NodeAndController nac) {
-		if (!(nac.getController() instanceof EntityFormController)) return null;
-
-		return ((EntityFormController)nac.getController()).getFieldsPane();
+	private Pane getFieldPane(NodeAndController<EntityFormController> nac) {
+		return nac.getController().getFieldsPane();
 	}
 	
 	
@@ -317,9 +309,9 @@ public class NewBookController implements Initializable {
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		NodeAndController nac = fxmlLoader.create("view2/" + "ResultItem.fxml");
+		NodeAndController<ResultItemController> nac = fxmlLoader.create("view2/" + "ResultItem.fxml");
 		
-		ResultItemController controller = (ResultItemController) nac.getController();
+		ResultItemController controller = nac.getController();
 		controller.setContent(ent);
 		controller.setOnClick(() -> {
 			selectedExistingEnt = controller.getContent();
@@ -327,7 +319,7 @@ public class NewBookController implements Initializable {
 			showStep(Steps.FILL_FORMS);
 		});
 			
-		return (Pane) nac.getNode();
+		return nac.getPane();
 	}
 	
 	private void setAuthorDetails(Author author) {
@@ -357,7 +349,7 @@ public class NewBookController implements Initializable {
 	private void hideAllForms() {
 		Pane pane;
 		
-		for(NodeAndController form : getAllForms()) {
+		for(NodeAndController<EntityFormController> form : getAllForms()) {
 			if (form == null) continue;
 			
 			pane = getFieldPane(form);
@@ -368,13 +360,10 @@ public class NewBookController implements Initializable {
 	}
 
 	private void showAllForms() {
-		NodeAndController[] forms = getAllForms();		
-
-		for (NodeAndController form : forms)
-			showForm(form);
+		getAllForms().forEach(this::showForm);
 	}
 
-	private void showForm(NodeAndController form) {
+	private void showForm(NodeAndController<EntityFormController> form) {
 		if (form == null) return;
 		
 		Pane pane = getFieldPane(form);
@@ -384,11 +373,10 @@ public class NewBookController implements Initializable {
 	}
 
 	private void enableAllForms(boolean enable) {
-		for (NodeAndController form : getAllForms())
-			enableForm(form, enable);
+		getAllForms().forEach(form -> enableForm(form, enable));
 	}
 	
-	private void enableForm(NodeAndController form, boolean enable) {
+	private void enableForm(NodeAndController<EntityFormController> form, boolean enable) {
 		if (form == null) return;
 		
 		Pane pane = getFieldPane(form);
@@ -399,7 +387,7 @@ public class NewBookController implements Initializable {
 	
 	private void clearAllForms() {
 
-		for(NodeAndController form : getAllForms()) {
+		for(NodeAndController<EntityFormController> form : getAllForms()) {
 			if(form == null) continue;
 				
 			EntityFormController controller = (EntityFormController)form.getController();
@@ -429,27 +417,27 @@ public class NewBookController implements Initializable {
 	}
 
 	private void addEditionToBook(Edition edition) {
-		Initializable ctrl = getController(bookForm);
+		Initializable ctrl = (Initializable) getController(bookForm);
 		if (!(ctrl instanceof NewBookPaneController)) return;
 		
 		((NewBookPaneController) ctrl).setEdition(edition);
 	}
 
 	private void addTitleToEdition(Title title) {
-		Initializable ctrl = getController(editionForm);
+		Initializable ctrl = (Initializable) getController(editionForm);
 		if (!(ctrl instanceof NewEditionPaneController)) return;
 		
 		((NewEditionPaneController) ctrl).setTitle(title);
 	}
 
 	private void addAuthorToTitle(Author author) {
-		Initializable ctrl = getController(titleForm);
+		Initializable ctrl = (Initializable) getController(titleForm);
 		if (!(ctrl instanceof NewTitlePaneController)) return;
 
 		((NewTitlePaneController) ctrl).setAuthor(author);
 	}
 	
-	private Initializable getController(NodeAndController nac) {
+	private <T> T getController(NodeAndController<T> nac) {
 		return (nac == null) ? null : nac.getController();
 	}
 	
@@ -469,11 +457,7 @@ public class NewBookController implements Initializable {
 		return (Book) saveForm(bookForm);
 	}
 
-	private Ent saveForm(NodeAndController form) {
-		Initializable ctrl = getController(form);
-		
-		if (!(ctrl instanceof EntityFormController)) return null;
-		
-		return ((EntityFormController) ctrl).save();
+	private Ent saveForm(NodeAndController<EntityFormController> form) {
+		return getController(form).save();
 	}
 }

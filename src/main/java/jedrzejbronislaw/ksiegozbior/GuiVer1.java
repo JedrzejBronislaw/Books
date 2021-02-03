@@ -1,12 +1,15 @@
 package jedrzejbronislaw.ksiegozbior;
 
+import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.LIST;
+import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.NONE;
+import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.TREE;
+
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -26,11 +29,12 @@ import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TreePreviewControll
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
+import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
+import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
 import jedrzejbronislaw.ksiegozbior.view.PanePlusControl;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
-import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.*;
 
 @Component
 public class GuiVer1 extends Gui {
@@ -69,6 +73,8 @@ public class GuiVer1 extends Gui {
 	@Autowired BookCollectionListPreviewController       bookCollectionListPreviewController;
 	@Autowired EditionCollectionListPreviewController editionCollectionListPreviewController;
 	@Autowired TitleCollectionListPreviewController     titleCollectionListPreviewController;
+
+	@Autowired private MyFXMLLoader fxmlLoader;
 	
 	
 	@Override
@@ -76,11 +82,11 @@ public class GuiVer1 extends Gui {
 		MainViewController controller;
     	Parent node;
     	View view;
-    	FXMLLoader fxmlLoader = getFXMLLoader(FIRST_VERSION_FXML_DIR + MAIN_VIEW_FXML_FILE);
-
-    	node = fxmlLoader.load();
-		node.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
-    	controller = fxmlLoader.getController();
+    	NodeAndController<MainViewController> nac = fxmlLoader.create(fxmlPath(MAIN_VIEW_FXML_FILE));
+    	
+    	node = nac.getParent();
+    	addCSS(node);
+    	controller = nac.getController();
     	
     	controller.setChangeGUILanguage(language -> Injection.run(changeGUILanguage, language));
     	controller.setLanguageMenu(Internationalization.getCurrentLanguage(), Languages.values());
@@ -95,7 +101,7 @@ public class GuiVer1 extends Gui {
 
     	return node;
 	}
-
+	
     private View createView(Pane addPane, Pane viewPane, Pane previewPane, Label header) throws IOException {
     	
 		View view = new View(addPane, viewPane, previewPane, header);
@@ -105,11 +111,11 @@ public class GuiVer1 extends Gui {
     	
     	
     	for (int i=0; i<FXML_PATHS.length; i++) {
-    		FXMLLoader fxmlLoader = new FXMLLoader();
-    		panes[i] = loadPane(fxmlLoader, FXML_PATHS[i]);
-    		
-    		if (i == 11) listPreviewController = fxmlLoader.getController();
-    		if (i == 12) treePreviewController = fxmlLoader.getController();
+			NodeAndController<Initializable> nac = fxmlLoader.create(fxmlPath(i));
+			panes[i] = (Pane)nac.getNode();
+
+			if (i == 11) listPreviewController = (ListPreviewController) nac.getController();
+			if (i == 12) treePreviewController = (TreePreviewController) nac.getController();
     	}
     	
     	view.addMultiEntityView(LIST, new PanePlusControl(panes[11], listPreviewController));
@@ -120,15 +126,12 @@ public class GuiVer1 extends Gui {
     	return view;
     }
 
-	private Pane loadPane(FXMLLoader fxmlLoader, String fxmlFile) throws IOException {
-		fxmlLoader.setResources(ResourceBundle.getBundle(LANG_RESOURCE_LOCATION));
-		fxmlLoader.setControllerFactory(context::getBean);
-		fxmlLoader.setLocation(getClass().getResource(FXML_DIR + FIRST_VERSION_FXML_DIR + fxmlFile));
-		
-		Pane pane = fxmlLoader.load();
-		pane.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
-		
-		return pane;
+	private String fxmlPath(String fxmlFileName) {
+		return FXML_DIR + FIRST_VERSION_FXML_DIR + fxmlFileName;
+	}
+
+	private String fxmlPath(int i) {
+		return fxmlPath(FXML_PATHS[i]);
 	}
 
 	private void addPanes(View view, Pane[] panes) {

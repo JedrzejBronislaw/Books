@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.controllers2.BookDetailsController;
@@ -38,11 +37,11 @@ public class GuiVer2 extends Gui {
 	}
 
 	protected Parent buildRootNode() throws IOException {
-		FXMLLoader fxmlLoader = getFXMLLoader("../" + NEW_FXML_DIR + NEW_MAIN_VIEW_FXML_FILE);
-		Parent rootNode = fxmlLoader.load();
-		controller = fxmlLoader.getController();
+		NodeAndController<MainView2Controller> nac = fxmlLoader.create(NEW_FXML_DIR + NEW_MAIN_VIEW_FXML_FILE);
+		Parent rootNode = nac.getParent();
+		controller = nac.getController();
 
-		rootNode.getStylesheets().add(getClass().getResource(CSS_LOCATION).toExternalForm());
+		addCSS(rootNode);
 
 		SearchController searcher =  buildSearcher(controller.getSearchResultPane());
 		controller.setSearchAction(searcher::newSearchPhrase);
@@ -58,18 +57,18 @@ public class GuiVer2 extends Gui {
 	}
 
 	private Pane buildSignUpPane() throws IOException {
-		return (Pane) fxmlLoader.create(NEW_FXML_DIR + "newUser.fxml").getNode();
+		return fxmlLoader.create(fxmlPath("newUser.fxml")).getPane();
 	}
 
 	private Pane buildLogInPane() throws IOException {
-		return (Pane) fxmlLoader.create(NEW_FXML_DIR + "loginPanel.fxml").getNode();
+		return fxmlLoader.create(fxmlPath("loginPanel.fxml")).getPane();
 	}
 
 	private Pane buildBookDetailsPane() throws IOException {
 		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + "entitypreviews/";
-		
-		NodeAndController bookDetailsNAC = fxmlLoader.create(NEW_FXML_DIR + "BookDetails.fxml");
-		BookDetailsController controller = (BookDetailsController) bookDetailsNAC.getController();
+
+		NodeAndController<BookDetailsController> bookDetailsNAC = fxmlLoader.create(fxmlPath("BookDetails.fxml"));
+		BookDetailsController controller = bookDetailsNAC.getController();
 		
 		controller.setAuthorPreview( fxmlLoader.create(dir + "AuthorPreview.fxml"));
 		controller.setTitlePreview(  fxmlLoader.create(dir + "TitlePreview.fxml"));
@@ -78,13 +77,13 @@ public class GuiVer2 extends Gui {
 		
 		bookDetailsController = controller;
 		
-		return (Pane) bookDetailsNAC.getNode();
+		return bookDetailsNAC.getPane();
 	}
 
 
 	private Pane buildNewBookPane() throws IOException {
-		NodeAndController newBookNAC = fxmlLoader.create(NEW_FXML_DIR + "NewBook.fxml");
-		NewBookController nbController = (NewBookController) newBookNAC.getController();
+		NodeAndController<NewBookController> newBookNAC = fxmlLoader.create(fxmlPath("NewBook.fxml"));
+		NewBookController nbController = newBookNAC.getController();
 
 		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR;
 		nbController.setAuthorForm( fxmlLoader.create(dir + "newAuthorPane.fxml"));
@@ -92,7 +91,7 @@ public class GuiVer2 extends Gui {
 		nbController.setEditionForm(fxmlLoader.create(dir + "newEditionPane.fxml"));
 		nbController.setBookForm(   fxmlLoader.create(dir + "newBookPane.fxml"));
 
-		return (Pane) newBookNAC.getNode();
+		return newBookNAC.getPane();
 	}
 
 
@@ -113,20 +112,24 @@ public class GuiVer2 extends Gui {
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		NodeAndController nac = fxmlLoader.create(NEW_FXML_DIR + "ResultItem.fxml");
+		NodeAndController<ResultItemController> nac = fxmlLoader.create(fxmlPath("ResultItem.fxml"));
 		
-		ResultItemController controller = (ResultItemController) nac.getController();
+		ResultItemController controller = nac.getController();
 		controller.setContent(ent);
 		controller.setOnClick(() -> {
 			if(ent instanceof Book)
 				showBookDetails((Book) ent);
 		});
 		
-		return (Pane) nac.getNode();
+		return nac.getPane();
 	}
 
 	private void showBookDetails(Book book) {
 		bookDetailsController.set(book);
 		controller.showBookDetailsPane();
+	}
+
+	private String fxmlPath(String fxmlName) {
+		return NEW_FXML_DIR + fxmlName;
 	}
 }

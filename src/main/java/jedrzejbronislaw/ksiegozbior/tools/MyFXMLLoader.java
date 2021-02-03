@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.tools;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.BeansException;
@@ -9,39 +10,52 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
+import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Component
-public class MyFXMLLoader implements ApplicationContextAware{
+public class MyFXMLLoader implements ApplicationContextAware {
 
+	private final static String MAIN_DIR = "/jedrzejbronislaw/ksiegozbior";
+	private final static String lang = Internationalization.RESOURCE_LOCATION;
+	
 	@RequiredArgsConstructor
-	public class NodeAndController{
-
-		@NonNull
-		@Getter
-		private Node node;
-
-		@NonNull
-		@Getter
-		private Initializable controller;
+	public static class NodeAndController<T>{
+		@NonNull @Getter private Node node;
+		@NonNull @Getter private T controller;
+		
+		public Parent getParent() {
+			return (Parent) node;
+		}
+		
+		public Pane getPane() {
+			return (Pane) node;
+		}
 	}
-
-	private static final String langResourceLocation = "jedrzejbronislaw.ksiegozbior.lang.Labels";
-	private static final String mainDir = "/jedrzejbronislaw/ksiegozbior/";
 	
 	private ApplicationContext context;
 	
-	public NodeAndController create(String fxmlFilePath) {
+	
+	private static String path(String resource) {
+		return MAIN_DIR + "/"  + resource;
+	}
+
+	private URL url(String resource) {
+		return getClass().getResource(path(resource));
+	}
+	
+	public <T> NodeAndController<T> create(String fxmlFilePath) {
 		FXMLLoader fxmlLoader = new FXMLLoader();
-		
-    	fxmlLoader.setControllerFactory(context::getBean);
-    	fxmlLoader.setLocation(getClass().getResource(mainDir + fxmlFilePath));
-    	fxmlLoader.setResources(ResourceBundle.getBundle(langResourceLocation));
-   	
+
+		fxmlLoader.setControllerFactory(context::getBean);
+		fxmlLoader.setLocation(url(fxmlFilePath));
+		fxmlLoader.setResources(ResourceBundle.getBundle(lang));
+
     	Node node;
 		try {
 			node = fxmlLoader.load();
@@ -50,8 +64,26 @@ public class MyFXMLLoader implements ApplicationContextAware{
 			return null;
 		}
     	
+		return new NodeAndController<T>(node, fxmlLoader.getController());
+	}
+	
+	public static boolean create(String fxmlFilePath, Node node) {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+
+    	fxmlLoader.setLocation(node.getClass().getResource(path(fxmlFilePath)));
+		fxmlLoader.setResources(ResourceBundle.getBundle(lang));
 		
-		return new NodeAndController(node, fxmlLoader.getController());
+		fxmlLoader.setRoot(node);
+		fxmlLoader.setController(node);
+		
+		try {
+			fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
