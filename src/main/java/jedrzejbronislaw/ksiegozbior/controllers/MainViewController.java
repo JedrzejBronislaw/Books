@@ -41,69 +41,62 @@ public class MainViewController implements Initializable {
 	
 	
 	@FXML
-	private void showWelcomeView(){//TODO
-		if(view != null)
-			view.setView(Views.AUTHORS);
+	private void showWelcomeView() {//TODO
+		showView(Views.AUTHORS);
 	}
 
 	@FXML
-	private void showAuthors(){
-		if(view != null)
-			view.setView(Views.AUTHORS);
+	private void showAuthors() {
+		showView(Views.AUTHORS);
 	}
 
 	@FXML
-	private void showTitles(){
-		if(view != null)
-			view.setView(Views.TITLES);
+	private void showTitles() {
+		showView(Views.TITLES);
 	}
 
 	@FXML
-	private void showBooks(){
-		if(view != null)
-			view.setView(Views.BOOKS);
+	private void showBooks() {
+		showView(Views.BOOKS);
 	}
 
 	@FXML
-	private void showEditions(){
-		if(view != null)
-			view.setView(Views.EDITIONS);
+	private void showEditions() {
+		showView(Views.EDITIONS);
 	}
 
 	@FXML
-	private void showBookCollections(){
-		if(view != null) 
-			view.setView(Views.BOOK_COLLECTIONS);
+	private void showBookCollections() {
+		showView(Views.BOOK_COLLECTIONS);
 	}
 
 	@FXML
-	private void showTitleCollections(){
-		if(view != null)
-			view.setView(Views.TITLE_COLLECTIONS);
+	private void showTitleCollections() {
+		showView(Views.TITLE_COLLECTIONS);
 	}
 
 	@FXML
-	private void showEditionCollections(){
-		if(view != null)
-			view.setView(Views.EDITION_COLLECTIONS);
+	private void showEditionCollections() {
+		showView(Views.EDITION_COLLECTIONS);
 	}
 
 	@FXML
-	private void showLanguages(){
-		if(view != null)
-			view.setView(Views.LANGUAGES);
+	private void showLanguages() {
+		showView(Views.LANGUAGES);
 	}
 
 	@FXML
-	private void showLocations(){
-		if(view != null)
-			view.setView(Views.LOCATIONS);
+	private void showLocations() {
+		showView(Views.LOCATIONS);
 	}
 
 	@FXML
-	private void showPublishingHouses(){
-		if(view != null)
-			view.setView(Views.PUBLISHING_HOUSES);
+	private void showPublishingHouses() {
+		showView(Views.PUBLISHING_HOUSES);
+	}
+
+	private void showView(Views viewType) {
+		if(view != null) view.setView(viewType);
 	}
 
 	public void setLanguageMenu(Languages current, Languages...languages) {
