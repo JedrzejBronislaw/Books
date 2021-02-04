@@ -62,6 +62,26 @@ public class GuiVer1 extends Gui {
 		Class<? extends Pane> c;
 	}
 	
+	@Autowired private NewAuthorPaneController            newAuthor;
+	@Autowired private NewTitlePaneController             newTitle;
+	@Autowired private NewBookPaneController              newBook;
+	@Autowired private NewEditionPaneController           newEdition;
+	@Autowired private NewPublishingHousePaneController   newPublishingHouse;
+	@Autowired private NewLanguagePaneController          newLanguage;
+	@Autowired private NewLocationPaneController          newLocation;
+	@Autowired private NewBookCollectionPaneController    newBookCollection;
+	@Autowired private NewEditionCollectionPaneController newEditionCollection;
+	@Autowired private NewTitleCollectionPaneController   newTitleCollection;
+
+	@Autowired private BookPreviewController             bookPreview;
+	@Autowired private EditionPreviewController       editionPreview;
+	@Autowired private AuthorPreviewController         authorPreview;
+	@Autowired private TitlePreviewController           titlePreview;
+	@Autowired private PublisherPreviewController   publisherPreview;
+	@Autowired private CollectionPreviewController collectionPreview;
+	@Autowired private LocationPreviewController     locationPreview;
+	@Autowired private LanguagePreviewController     languagePreview;
+	
 	private static final PathAndClass[] FXMLS = {
 			new PathAndClass("NewAuthorPane.fxml",                        NewAuthorPaneController.class),
 			new PathAndClass("NewTitlePane.fxml",                          NewTitlePaneController.class),
@@ -125,43 +145,36 @@ public class GuiVer1 extends Gui {
 	
     private View createView(Pane addPane, Pane viewPane, Pane previewPane, Label header) throws IOException {
 		View view = new View(addPane, viewPane, previewPane, header);
-		Pane[] panes = loadFxmls();
+		loadFxmls();
 
-		view.addMultiEntityView(LIST, new PanePlusControl(panes[11], listPreview));
-		view.addMultiEntityView(TREE, new PanePlusControl(panes[12], treePreview));
+		view.addMultiEntityView(LIST, new PanePlusControl(listPreview, listPreview));
+		view.addMultiEntityView(TREE, new PanePlusControl(treePreview, treePreview));
 
-		addPanes(view, panes);
+		addPanes(view);
 
 		return view;
     }
 
-	private Pane[] loadFxmls() {
-		Pane[] panes = new Pane[FXMLS.length];
-		
-		for (int i=0; i<FXMLS.length; i++) {
-			Pane pane  = context.getBean(FXMLS[i].c);
-			MyFXMLLoader.create(fxmlPath(FXMLS[i].path), pane);
-			panes[i] = pane;
-		}
-		
-		return panes;
+	private void loadFxmls() {
+		for (PathAndClass fxml : FXMLS)
+			MyFXMLLoader.create(fxmlPath(fxml.path), context.getBean(fxml.c));
 	}
 
 	private String fxmlPath(String fxmlFileName) {
 		return FXML_DIR + FIRST_VERSION_FXML_DIR + fxmlFileName;
 	}
 
-	private void addPanes(View view, Pane[] panes) {
-		view.addPanes(Views.AUTHORS,             new PaneSet(panes[0], panes[14], LIST, authorListPreviewController));
-		view.addPanes(Views.TITLES,              new PaneSet(panes[1], panes[15], LIST, titleListPreviewController));
-		view.addPanes(Views.BOOKS,               new PaneSet(panes[2], panes[10], LIST, bookListPreviewController));
-		view.addPanes(Views.EDITIONS,            new PaneSet(panes[3], panes[13], LIST, editionListPreviewController));
-		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(panes[4], panes[16], LIST, publishingHouseListPreviewController));
-		view.addPanes(Views.LANGUAGES,           new PaneSet(panes[5], panes[19], LIST, languageListPreviewController));
-		view.addPanes(Views.LOCATIONS,           new PaneSet(panes[6], panes[18], TREE, locationListPreviewController));
-		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(panes[7], panes[17], TREE, bookCollectionListPreviewController));
-		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(panes[8], panes[17], TREE, editionCollectionListPreviewController));
-		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(panes[9], panes[17], TREE, titleCollectionListPreviewController));
+	private void addPanes(View view) {
+		view.addPanes(Views.AUTHORS,             new PaneSet(newAuthor,                authorPreview, LIST,            authorListPreviewController));
+		view.addPanes(Views.TITLES,              new PaneSet(newTitle,                  titlePreview, LIST,             titleListPreviewController));
+		view.addPanes(Views.BOOKS,               new PaneSet(newBook,                    bookPreview, LIST,              bookListPreviewController));
+		view.addPanes(Views.EDITIONS,            new PaneSet(newEdition,              editionPreview, LIST,           editionListPreviewController));
+		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(newPublishingHouse,    publisherPreview, LIST,   publishingHouseListPreviewController));
+		view.addPanes(Views.LANGUAGES,           new PaneSet(newLanguage,            languagePreview, LIST,          languageListPreviewController));
+		view.addPanes(Views.LOCATIONS,           new PaneSet(newLocation,            locationPreview, TREE,          locationListPreviewController));
+		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(newBookCollection,    collectionPreview, TREE,    bookCollectionListPreviewController));
+		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(newEditionCollection, collectionPreview, TREE, editionCollectionListPreviewController));
+		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(newTitleCollection,   collectionPreview, TREE,   titleCollectionListPreviewController));
 		
 		view.addPanes(Views.WELCOME,             new PaneSet(
 													new Pane(new Label("Welcome")),
