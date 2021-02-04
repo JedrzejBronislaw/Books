@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
@@ -20,7 +21,6 @@ import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
-import lombok.Getter;
 import lombok.Setter;
 
 @Component
@@ -30,15 +30,15 @@ public class MainViewController extends VBox implements Initializable {
 	
 	@FXML private Label label1;
 	
-	@FXML @Getter private AnchorPane mainPane;
-	@FXML @Getter private Pane formBox; 
-	@FXML @Getter private AnchorPane sPane; 
-	@FXML @Getter private AnchorPane previewPane; 
-	@FXML @Getter private Label header1;
+	@FXML private AnchorPane mainPane;
+	@FXML private Pane formBox;
+	@FXML private AnchorPane sPane;
+	@FXML private AnchorPane previewPane;
+	@FXML private Label header1;
 	
 	@FXML private Menu languageMenu;
 	
-	@Setter private View view;
+	@Autowired private View view;
 	
 	
 	@FXML
@@ -122,6 +122,11 @@ public class MainViewController extends VBox implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		view.setAddPane(sPane);
+		view.setListPane(mainPane);
+		view.setPreviewPane(previewPane);
+		view.setHeader(header1);
+		
 		languageMenu.getItems().clear();
 	}
 }

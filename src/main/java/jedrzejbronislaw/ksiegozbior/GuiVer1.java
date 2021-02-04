@@ -121,6 +121,8 @@ public class GuiVer1 extends Gui {
 	@Autowired private EditionCollectionListPreviewController editionCollectionListPreviewController;
 	@Autowired private TitleCollectionListPreviewController     titleCollectionListPreviewController;
 
+	@Autowired private View view;
+	
 
 	@Override
 	protected Parent buildRootNode() throws IOException {
@@ -131,27 +133,18 @@ public class GuiVer1 extends Gui {
 		mainView.setChangeGUILanguage(language -> Injection.run(changeGUILanguage, language));
 		mainView.setLanguageMenu(Internationalization.getCurrentLanguage(), Languages.values());
 		
-		View view = createView(
-				mainView.getSPane(),
-				mainView.getMainPane(),
-				mainView.getPreviewPane(),
-				mainView.getHeader1()
-				);
-		mainView.setView(view);
+		buildView();
 		
 		return mainView;
 	}
 	
-    private View createView(Pane addPane, Pane viewPane, Pane previewPane, Label header) throws IOException {
-		View view = new View(addPane, viewPane, previewPane, header);
+    private void buildView() throws IOException {
 		loadFxmls();
 
 		view.addMultiEntityView(LIST, listPreview);
 		view.addMultiEntityView(TREE, treePreview);
 
-		addPanes(view);
-
-		return view;
+		addPanes();
     }
 
 	private void loadFxmls() {
@@ -163,7 +156,7 @@ public class GuiVer1 extends Gui {
 		return FXML_DIR + FIRST_VERSION_FXML_DIR + fxmlFileName;
 	}
 
-	private void addPanes(View view) {
+	private void addPanes() {
 		view.addPanes(Views.AUTHORS,             new PaneSet(newAuthor,                authorPreview, LIST,            authorListPreviewController));
 		view.addPanes(Views.TITLES,              new PaneSet(newTitle,                  titlePreview, LIST,             titleListPreviewController));
 		view.addPanes(Views.BOOKS,               new PaneSet(newBook,                    bookPreview, LIST,              bookListPreviewController));
