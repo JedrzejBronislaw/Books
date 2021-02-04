@@ -35,7 +35,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewEditionPaneController implements Initializable, EntityFormController {
+public class NewEditionPaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private Edition_TitleRepository edition_TitleRepository;

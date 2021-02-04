@@ -13,13 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewBookCollectionPaneController implements Initializable, EntityFormController {
+public class NewBookCollectionPaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private BookCollectionRepository bookCollectionRepository;
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
@@ -18,7 +19,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitleCollection;
 
 @Component
-public class CollectionPreviewController implements Initializable {
+public class CollectionPreviewController extends VBox implements Initializable {
 
 	@Autowired private TheBookCollection    theBookCollection;
 	@Autowired private TheEditionCollection theEditionCollection;

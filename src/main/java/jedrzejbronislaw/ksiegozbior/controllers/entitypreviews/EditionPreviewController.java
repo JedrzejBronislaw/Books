@@ -9,11 +9,12 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 
 @Component
-public class EditionPreviewController implements Initializable {
+public class EditionPreviewController extends VBox implements Initializable {
 	
 	@Autowired private TheEdition theEdition;
 	

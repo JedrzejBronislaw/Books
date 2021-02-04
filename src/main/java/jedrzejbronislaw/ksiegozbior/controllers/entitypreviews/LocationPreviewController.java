@@ -10,11 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLocation;
 
 @Component
-public class LocationPreviewController implements Initializable {
+public class LocationPreviewController extends VBox implements Initializable {
 
 	@Autowired private TheLocation theLocation;
 	

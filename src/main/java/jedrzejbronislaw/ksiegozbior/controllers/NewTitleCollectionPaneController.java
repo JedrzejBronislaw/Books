@@ -13,13 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewTitleCollectionPaneController implements Initializable, EntityFormController {
+public class NewTitleCollectionPaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private TitleCollectionRepository titleCollectionRepository;
 

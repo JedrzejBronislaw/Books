@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Authorship;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
@@ -29,7 +30,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewTitlePaneController implements Initializable, EntityFormController {
+public class NewTitlePaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private AuthorRepository authorsRepository;

@@ -10,11 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
 
 @Component
-public class TitlePreviewController implements Initializable {
+public class TitlePreviewController extends VBox implements Initializable {
 	
 	@Autowired private TheTitle theTitle;
 	

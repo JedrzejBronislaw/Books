@@ -10,11 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheAuthor;
 
 @Component
-public class AuthorPreviewController implements Initializable {
+public class AuthorPreviewController extends VBox implements Initializable {
 	
 	@Autowired private TheAuthor theAuthor;
 	

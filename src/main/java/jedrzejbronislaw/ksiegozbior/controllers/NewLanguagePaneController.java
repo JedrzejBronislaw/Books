@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import lombok.Getter;
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewLanguagePaneController implements Initializable, EntityFormController {
+public class NewLanguagePaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private LanguageRepository languageRepository;
 

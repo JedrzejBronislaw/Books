@@ -9,11 +9,28 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.controllers.MainViewController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewAuthorPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewBookCollectionPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewBookPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewEditionCollectionPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewEditionPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewLanguagePaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewLocationPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewPublishingHousePaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewTitleCollectionPaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.NewTitlePaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.CollectionPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.EditionPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LanguagePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.PublisherPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.AuthorListPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.BookCollectionListPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.BookListPreviewController;
@@ -30,108 +47,108 @@ import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
-import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
 import jedrzejbronislaw.ksiegozbior.view.PanePlusControl;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
+import lombok.AllArgsConstructor;
 
 @Component
 public class GuiVer1 extends Gui {
 	
-	private static final String[] FXML_PATHS = {
-			"NewAuthorPane.fxml",
-			"NewTitlePane.fxml",
-			"NewBookPane.fxml",
-			"NewEditionPane.fxml",
-			"NewPublishingHousePane.fxml",
-			"NewLanguagePane.fxml",
-			"NewLocationPane.fxml",
-			"NewBookCollectionPane.fxml",
-			"NewEditionCollectionPane.fxml",
-			"NewTitleCollectionPane.fxml",
+	@AllArgsConstructor
+	static class PathAndClass {
+		String path;
+		Class<? extends Pane> c;
+	}
+	
+	private static final PathAndClass[] FXMLS = {
+			new PathAndClass("NewAuthorPane.fxml",                        NewAuthorPaneController.class),
+			new PathAndClass("NewTitlePane.fxml",                          NewTitlePaneController.class),
+			new PathAndClass("NewBookPane.fxml",                            NewBookPaneController.class),
+			new PathAndClass("NewEditionPane.fxml",                      NewEditionPaneController.class),
+			new PathAndClass("NewPublishingHousePane.fxml",      NewPublishingHousePaneController.class),
+			new PathAndClass("NewLanguagePane.fxml",                    NewLanguagePaneController.class),
+			new PathAndClass("NewLocationPane.fxml",                    NewLocationPaneController.class),
+			new PathAndClass("NewBookCollectionPane.fxml",        NewBookCollectionPaneController.class),
+			new PathAndClass("NewEditionCollectionPane.fxml",  NewEditionCollectionPaneController.class),
+			new PathAndClass("NewTitleCollectionPane.fxml",      NewTitleCollectionPaneController.class),
 			
-			"entitypreviews/BookPreview.fxml",
-			"listpreviews/ListPreview.fxml",
-			"listpreviews/TreePreview.fxml",
-			"entitypreviews/EditionPreview.fxml",
-			"entitypreviews/AuthorPreview.fxml",
-			"entitypreviews/TitlePreview.fxml",
-			"entitypreviews/PublisherPreview.fxml",
-			"entitypreviews/CollectionPreview.fxml",
-			"entitypreviews/LocationPreview.fxml",
-			"entitypreviews/LanguagePreview.fxml"
+			new PathAndClass("entitypreviews/BookPreview.fxml",             BookPreviewController.class),
+			new PathAndClass("listpreviews/ListPreview.fxml",               ListPreviewController.class),
+			new PathAndClass("listpreviews/TreePreview.fxml",               TreePreviewController.class),
+			new PathAndClass("entitypreviews/EditionPreview.fxml",       EditionPreviewController.class),
+			new PathAndClass("entitypreviews/AuthorPreview.fxml",         AuthorPreviewController.class),
+			new PathAndClass("entitypreviews/TitlePreview.fxml",           TitlePreviewController.class),
+			new PathAndClass("entitypreviews/PublisherPreview.fxml",   PublisherPreviewController.class),
+			new PathAndClass("entitypreviews/CollectionPreview.fxml", CollectionPreviewController.class),
+			new PathAndClass("entitypreviews/LocationPreview.fxml",     LocationPreviewController.class),
+			new PathAndClass("entitypreviews/LanguagePreview.fxml",     LanguagePreviewController.class)
 	};
-	
-	@Autowired AuthorListPreviewController                       authorListPreviewController;
-	@Autowired TitleListPreviewController                         titleListPreviewController;
-	@Autowired BookListPreviewController                           bookListPreviewController;
-	@Autowired EditionListPreviewController                     editionListPreviewController;
-	@Autowired PublishingHouseListPreviewController     publishingHouseListPreviewController;
-	@Autowired LanguageListPreviewController                   languageListPreviewController;
-	@Autowired LocationListPreviewController                   locationListPreviewController;
-	@Autowired BookCollectionListPreviewController       bookCollectionListPreviewController;
-	@Autowired EditionCollectionListPreviewController editionCollectionListPreviewController;
-	@Autowired TitleCollectionListPreviewController     titleCollectionListPreviewController;
 
-	@Autowired private MyFXMLLoader fxmlLoader;
+	@Autowired private MainViewController mainView;
 	
+	@Autowired private ListPreviewController listPreview;
+	@Autowired private TreePreviewController treePreview;
 	
+	@Autowired private AuthorListPreviewController                       authorListPreviewController;
+	@Autowired private TitleListPreviewController                         titleListPreviewController;
+	@Autowired private BookListPreviewController                           bookListPreviewController;
+	@Autowired private EditionListPreviewController                     editionListPreviewController;
+	@Autowired private PublishingHouseListPreviewController     publishingHouseListPreviewController;
+	@Autowired private LanguageListPreviewController                   languageListPreviewController;
+	@Autowired private LocationListPreviewController                   locationListPreviewController;
+	@Autowired private BookCollectionListPreviewController       bookCollectionListPreviewController;
+	@Autowired private EditionCollectionListPreviewController editionCollectionListPreviewController;
+	@Autowired private TitleCollectionListPreviewController     titleCollectionListPreviewController;
+
+
 	@Override
 	protected Parent buildRootNode() throws IOException {
-		MainViewController controller;
-    	Parent node;
-    	View view;
-    	NodeAndController<MainViewController> nac = fxmlLoader.create(fxmlPath(MAIN_VIEW_FXML_FILE));
-    	
-    	node = nac.getParent();
-    	addCSS(node);
-    	controller = nac.getController();
-    	
-    	controller.setChangeGUILanguage(language -> Injection.run(changeGUILanguage, language));
-    	controller.setLanguageMenu(Internationalization.getCurrentLanguage(), Languages.values());
-    	
-    	view = createView(
-    			controller.getSPane(),
-    			controller.getMainPane(),
-    			controller.getPreviewPane(),
-    			controller.getHeader1()
-    	);
-    	controller.setView(view);
-
-    	return node;
+		MyFXMLLoader.create(fxmlPath(MAIN_VIEW_FXML_FILE), mainView);
+		
+		addCSS(mainView);
+		
+		mainView.setChangeGUILanguage(language -> Injection.run(changeGUILanguage, language));
+		mainView.setLanguageMenu(Internationalization.getCurrentLanguage(), Languages.values());
+		
+		View view = createView(
+				mainView.getSPane(),
+				mainView.getMainPane(),
+				mainView.getPreviewPane(),
+				mainView.getHeader1()
+				);
+		mainView.setView(view);
+		
+		return mainView;
 	}
 	
     private View createView(Pane addPane, Pane viewPane, Pane previewPane, Label header) throws IOException {
-    	
 		View view = new View(addPane, viewPane, previewPane, header);
-    	Pane[] panes = new Pane[FXML_PATHS.length];
-    	ListPreviewController listPreviewController = null;
-    	TreePreviewController treePreviewController = null;
-    	
-    	
-    	for (int i=0; i<FXML_PATHS.length; i++) {
-			NodeAndController<Initializable> nac = fxmlLoader.create(fxmlPath(i));
-			panes[i] = (Pane)nac.getNode();
+		Pane[] panes = loadFxmls();
 
-			if (i == 11) listPreviewController = (ListPreviewController) nac.getController();
-			if (i == 12) treePreviewController = (TreePreviewController) nac.getController();
-    	}
-    	
-    	view.addMultiEntityView(LIST, new PanePlusControl(panes[11], listPreviewController));
-    	view.addMultiEntityView(TREE, new PanePlusControl(panes[12], treePreviewController));
-    	
-    	addPanes(view, panes);
-    	
-    	return view;
+		view.addMultiEntityView(LIST, new PanePlusControl(panes[11], listPreview));
+		view.addMultiEntityView(TREE, new PanePlusControl(panes[12], treePreview));
+
+		addPanes(view, panes);
+
+		return view;
     }
+
+	private Pane[] loadFxmls() {
+		Pane[] panes = new Pane[FXMLS.length];
+		
+		for (int i=0; i<FXMLS.length; i++) {
+			Pane pane  = context.getBean(FXMLS[i].c);
+			MyFXMLLoader.create(fxmlPath(FXMLS[i].path), pane);
+			panes[i] = pane;
+		}
+		
+		return panes;
+	}
 
 	private String fxmlPath(String fxmlFileName) {
 		return FXML_DIR + FIRST_VERSION_FXML_DIR + fxmlFileName;
-	}
-
-	private String fxmlPath(int i) {
-		return fxmlPath(FXML_PATHS[i]);
 	}
 
 	private void addPanes(View view, Pane[] panes) {

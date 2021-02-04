@@ -29,7 +29,7 @@ import jedrzejbronislaw.ksiegozbior.view2.Views;
 import lombok.Setter;
 
 @Component
-public class MainView2Controller implements Initializable {
+public class MainView2Controller extends VBox implements Initializable {
 
 	@Autowired private Session session;
 	@Autowired private ViewController view;

@@ -5,10 +5,11 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import lombok.Setter;
 
-public abstract class MultiEntityViewController {
+public abstract class MultiEntityViewController extends VBox {
 	
 	@Setter
 	protected MultiEntityViewControllerStrategy strategy;

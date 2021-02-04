@@ -14,6 +14,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
@@ -23,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-public class MainViewController implements Initializable {
+public class MainViewController extends VBox implements Initializable {
 
 	@Setter private Consumer<Languages> changeGUILanguage;
 	

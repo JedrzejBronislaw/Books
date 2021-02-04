@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers2.BookDetailsController">
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="vbox" maxWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" />
    </children>
-</StackPane>
+</fx:root>

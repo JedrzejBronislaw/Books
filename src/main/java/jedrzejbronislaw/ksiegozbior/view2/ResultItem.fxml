@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="mainPane" minWidth="200.0" onMouseClicked="#paneClick" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" spacing="10.0" style="-fx-border-color: #000; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers2.ResultItemController">
+<fx:root fx:id="mainPane" minWidth="200.0" onMouseClicked="#paneClick" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" spacing="10.0" style="-fx-border-color: #000; -fx-border-width: 1;" type="HBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="90.0" fitWidth="80.0" onMouseClicked="#coverClick" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,4 +30,4 @@
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
-</HBox>
+</fx:root>

@@ -14,13 +14,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewLocationPaneController implements Initializable, EntityFormController {
+public class NewLocationPaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private LocationRepository locationRepository;
 

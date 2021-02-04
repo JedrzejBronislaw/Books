@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.CollectionPreviewController">
+<fx:root minHeight="-Infinity" minWidth="-Infinity" type="VBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TitledPane collapsible="false" text="%collection">
          <content>
@@ -39,4 +39,4 @@
         </content>
       </TitledPane>
    </children>
-</VBox>
+</fx:root>

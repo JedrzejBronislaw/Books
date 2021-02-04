@@ -34,7 +34,7 @@ import lombok.Setter;
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ResultItemController implements Initializable {
+public class ResultItemController extends HBox implements Initializable {
 
 	enum ContentType{EMPTY, BOOK, EDITION, TITLE, AUTHOR};
 	

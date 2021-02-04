@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Library;
@@ -23,7 +24,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.UserRepository;
 import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 
 @Component
-public class NewUserController implements Initializable {
+public class NewUserController extends StackPane implements Initializable {
 
 	@Autowired private UserRepository repository;
 	@Autowired private LibraryRepository libRepository;

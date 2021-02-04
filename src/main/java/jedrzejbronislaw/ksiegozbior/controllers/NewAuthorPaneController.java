@@ -1,5 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -15,15 +17,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import lombok.Getter;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
-
 @Component
-public class NewAuthorPaneController implements Initializable, EntityFormController {
+public class NewAuthorPaneController extends VBox implements Initializable, EntityFormController {
 
 	@Autowired private AuthorRepository autorRepository;
 

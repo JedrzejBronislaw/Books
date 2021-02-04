@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLanguage;
 
 @Component
-public class LanguagePreviewController implements Initializable {
+public class LanguagePreviewController extends VBox implements Initializable {
 
 	private final boolean lazy = true;
 	

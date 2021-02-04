@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.ksiegozbior.controllers2.NewBookController">
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="10.0" prefWidth="500.0">
          <children>
@@ -96,4 +96,4 @@
          </children>
       </VBox>
    </children>
-</StackPane>
+</fx:root>
