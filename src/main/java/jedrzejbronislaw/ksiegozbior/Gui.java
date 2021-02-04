@@ -26,6 +26,7 @@ public abstract class Gui implements ApplicationContextAware {
 	protected static final String     MAIN_VIEW_FXML_FILE = "mainView.fxml";
 
 	protected ApplicationContext context;
+	private Scene scene;
 	
 	@Setter
 	protected Consumer<Languages> changeGUILanguage; 
@@ -43,7 +44,11 @@ public abstract class Gui implements ApplicationContextAware {
 	
 	
 	public Scene createScene() throws IOException {
-    	return new Scene(buildRootNode(), sceneWidth, sceneHeight);
+		if (scene == null)
+			scene = new Scene(buildRootNode(), sceneWidth, sceneHeight); else
+			scene.setRoot(buildRootNode());
+		
+		return scene;
 	}
     
 	protected void addCSS(Parent parent) {

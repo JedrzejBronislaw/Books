@@ -67,8 +67,9 @@ public class MyFXMLLoader implements ApplicationContextAware {
 		return new NodeAndController<T>(node, fxmlLoader.getController());
 	}
 	
-	public static boolean create(String fxmlFilePath, Node node) {
+	public static boolean create(String fxmlFilePath, Pane node) {
 		FXMLLoader fxmlLoader = new FXMLLoader();
+		node.getChildren().clear();
 
     	fxmlLoader.setLocation(node.getClass().getResource(path(fxmlFilePath)));
 		fxmlLoader.setResources(ResourceBundle.getBundle(lang));
