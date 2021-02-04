@@ -152,19 +152,18 @@ public class GuiVer1 extends Gui {
 	}
 
 	private void addPanes(View view, Pane[] panes) {
-		view.addPanes(Views.AUTHORS,             new PaneSet(panes[0], panes[11], panes[14], LIST, authorListPreviewController));
-		view.addPanes(Views.TITLES,              new PaneSet(panes[1], panes[11], panes[15], LIST, titleListPreviewController));
-		view.addPanes(Views.BOOKS,               new PaneSet(panes[2], panes[11], panes[10], LIST, bookListPreviewController));
-		view.addPanes(Views.EDITIONS,            new PaneSet(panes[3], panes[11], panes[13], LIST, editionListPreviewController));
-		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(panes[4], panes[11], panes[16], LIST, publishingHouseListPreviewController));
-		view.addPanes(Views.LANGUAGES,           new PaneSet(panes[5], panes[11], panes[19], LIST, languageListPreviewController));
-		view.addPanes(Views.LOCATIONS,           new PaneSet(panes[6], panes[12], panes[18], TREE, locationListPreviewController));
-		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(panes[7], panes[12], panes[17], TREE, bookCollectionListPreviewController));
-		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(panes[8], panes[12], panes[17], TREE, editionCollectionListPreviewController));
-		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(panes[9], panes[12], panes[17], TREE, titleCollectionListPreviewController));
+		view.addPanes(Views.AUTHORS,             new PaneSet(panes[0], panes[14], LIST, authorListPreviewController));
+		view.addPanes(Views.TITLES,              new PaneSet(panes[1], panes[15], LIST, titleListPreviewController));
+		view.addPanes(Views.BOOKS,               new PaneSet(panes[2], panes[10], LIST, bookListPreviewController));
+		view.addPanes(Views.EDITIONS,            new PaneSet(panes[3], panes[13], LIST, editionListPreviewController));
+		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(panes[4], panes[16], LIST, publishingHouseListPreviewController));
+		view.addPanes(Views.LANGUAGES,           new PaneSet(panes[5], panes[19], LIST, languageListPreviewController));
+		view.addPanes(Views.LOCATIONS,           new PaneSet(panes[6], panes[18], TREE, locationListPreviewController));
+		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(panes[7], panes[17], TREE, bookCollectionListPreviewController));
+		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(panes[8], panes[17], TREE, editionCollectionListPreviewController));
+		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(panes[9], panes[17], TREE, titleCollectionListPreviewController));
 		
 		view.addPanes(Views.WELCOME,             new PaneSet(
-													new Pane(new Label("Welcome")),
 													new Pane(new Label("Welcome")),
 													new Pane(new Label("NULL")),
 													NONE));

@@ -13,7 +13,6 @@ public class PaneSet {
 	public enum MultiEntityViewType{NONE, LIST, TREE};
 	
 	@NonNull Pane addPane;
-	@NonNull Pane listPane;
 	@NonNull Pane previewPane;
 	@NonNull MultiEntityViewType multiEntityViewType;
 	         MultiEntityViewControllerStrategy multiEntityPreviewStrategy;
