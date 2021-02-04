@@ -6,6 +6,7 @@ import java.util.MissingResourceException;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.MultiEntityViewController;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType;
 import lombok.NonNull;
@@ -21,7 +22,7 @@ public class View {
 
 	
 	private Map<Views, PaneSet> paneMap = new HashMap<>();
-	private Map<MultiEntityViewType, PanePlusControl> multiEntityViews = new HashMap<>();
+	private Map<MultiEntityViewType, MultiEntityViewController> multiEntityViews = new HashMap<>();
 	
 	public boolean addPanes(Views view, PaneSet panes) {
 		boolean outcome = paneMap.containsKey(view);
@@ -29,9 +30,9 @@ public class View {
 		return outcome;
 	}
 
-	public boolean addMultiEntityView(MultiEntityViewType key, PanePlusControl panePlusControl) {
+	public boolean addMultiEntityView(MultiEntityViewType key, MultiEntityViewController multiView) {
 		boolean outcome = multiEntityViews.containsKey(key);
-		multiEntityViews.put(key, panePlusControl);
+		multiEntityViews.put(key, multiView);
 		return outcome;
 	}
 	
@@ -48,16 +49,16 @@ public class View {
 		addPane    .getChildren().add(viewPanes.addPane);
 		previewPane.getChildren().add(viewPanes.previewPane);
 		
-		PanePlusControl multi = multiEntityViews.get(viewPanes.multiEntityViewType);
-		if(multi != null)
-			listPane.getChildren().add(multi.pane);
+		MultiEntityViewController multiView = multiEntityViews.get(viewPanes.multiEntityViewType);
+		if(multiView != null)
+			listPane.getChildren().add(multiView);
 		
 		
 		String headerStr = getHeaderStr(view);
 		header.setText(headerStr);
 		
-		multi.controller.setStrategy(viewPanes.multiEntityPreviewStrategy);
-		multi.controller.setContent(headerStr, viewPanes.multiEntityPreviewStrategy.getList());
+		multiView.setStrategy(viewPanes.multiEntityPreviewStrategy);
+		multiView.setContent(headerStr, viewPanes.multiEntityPreviewStrategy.getList());
 		
 		
 		return true;

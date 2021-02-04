@@ -47,7 +47,6 @@ import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
-import jedrzejbronislaw.ksiegozbior.view.PanePlusControl;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet;
 import jedrzejbronislaw.ksiegozbior.view.View;
 import jedrzejbronislaw.ksiegozbior.view.Views;
@@ -147,8 +146,8 @@ public class GuiVer1 extends Gui {
 		View view = new View(addPane, viewPane, previewPane, header);
 		loadFxmls();
 
-		view.addMultiEntityView(LIST, new PanePlusControl(listPreview, listPreview));
-		view.addMultiEntityView(TREE, new PanePlusControl(treePreview, treePreview));
+		view.addMultiEntityView(LIST, listPreview);
+		view.addMultiEntityView(TREE, treePreview);
 
 		addPanes(view);
 
