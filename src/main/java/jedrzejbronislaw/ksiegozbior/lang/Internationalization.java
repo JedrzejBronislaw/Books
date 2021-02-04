@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.lang;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import lombok.Getter;
@@ -14,6 +15,14 @@ public class Internationalization {
 	
 	public static String get(String key) {
 		return rb.getString(key);
+	}
+	
+	public static String get(String key, String def) {
+		try {
+			return rb.getString(key);
+		} catch (MissingResourceException e) {
+			return def;
+		}
 	}
 	
 	private static void refresh() {
