@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
 public class TitleListManager extends ListManager {
 
 	@Autowired private TitleRepository repository;
-	@Autowired private TitlePreviewController titlePreviewController;
+	@Autowired private TitlePreview preview;
 	
 	
 	@Override
@@ -43,7 +43,7 @@ public class TitleListManager extends ListManager {
 	@Override
 	public void clickAction(Ent entity) {
 		if (entity instanceof Title)
-			titlePreviewController.setTitle((Title) entity);
+			preview.setTitle((Title) entity);
 	}
 	
 	@Override

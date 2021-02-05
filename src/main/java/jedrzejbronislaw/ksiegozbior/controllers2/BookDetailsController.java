@@ -13,10 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.EditionPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.AuthorPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.BookPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.EditionPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
@@ -33,28 +33,28 @@ public class BookDetailsController extends StackPane implements Initializable {
 	@Autowired private TheBook theBook;
 	private Book book;
 	
-	private BookPreviewController       bookPreview;
-	private EditionPreviewController editionPreview;
-	private TitlePreviewController     titlePreview;
-	private AuthorPreviewController   authorPreview;
+	private BookPreview       bookPreview;
+	private EditionPreview editionPreview;
+	private TitlePreview     titlePreview;
+	private AuthorPreview   authorPreview;
 	
 
-	public void setBookPreview(@NonNull BookPreviewController nac) {
+	public void setBookPreview(@NonNull BookPreview nac) {
 		bookPreview = nac;
 		refreshPreview();
 	}
 
-	public void setEditionPreview(@NonNull EditionPreviewController nac) {
+	public void setEditionPreview(@NonNull EditionPreview nac) {
 		editionPreview = nac;
 		refreshPreview();
 	}
 
-	public void setTitlePreview(@NonNull TitlePreviewController nac) {
+	public void setTitlePreview(@NonNull TitlePreview nac) {
 		titlePreview = nac;
 		refreshPreview();
 	}
 
-	public void setAuthorPreview(@NonNull AuthorPreviewController nac) {
+	public void setAuthorPreview(@NonNull AuthorPreview nac) {
 		authorPreview = nac;
 		refreshPreview();
 	}

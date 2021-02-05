@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.entities;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.projections.ThePublishingHouse;
 
 @Component
-public class PublisherPreviewController extends VBox implements Initializable {
+public class PublisherPreview extends VBox implements Initializable {
 
 	@Autowired private ThePublishingHouse thePublisher;
 	

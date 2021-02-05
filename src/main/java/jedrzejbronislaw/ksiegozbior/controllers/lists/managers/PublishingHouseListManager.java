@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.PublisherPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.PublisherPreview;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository
 public class PublishingHouseListManager extends ListManager {
 
 	@Autowired private PublishingHouseRepository repository;
-	@Autowired private PublisherPreviewController previewController;
+	@Autowired private PublisherPreview preview;
 
 
 	@Override
@@ -43,7 +43,7 @@ public class PublishingHouseListManager extends ListManager {
 	@Override
 	public void clickAction(Ent entity) {
 		if (entity instanceof PublishingHouse)
-			previewController.setPublisher((PublishingHouse) entity);
+			preview.setPublisher((PublishingHouse) entity);
 	}
 	
 	@Override

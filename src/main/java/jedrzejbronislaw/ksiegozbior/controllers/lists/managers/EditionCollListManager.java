@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.CollectionPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.CollectionPreview;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionReposito
 public class EditionCollListManager extends ListManager {
 
 	@Autowired private EditionCollectionRepository repository;
-	@Autowired private CollectionPreviewController previewController;
+	@Autowired private CollectionPreview preview;
 
 
 	@Override
@@ -58,7 +58,7 @@ public class EditionCollListManager extends ListManager {
 		System.out.println("Klik! -> " + entity.toString());
 
 		if (entity instanceof EditionCollection)
-			previewController.setEditionCollection((EditionCollection) entity);
+			preview.setEditionCollection((EditionCollection) entity);
 	}
 	
 	@Override

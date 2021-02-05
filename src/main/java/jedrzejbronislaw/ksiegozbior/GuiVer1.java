@@ -13,14 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.controllers.MainViewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.CollectionPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.EditionPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LanguagePreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.PublisherPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.AuthorPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.BookPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.CollectionPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.EditionPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.LanguagePreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.LocationPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.PublisherPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.BookCollForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
@@ -72,14 +72,14 @@ public class GuiVer1 extends Gui {
 	@Autowired private EditionCollForm         editionCollForm;
 	@Autowired private TitleCollForm             titleCollForm;
 
-	@Autowired private BookPreviewController             bookPreview;
-	@Autowired private EditionPreviewController       editionPreview;
-	@Autowired private AuthorPreviewController         authorPreview;
-	@Autowired private TitlePreviewController           titlePreview;
-	@Autowired private PublisherPreviewController   publisherPreview;
-	@Autowired private CollectionPreviewController collectionPreview;
-	@Autowired private LocationPreviewController     locationPreview;
-	@Autowired private LanguagePreviewController     languagePreview;
+	@Autowired private BookPreview             bookPreview;
+	@Autowired private EditionPreview       editionPreview;
+	@Autowired private AuthorPreview         authorPreview;
+	@Autowired private TitlePreview           titlePreview;
+	@Autowired private PublisherPreview   publisherPreview;
+	@Autowired private CollectionPreview collectionPreview;
+	@Autowired private LocationPreview     locationPreview;
+	@Autowired private LanguagePreview     languagePreview;
 	
 	private static final PathAndClass[] FXMLS = {
 			new PathAndClass(FORMS_FXML_DIR + "AuthorForm.fxml",                   AuthorForm.class),
@@ -95,14 +95,14 @@ public class GuiVer1 extends Gui {
 			
 			new PathAndClass("lists/ListPreview.fxml",                      ListPreview.class),
 			new PathAndClass("lists/TreePreview.fxml",                      TreePreview.class),
-			new PathAndClass("entitypreviews/BookPreview.fxml",             BookPreviewController.class),
-			new PathAndClass("entitypreviews/EditionPreview.fxml",       EditionPreviewController.class),
-			new PathAndClass("entitypreviews/AuthorPreview.fxml",         AuthorPreviewController.class),
-			new PathAndClass("entitypreviews/TitlePreview.fxml",           TitlePreviewController.class),
-			new PathAndClass("entitypreviews/PublisherPreview.fxml",   PublisherPreviewController.class),
-			new PathAndClass("entitypreviews/CollectionPreview.fxml", CollectionPreviewController.class),
-			new PathAndClass("entitypreviews/LocationPreview.fxml",     LocationPreviewController.class),
-			new PathAndClass("entitypreviews/LanguagePreview.fxml",     LanguagePreviewController.class)
+			new PathAndClass("entitypreviews/BookPreview.fxml",             BookPreview.class),
+			new PathAndClass("entitypreviews/EditionPreview.fxml",       EditionPreview.class),
+			new PathAndClass("entitypreviews/AuthorPreview.fxml",         AuthorPreview.class),
+			new PathAndClass("entitypreviews/TitlePreview.fxml",           TitlePreview.class),
+			new PathAndClass("entitypreviews/PublisherPreview.fxml",   PublisherPreview.class),
+			new PathAndClass("entitypreviews/CollectionPreview.fxml", CollectionPreview.class),
+			new PathAndClass("entitypreviews/LocationPreview.fxml",     LocationPreview.class),
+			new PathAndClass("entitypreviews/LanguagePreview.fxml",     LanguagePreview.class)
 	};
 
 	@Autowired private MainViewController mainView;

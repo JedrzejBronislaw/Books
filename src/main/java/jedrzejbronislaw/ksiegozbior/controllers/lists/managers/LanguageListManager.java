@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LanguagePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.LanguagePreview;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 public class LanguageListManager extends ListManager {
 
 	@Autowired private LanguageRepository repository;
-	@Autowired private LanguagePreviewController previewController;
+	@Autowired private LanguagePreview preview;
 	
 	
 	@Override
@@ -43,7 +43,7 @@ public class LanguageListManager extends ListManager {
 	@Override
 	public void clickAction(Ent entity) {
 		if (entity instanceof Language)
-			previewController.setLanguage((Language) entity);
+			preview.setLanguage((Language) entity);
 	}
 	
 	@Override

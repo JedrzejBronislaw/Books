@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.entities;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLocation;
 
 @Component
-public class LocationPreviewController extends VBox implements Initializable {
+public class LocationPreview extends VBox implements Initializable {
 
 	@Autowired private TheLocation theLocation;
 	

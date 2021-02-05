@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.EditionPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.AuthorPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.BookPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.EditionPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.EditionForm;
@@ -41,10 +41,10 @@ public class GuiVer2 extends Gui {
 	@Autowired private BookForm       bookForm;
 	@Autowired private EditionForm editionForm;
 	
-	@Autowired private AuthorPreviewController   authorPreview;
-	@Autowired private BookPreviewController       bookPreview;
-	@Autowired private EditionPreviewController editionPreview;
-	@Autowired private TitlePreviewController     titlePreview;
+	@Autowired private AuthorPreview   authorPreview;
+	@Autowired private BookPreview       bookPreview;
+	@Autowired private EditionPreview editionPreview;
+	@Autowired private TitlePreview     titlePreview;
 	
 	@Autowired private MainView2Controller          mainView;
 	@Autowired private NewUserController         newUserView;

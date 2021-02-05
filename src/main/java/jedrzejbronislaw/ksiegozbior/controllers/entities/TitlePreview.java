@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.entities;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
 
 @Component
-public class TitlePreviewController extends VBox implements Initializable {
+public class TitlePreview extends VBox implements Initializable {
 	
 	@Autowired private TheTitle theTitle;
 	

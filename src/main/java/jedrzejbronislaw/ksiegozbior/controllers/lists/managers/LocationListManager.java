@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.entities.LocationPreview;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 public class LocationListManager extends ListManager {
 
 	@Autowired private LocationRepository repository;
-	@Autowired private LocationPreviewController previewController;
+	@Autowired private LocationPreview preview;
 	
 	
 	@Override
@@ -45,7 +45,7 @@ public class LocationListManager extends ListManager {
 		System.out.println("Klik! -> " + entity.toString());
 
 		if (entity instanceof Location)
-			previewController.setLocation((Location) entity);
+			preview.setLocation((Location) entity);
 	}
 	
 	@Override

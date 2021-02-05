@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.entitypreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.entities;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +15,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheLanguage;
 
 @Component
-public class LanguagePreviewController extends VBox implements Initializable {
+public class LanguagePreview extends VBox implements Initializable {
 
 	private final boolean lazy = true;
 	
