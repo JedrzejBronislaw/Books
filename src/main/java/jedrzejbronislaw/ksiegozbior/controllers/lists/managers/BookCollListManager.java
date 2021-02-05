@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.lists.managers;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,19 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.CollectionPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 
 @Component
-public class BookCollectionListPreviewController extends MultiEntityViewControllerStrategy {
+public class BookCollListManager extends ListManager {
 
 	@Autowired private BookCollectionRepository repository;
 	@Autowired private CollectionPreviewController previewController;
 
 
 	@Override
-	public boolean delAction(Ent entity) {
+	public boolean delete(Ent entity) {
 		if (entity instanceof BookCollection) {
 			
 			BookCollection collection = (BookCollection) entity;
@@ -48,12 +49,12 @@ public class BookCollectionListPreviewController extends MultiEntityViewControll
 	}
 
 	@Override
-	public void addAction() {//TODO
+	public void add() {//TODO
 		System.out.println("ADD");
 	}
 
 	@Override
-	public void listClickAction(Ent entity) {
+	public void clickAction(Ent entity) {
 		System.out.println("Klik! -> " + entity.toString());
 
 		if (entity instanceof BookCollection)
@@ -61,7 +62,7 @@ public class BookCollectionListPreviewController extends MultiEntityViewControll
 	}
 	
 	@Override
-	public List<? extends Ent> getList() {
+	public List<? extends Ent> get() {
 		List<Ent> list = new LinkedList<>();
 
 		repository.findAll().forEach(list::add);

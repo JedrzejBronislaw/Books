@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.lists;
 
 import java.net.URL;
 import java.util.List;
@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.view.SimpleListCallback;
 
 @Component
-public class ListPreviewController extends MultiEntityViewController implements Initializable {
+public class ListPreview extends MultiEntityPreview implements Initializable {
 
 	@Autowired TheEntGenerator theEntGenerator;
 	
@@ -26,11 +26,11 @@ public class ListPreviewController extends MultiEntityViewController implements 
 	
 	protected void set(String header, List<Ent> elements) {
 		title.setText(header);
-		listRefresh(elements);
+		refresh(elements);
 	}
 
 	@Override
-	protected void listRefresh(List<Ent> elements) {
+	protected void refresh(List<Ent> elements) {
 		list.getItems().clear();
 		
 		if(elements != null)

@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.lists.managers;
 
 import java.util.List;
 
@@ -6,18 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 
 @Component
-public class LocationListPreviewController extends MultiEntityViewControllerStrategy {
+public class LocationListManager extends ListManager {
 
 	@Autowired private LocationRepository repository;
 	@Autowired private LocationPreviewController previewController;
 	
+	
 	@Override
-	public boolean delAction(Ent entity) {
+	public boolean delete(Ent entity) {
 		return (entity instanceof Location) ? setAsRemoved((Location) entity) : false;
 	}
 
@@ -34,12 +36,12 @@ public class LocationListPreviewController extends MultiEntityViewControllerStra
 	}
 
 	@Override
-	public void addAction() {//TODO
+	public void add() {//TODO
 		System.out.println("ADD");
 	}
 
 	@Override
-	public void listClickAction(Ent entity) {
+	public void clickAction(Ent entity) {
 		System.out.println("Klik! -> " + entity.toString());
 
 		if (entity instanceof Location)
@@ -47,7 +49,7 @@ public class LocationListPreviewController extends MultiEntityViewControllerStra
 	}
 	
 	@Override
-	public List<? extends Ent> getList() {
+	public List<? extends Ent> get() {
 		return repository.findAllNotRemoved();
 	}
 }

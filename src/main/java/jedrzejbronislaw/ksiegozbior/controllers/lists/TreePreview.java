@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.lists;
 
 import java.net.URL;
 import java.util.List;
@@ -19,7 +19,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.view.SimpleTreeCallback;
 
 @Component
-public class TreePreviewController extends MultiEntityViewController implements Initializable {
+public class TreePreview extends MultiEntityPreview implements Initializable {
 
 	@Autowired TheEntGenerator theEntGenerator;
 
@@ -30,11 +30,11 @@ public class TreePreviewController extends MultiEntityViewController implements 
 	@Override
 	protected void set(String header, List<Ent> elements) {
 		title.setText(header);
-		listRefresh(elements);
+		refresh(elements);
 	}
 
 	@Override
-	protected void listRefresh(List<Ent> elements) {
+	protected void refresh(List<Ent> elements) {
 		TreeItem<Ent> root = new TreeItem<>();
 		
 		tree.setRoot(root);

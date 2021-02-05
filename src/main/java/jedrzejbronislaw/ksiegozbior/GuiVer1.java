@@ -31,18 +31,18 @@ import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LanguagePreviewCo
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.LocationPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.PublisherPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.AuthorListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.BookCollectionListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.BookListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.EditionCollectionListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.EditionListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.LanguageListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.ListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.LocationListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.PublishingHouseListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TitleCollectionListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TitleListPreviewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.TreePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.TreePreview;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.AuthorListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.BookCollListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.BookListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.EditionCollListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.EditionListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.LanguageListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.LocationListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.PublishingHouseListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.TitleCollListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.TitleListManager;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.lang.Languages;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
@@ -93,9 +93,9 @@ public class GuiVer1 extends Gui {
 			new PathAndClass("NewEditionCollectionPane.fxml",  NewEditionCollectionPaneController.class),
 			new PathAndClass("NewTitleCollectionPane.fxml",      NewTitleCollectionPaneController.class),
 			
+			new PathAndClass("listpreviews/ListPreview.fxml",               ListPreview.class),
+			new PathAndClass("listpreviews/TreePreview.fxml",               TreePreview.class),
 			new PathAndClass("entitypreviews/BookPreview.fxml",             BookPreviewController.class),
-			new PathAndClass("listpreviews/ListPreview.fxml",               ListPreviewController.class),
-			new PathAndClass("listpreviews/TreePreview.fxml",               TreePreviewController.class),
 			new PathAndClass("entitypreviews/EditionPreview.fxml",       EditionPreviewController.class),
 			new PathAndClass("entitypreviews/AuthorPreview.fxml",         AuthorPreviewController.class),
 			new PathAndClass("entitypreviews/TitlePreview.fxml",           TitlePreviewController.class),
@@ -107,19 +107,19 @@ public class GuiVer1 extends Gui {
 
 	@Autowired private MainViewController mainView;
 	
-	@Autowired private ListPreviewController listPreview;
-	@Autowired private TreePreviewController treePreview;
+	@Autowired private ListPreview listPreview;
+	@Autowired private TreePreview treePreview;
 	
-	@Autowired private AuthorListPreviewController                       authorListPreviewController;
-	@Autowired private TitleListPreviewController                         titleListPreviewController;
-	@Autowired private BookListPreviewController                           bookListPreviewController;
-	@Autowired private EditionListPreviewController                     editionListPreviewController;
-	@Autowired private PublishingHouseListPreviewController     publishingHouseListPreviewController;
-	@Autowired private LanguageListPreviewController                   languageListPreviewController;
-	@Autowired private LocationListPreviewController                   locationListPreviewController;
-	@Autowired private BookCollectionListPreviewController       bookCollectionListPreviewController;
-	@Autowired private EditionCollectionListPreviewController editionCollectionListPreviewController;
-	@Autowired private TitleCollectionListPreviewController     titleCollectionListPreviewController;
+	@Autowired private AuthorListManager                   authorListManager;
+	@Autowired private TitleListManager                     titleListManager;
+	@Autowired private BookListManager                       bookListManager;
+	@Autowired private EditionListManager                 editionListManager;
+	@Autowired private PublishingHouseListManager publishingHouseListManager;
+	@Autowired private LanguageListManager               languageListManager;
+	@Autowired private LocationListManager               locationListManager;
+	@Autowired private BookCollListManager               bookCollListManager;
+	@Autowired private EditionCollListManager         editionCollListManager;
+	@Autowired private TitleCollListManager             titleCollListManager;
 
 	@Autowired private View view;
 	
@@ -157,16 +157,16 @@ public class GuiVer1 extends Gui {
 	}
 
 	private void addPanes() {
-		view.addPanes(Views.AUTHORS,             new PaneSet(newAuthor,                authorPreview, LIST,            authorListPreviewController));
-		view.addPanes(Views.TITLES,              new PaneSet(newTitle,                  titlePreview, LIST,             titleListPreviewController));
-		view.addPanes(Views.BOOKS,               new PaneSet(newBook,                    bookPreview, LIST,              bookListPreviewController));
-		view.addPanes(Views.EDITIONS,            new PaneSet(newEdition,              editionPreview, LIST,           editionListPreviewController));
-		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(newPublishingHouse,    publisherPreview, LIST,   publishingHouseListPreviewController));
-		view.addPanes(Views.LANGUAGES,           new PaneSet(newLanguage,            languagePreview, LIST,          languageListPreviewController));
-		view.addPanes(Views.LOCATIONS,           new PaneSet(newLocation,            locationPreview, TREE,          locationListPreviewController));
-		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(newBookCollection,    collectionPreview, TREE,    bookCollectionListPreviewController));
-		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(newEditionCollection, collectionPreview, TREE, editionCollectionListPreviewController));
-		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(newTitleCollection,   collectionPreview, TREE,   titleCollectionListPreviewController));
+		view.addPanes(Views.AUTHORS,             new PaneSet(newAuthor,                authorPreview, LIST,          authorListManager));
+		view.addPanes(Views.TITLES,              new PaneSet(newTitle,                  titlePreview, LIST,           titleListManager));
+		view.addPanes(Views.BOOKS,               new PaneSet(newBook,                    bookPreview, LIST,            bookListManager));
+		view.addPanes(Views.EDITIONS,            new PaneSet(newEdition,              editionPreview, LIST,         editionListManager));
+		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(newPublishingHouse,    publisherPreview, LIST, publishingHouseListManager));
+		view.addPanes(Views.LANGUAGES,           new PaneSet(newLanguage,            languagePreview, LIST,        languageListManager));
+		view.addPanes(Views.LOCATIONS,           new PaneSet(newLocation,            locationPreview, TREE,        locationListManager));
+		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(newBookCollection,    collectionPreview, TREE,        bookCollListManager));
+		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(newEditionCollection, collectionPreview, TREE,     editionCollListManager));
+		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(newTitleCollection,   collectionPreview, TREE,       titleCollListManager));
 		
 		view.addPanes(Views.WELCOME,             new PaneSet(
 													new Pane(new Label("Welcome")),

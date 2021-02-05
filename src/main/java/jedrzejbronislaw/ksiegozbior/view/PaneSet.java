@@ -1,7 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.view;
 
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.MultiEntityViewControllerStrategy;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +15,5 @@ public class PaneSet {
 	@NonNull Pane addPane;
 	@NonNull Pane previewPane;
 	@NonNull MultiEntityViewType multiEntityViewType;
-	         MultiEntityViewControllerStrategy multiEntityPreviewStrategy;
+	         ListManager listManager;
 }

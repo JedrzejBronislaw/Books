@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.listpreviews;
+package jedrzejbronislaw.ksiegozbior.controllers.lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,12 @@ import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import lombok.Setter;
 
-public abstract class MultiEntityViewController extends VBox {
+public abstract class MultiEntityPreview extends VBox {
 	
-	@Setter
-	protected MultiEntityViewControllerStrategy strategy;
+	@Setter protected ListManager listManager;
 	
 	abstract protected void set(String header, List<Ent> elements);
-	abstract protected void listRefresh(List<Ent> elements);
+	abstract protected void refresh(List<Ent> elements);
 	abstract protected Ent getSelectedItem();
 	abstract protected boolean isSelectedItem();
 	
@@ -26,17 +25,17 @@ public abstract class MultiEntityViewController extends VBox {
 	
 	@FXML
 	protected void addAction() {
-		if(strategy == null) return;
+		if(listManager == null) return;
 		
-		strategy.addAction();
+		listManager.add();
 	}
 	
 	@FXML
 	protected void deleteAction() {
-		if(strategy == null) return;
+		if(listManager == null) return;
 
-		if (strategy.delAction(getSelectedItem()))
-			listRefresh(convert(strategy.getList()));
+		if (listManager.delete(getSelectedItem()))
+			refresh(convert(listManager.get()));
 	}
 	
 	private List<Ent> convert(List<? extends Ent> listIn) {
@@ -49,9 +48,9 @@ public abstract class MultiEntityViewController extends VBox {
 
 	@FXML
 	protected void clickAction(MouseEvent event) {
-		if(strategy == null) return;
+		if(listManager == null) return;
 		
 		if (isSelectedItem() && event.getClickCount() == 1)
-			strategy.listClickAction(getSelectedItem());
+			listManager.clickAction(getSelectedItem());
 	}
 }

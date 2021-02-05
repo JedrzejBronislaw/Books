@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.MultiEntityViewController;
-import jedrzejbronislaw.ksiegozbior.controllers.listpreviews.MultiEntityViewControllerStrategy;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.MultiEntityPreview;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType;
 import lombok.NonNull;
@@ -23,14 +23,14 @@ public class View {
 	@Setter @NonNull private Label header;
 
 	private Map<Views, PaneSet> paneMap = new HashMap<>();
-	private Map<MultiEntityViewType, MultiEntityViewController> multiEntityViews = new HashMap<>();
+	private Map<MultiEntityViewType, MultiEntityPreview> multiEntityViews = new HashMap<>();
 	
 	
 	public PaneSet addPanes(Views view, PaneSet panes) {
 		return paneMap.put(view, panes);
 	}
 
-	public MultiEntityViewController addMultiEntityView(MultiEntityViewType key, MultiEntityViewController multiView) {
+	public MultiEntityPreview addMultiEntityView(MultiEntityViewType key, MultiEntityPreview multiView) {
 		return multiEntityViews.put(key, multiView);
 	}
 	
@@ -49,13 +49,13 @@ public class View {
 		addPane    .getChildren().add(panes.addPane);
 		previewPane.getChildren().add(panes.previewPane);
 		
-		MultiEntityViewController multiView = multiEntityViews.get(panes.multiEntityViewType);
+		MultiEntityPreview multiView = multiEntityViews.get(panes.multiEntityViewType);
 		if (multiView != null) {
 			listPane.getChildren().add(multiView);
 		
-			MultiEntityViewControllerStrategy strategy = panes.multiEntityPreviewStrategy;
-			multiView.setStrategy(strategy);
-			multiView.setContent(headerStr, strategy.getList());
+			ListManager listManager = panes.listManager;
+			multiView.setListManager(listManager);
+			multiView.setContent(headerStr, listManager.get());
 		}
 		
 		return true;
