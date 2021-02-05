@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +18,7 @@ import lombok.Getter;
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
 @Component
-public class NewPublishingHousePaneController extends VBox implements Initializable, EntityFormController {
+public class PublishingHouseForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private PublishingHouseRepository publishingHouseRepository;
 

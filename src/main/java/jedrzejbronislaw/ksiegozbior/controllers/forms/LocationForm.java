@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
@@ -21,7 +21,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewLocationPaneController extends VBox implements Initializable, EntityFormController {
+public class LocationForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private LocationRepository locationRepository;
 

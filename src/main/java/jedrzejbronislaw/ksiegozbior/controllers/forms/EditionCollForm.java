@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
@@ -20,7 +20,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewEditionCollectionPaneController extends VBox implements Initializable, EntityFormController {
+public class EditionCollForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private EditionCollectionRepository editionCollectionRepository;
 

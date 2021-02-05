@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
@@ -14,20 +14,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
-import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
+import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
+import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewBookCollectionPaneController extends VBox implements Initializable, EntityFormController {
+public class TitleCollForm extends VBox implements Initializable, EntityForm {
 
-	@Autowired private BookCollectionRepository bookCollectionRepository;
+	@Autowired private TitleCollectionRepository titleCollectionRepository;
 
 	@Getter
 	@FXML private GridPane fieldsPane;
 	@FXML private TextField nameField;
-	@FXML private ComboBox<BookCollection> supercollectionField;
+	@FXML private ComboBox<TitleCollection> supercollectionField;
 	
 	
 	@FXML
@@ -37,12 +37,12 @@ public class NewBookCollectionPaneController extends VBox implements Initializab
 	}
 	
 	private void saveCollection() {
-		BookCollection collection = new BookCollection();
+		TitleCollection collection = new TitleCollection();
 		
 		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());
 		
-		bookCollectionRepository.save(collection);
+		titleCollectionRepository.save(collection);
 	}
 
 
@@ -53,6 +53,6 @@ public class NewBookCollectionPaneController extends VBox implements Initializab
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Refresher.setOnShowing(supercollectionField, bookCollectionRepository);
+		Refresher.setOnShowing(supercollectionField, titleCollectionRepository);
 	}
 }

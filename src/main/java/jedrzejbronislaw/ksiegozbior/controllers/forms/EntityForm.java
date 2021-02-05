@@ -1,9 +1,9 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 
-public interface EntityFormController {
+public interface EntityForm {
 
 	Pane getFieldsPane();
 	public void clearFields();

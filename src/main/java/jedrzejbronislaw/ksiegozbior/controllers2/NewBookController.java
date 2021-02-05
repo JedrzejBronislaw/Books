@@ -20,11 +20,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import jedrzejbronislaw.ksiegozbior.controllers.EntityFormController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewAuthorPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewBookPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewEditionPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewTitlePaneController;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.EditionForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.EntityForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.TitleForm;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
@@ -90,10 +90,10 @@ public class NewBookController extends StackPane implements Initializable {
 	private MyButton addButton;
 	private MyButton noneButton;
 	
-	private NewAuthorPaneController   authorForm;
-	private NewTitlePaneController     titleForm;
-	private NewEditionPaneController editionForm;
-	private NewBookPaneController       bookForm;
+	private AuthorForm   authorForm;
+	private TitleForm     titleForm;
+	private EditionForm editionForm;
+	private BookForm       bookForm;
 
 	private boolean authorFormVisible  = true;
 	private boolean titleFormVisible   = true;
@@ -104,32 +104,32 @@ public class NewBookController extends StackPane implements Initializable {
 	private Steps currentStep;
 	
 
-	public void setAuthorForm(@NonNull NewAuthorPaneController authorForm) {
+	public void setAuthorForm(@NonNull AuthorForm authorForm) {
 		this.authorForm = authorForm;
 		addBorder(authorForm);
 		refreshFormsPanes();
 	}
-	public void setTitleForm(@NonNull NewTitlePaneController titleForm) {
+	public void setTitleForm(@NonNull TitleForm titleForm) {
 		this.titleForm = titleForm;
 		addBorder(titleForm);
 		refreshFormsPanes();
 	}
-	public void setEditionForm(@NonNull NewEditionPaneController editionForm) {
+	public void setEditionForm(@NonNull EditionForm editionForm) {
 		this.editionForm = editionForm;
 		addBorder(editionForm);
 		refreshFormsPanes();
 	}
-	public void setBookForm(@NonNull NewBookPaneController bookForm) {
+	public void setBookForm(@NonNull BookForm bookForm) {
 		this.bookForm = bookForm;
 		addBorder(bookForm);
 		refreshFormsPanes();
 	}
 	
-	private void addBorder(EntityFormController form) {
+	private void addBorder(EntityForm form) {
 		form.getFieldsPane().setStyle("-fx-border-color: #000;");
 	}
 	
-	private List<EntityFormController> getAllForms() {
+	private List<EntityForm> getAllForms() {
 		return Arrays.asList(
 				authorForm,
 				titleForm,
@@ -246,7 +246,7 @@ public class NewBookController extends StackPane implements Initializable {
 	
 	private void refreshFormsPanes() {
 		Pane fieldPane;
-		List<EntityFormController> forms = getAllForms();
+		List<EntityForm> forms = getAllForms();
 		boolean[] formsVisibility = getAllFormsVisibility();
 		
 		formPane.getChildren().clear();
@@ -262,7 +262,7 @@ public class NewBookController extends StackPane implements Initializable {
 		}
 	}
 	
-	private Pane getFieldPane(EntityFormController nac) {
+	private Pane getFieldPane(EntityForm nac) {
 		return nac.getFieldsPane();
 	}
 	
@@ -350,7 +350,7 @@ public class NewBookController extends StackPane implements Initializable {
 	private void hideAllForms() {
 		Pane pane;
 		
-		for(EntityFormController form : getAllForms()) {
+		for(EntityForm form : getAllForms()) {
 			if (form == null) continue;
 			
 			pane = getFieldPane(form);
@@ -386,7 +386,7 @@ public class NewBookController extends StackPane implements Initializable {
 	
 	private void clearAllForms() {
 
-		for(EntityFormController form : getAllForms()) {
+		for(EntityForm form : getAllForms()) {
 			if(form == null) continue;
 				
 			form.clearFields();
@@ -442,7 +442,7 @@ public class NewBookController extends StackPane implements Initializable {
 		return (Book) saveForm(bookForm);
 	}
 
-	private Ent saveForm(EntityFormController form) {
+	private Ent saveForm(EntityForm form) {
 		return form.save();
 	}
 }

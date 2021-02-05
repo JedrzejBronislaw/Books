@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import java.net.URL;
 import java.sql.Date;
@@ -31,7 +31,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewBookPaneController extends VBox implements Initializable, EntityFormController {
+public class BookForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private BookRepository bookRepository;
 	@Autowired private EditionRepository editionRepository;

@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
@@ -30,7 +30,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class NewTitlePaneController extends VBox implements Initializable, EntityFormController {
+public class TitleForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private AuthorRepository authorsRepository;

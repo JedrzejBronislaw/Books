@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.NewAuthorPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewBookPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewEditionPaneController;
-import jedrzejbronislaw.ksiegozbior.controllers.NewTitlePaneController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.AuthorPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.BookPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.EditionPreviewController;
 import jedrzejbronislaw.ksiegozbior.controllers.entitypreviews.TitlePreviewController;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.EditionForm;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.TitleForm;
 import jedrzejbronislaw.ksiegozbior.controllers2.BookDetailsController;
 import jedrzejbronislaw.ksiegozbior.controllers2.LoginPanelController;
 import jedrzejbronislaw.ksiegozbior.controllers2.MainView2Controller;
@@ -36,10 +36,10 @@ public class GuiVer2 extends Gui {
 
 	@Autowired private BookRepository bookRepository;
 
-	@Autowired private NewAuthorPaneController   newAuthorPane;
-	@Autowired private NewTitlePaneController     newTitlePane;
-	@Autowired private NewBookPaneController       newBookPane;
-	@Autowired private NewEditionPaneController newEditionPane;
+	@Autowired private AuthorForm   authorForm;
+	@Autowired private TitleForm     titleForm;
+	@Autowired private BookForm       bookForm;
+	@Autowired private EditionForm editionForm;
 	
 	@Autowired private AuthorPreviewController   authorPreview;
 	@Autowired private BookPreviewController       bookPreview;
@@ -109,15 +109,15 @@ public class GuiVer2 extends Gui {
 		NewBookController nbController = newBookView;
 
 		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR;
-		MyFXMLLoader.create(dir + "newAuthorPane.fxml",   newAuthorPane);
-		MyFXMLLoader.create(dir + "newTitlePane.fxml",     newTitlePane);
-		MyFXMLLoader.create(dir + "newEditionPane.fxml", newEditionPane);
-		MyFXMLLoader.create(dir + "newBookPane.fxml",       newBookPane);
+		MyFXMLLoader.create(dir + "newAuthorPane.fxml",   authorForm);
+		MyFXMLLoader.create(dir + "newTitlePane.fxml",     titleForm);
+		MyFXMLLoader.create(dir + "newEditionPane.fxml", editionForm);
+		MyFXMLLoader.create(dir + "newBookPane.fxml",       bookForm);
 		
-		nbController.setAuthorForm(  newAuthorPane);
-		nbController.setTitleForm(    newTitlePane);
-		nbController.setEditionForm(newEditionPane);
-		nbController.setBookForm(      newBookPane);
+		nbController.setAuthorForm(  authorForm);
+		nbController.setTitleForm(    titleForm);
+		nbController.setEditionForm(editionForm);
+		nbController.setBookForm(      bookForm);
 
 		return newBookView;
 	}

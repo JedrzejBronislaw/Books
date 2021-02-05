@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers;
+package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
 
@@ -24,7 +24,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import lombok.Getter;
 
 @Component
-public class NewAuthorPaneController extends VBox implements Initializable, EntityFormController {
+public class AuthorForm extends VBox implements Initializable, EntityForm {
 
 	@Autowired private AuthorRepository autorRepository;
 
