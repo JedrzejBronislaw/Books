@@ -99,11 +99,11 @@ public class MainView2Controller extends VBox implements Initializable {
 		view.setMainPane(mainPane);
 		view.register(Views.MAIN, mainContent);
 		
-		seeLibrary  .setOnClicked(() -> setView(Views.LIBRARY, true));
-		addBook     .setOnClicked(() -> setView(Views.NEW_BOOK, true));
-		signUpButton.setOnAction(e   -> setView(Views.NEW_USER, true));
-		signInButton.setOnAction(e   -> setView(Views.LOGIN_PANEL, true));
-		backButton  .setOnAction(e   -> setView(Views.MAIN, false));
+		seeLibrary  .setOnClicked(() -> view.set(Views.LIBRARY));
+		addBook     .setOnClicked(() -> view.set(Views.NEW_BOOK));
+		signUpButton.setOnAction(e   -> view.set(Views.NEW_USER));
+		signInButton.setOnAction(e   -> view.set(Views.LOGIN_PANEL));
+		backButton  .setOnAction(e   -> view.set(Views.MAIN));
 		logOutButton.setOnAction(e   -> session.logOut());
 		
 		search.setHeight(25);
@@ -126,9 +126,5 @@ public class MainView2Controller extends VBox implements Initializable {
 
 	public void showBookDetailsPane() {
 		view.set(Views.BOOK_DETAILS);
-	}
-	
-	private void setView(Views viewType, boolean inScrollPane) {
-		view.set(viewType);
 	}
 }
