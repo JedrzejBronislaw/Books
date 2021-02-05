@@ -43,7 +43,7 @@ import lombok.NonNull;
 @Component
 public class NewBookController extends StackPane implements Initializable {
 
-	enum Steps{SEARCH_TITLE, SEARCG_ORIG_TITLE, SEARCH_AUTHOR, FILL_FORMS};
+	enum Steps{SEARCH_TITLE, SEARCH_ORIG_TITLE, SEARCH_AUTHOR, FILL_FORMS};
 	
 	@Autowired private SearchController searcher;
 	@Autowired private MyFXMLLoader fxmlLoader;
@@ -151,8 +151,8 @@ public class NewBookController extends StackPane implements Initializable {
 		Steps newStep = Steps.SEARCH_TITLE;
 		
 		switch (currentStep) {
-			case SEARCH_TITLE:      newStep = Steps.SEARCG_ORIG_TITLE; break;
-			case SEARCG_ORIG_TITLE: newStep = Steps.SEARCH_AUTHOR;     break;
+			case SEARCH_TITLE:      newStep = Steps.SEARCH_ORIG_TITLE; break;
+			case SEARCH_ORIG_TITLE: newStep = Steps.SEARCH_AUTHOR;     break;
 			case SEARCH_AUTHOR:     newStep = Steps.FILL_FORMS;        break;
 			case FILL_FORMS:        newStep = Steps.FILL_FORMS;        break;
 			
@@ -166,7 +166,7 @@ public class NewBookController extends StackPane implements Initializable {
 	private void showStep(Steps step) {
 		switch (step) {
 			case SEARCH_TITLE:      setPanesVisible(true,  false, false, true,  false); break;
-			case SEARCG_ORIG_TITLE: setPanesVisible(false, true,  false, true,  false); break;
+			case SEARCH_ORIG_TITLE: setPanesVisible(false, true,  false, true,  false); break;
 			case SEARCH_AUTHOR:     setPanesVisible(false, false, true,  true,  false); break;
 			case FILL_FORMS:        setPanesVisible(false, false, false, false, true ); break;
 		
