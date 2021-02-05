@@ -34,6 +34,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheTitle;
+import jedrzejbronislaw.ksiegozbior.search.Searcher;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader;
 import jedrzejbronislaw.ksiegozbior.tools.MyFXMLLoader.NodeAndController;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;

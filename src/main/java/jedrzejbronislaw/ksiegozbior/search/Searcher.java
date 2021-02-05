@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers2;
+package jedrzejbronislaw.ksiegozbior.search;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
