@@ -25,7 +25,7 @@ import lombok.Setter;
 
 @Component
 @Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class SearchController {
+public class Searcher {
 	
 	@Autowired private BookRepository bookRepository;
 	@Autowired private EditionRepository editionRepository;

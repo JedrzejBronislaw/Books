@@ -26,7 +26,7 @@ import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import lombok.NonNull;
 
 @Component
-public class BookDetailsController extends StackPane implements Initializable {
+public class BookDetails extends StackPane implements Initializable {
 
 	@FXML private VBox vbox;
 	

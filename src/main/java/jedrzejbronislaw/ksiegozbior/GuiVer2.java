@@ -15,13 +15,13 @@ import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.EditionForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.TitleForm;
-import jedrzejbronislaw.ksiegozbior.controllers2.BookDetailsController;
-import jedrzejbronislaw.ksiegozbior.controllers2.LoginPanelController;
-import jedrzejbronislaw.ksiegozbior.controllers2.MainView2Controller;
-import jedrzejbronislaw.ksiegozbior.controllers2.NewBookController;
-import jedrzejbronislaw.ksiegozbior.controllers2.NewUserController;
-import jedrzejbronislaw.ksiegozbior.controllers2.ResultItemController;
-import jedrzejbronislaw.ksiegozbior.controllers2.SearchController;
+import jedrzejbronislaw.ksiegozbior.controllers2.BookDetails;
+import jedrzejbronislaw.ksiegozbior.controllers2.LoginPanel;
+import jedrzejbronislaw.ksiegozbior.controllers2.MainView2;
+import jedrzejbronislaw.ksiegozbior.controllers2.NewBook;
+import jedrzejbronislaw.ksiegozbior.controllers2.NewUser;
+import jedrzejbronislaw.ksiegozbior.controllers2.ResultItem;
+import jedrzejbronislaw.ksiegozbior.controllers2.Searcher;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
@@ -46,11 +46,11 @@ public class GuiVer2 extends Gui {
 	@Autowired private EditionPreview editionPreview;
 	@Autowired private TitlePreview     titlePreview;
 	
-	@Autowired private MainView2Controller          mainView;
-	@Autowired private NewUserController         newUserView;
-	@Autowired private LoginPanelController        loginView;
-	@Autowired private BookDetailsController bookDetailsView;
-	@Autowired private NewBookController         newBookView;
+	@Autowired private MainView2          mainView;
+	@Autowired private NewUser         newUserView;
+	@Autowired private LoginPanel        loginView;
+	@Autowired private BookDetails bookDetailsView;
+	@Autowired private NewBook         newBookView;
 
 	
 	public GuiVer2() {
@@ -62,7 +62,7 @@ public class GuiVer2 extends Gui {
 
 		addCSS(mainView);
 
-		SearchController searcher =  buildSearcher(mainView.getSearchResultPane());
+		Searcher searcher = buildSearcher(mainView.getSearchResultPane());
 		mainView.setSearchAction(searcher::newSearchPhrase);
 
 		view.register(Views.NEW_BOOK,     buildNewBookPane());
@@ -87,7 +87,6 @@ public class GuiVer2 extends Gui {
 
 	private Pane buildBookDetailsPane() throws IOException {
 		MyFXMLLoader.create(fxmlPath("BookDetails.fxml"), bookDetailsView);
-		BookDetailsController controller = bookDetailsView;
 
 		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + ENTITIES_FXML_DIR;
 		MyFXMLLoader.create(dir + "AuthorPreview.fxml",   authorPreview);
@@ -95,10 +94,10 @@ public class GuiVer2 extends Gui {
 		MyFXMLLoader.create(dir + "EditionPreview.fxml", editionPreview);
 		MyFXMLLoader.create(dir + "BookPreview.fxml",       bookPreview);
 		
-		controller.setAuthorPreview(  authorPreview);
-		controller.setTitlePreview(    titlePreview);
-		controller.setEditionPreview(editionPreview);
-		controller.setBookPreview(      bookPreview);
+		bookDetailsView.setAuthorPreview(  authorPreview);
+		bookDetailsView.setTitlePreview(    titlePreview);
+		bookDetailsView.setEditionPreview(editionPreview);
+		bookDetailsView.setBookPreview(      bookPreview);
 		
 		return bookDetailsView;
 	}
@@ -106,7 +105,6 @@ public class GuiVer2 extends Gui {
 
 	private Pane buildNewBookPane() throws IOException {
 		MyFXMLLoader.create(fxmlPath("NewBook.fxml"), newBookView);
-		NewBookController nbController = newBookView;
 
 		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + FORMS_FXML_DIR;
 		MyFXMLLoader.create(dir + "AuthorForm.fxml",   authorForm);
@@ -114,17 +112,17 @@ public class GuiVer2 extends Gui {
 		MyFXMLLoader.create(dir + "EditionForm.fxml", editionForm);
 		MyFXMLLoader.create(dir + "BookForm.fxml",       bookForm);
 		
-		nbController.setAuthorForm(  authorForm);
-		nbController.setTitleForm(    titleForm);
-		nbController.setEditionForm(editionForm);
-		nbController.setBookForm(      bookForm);
+		newBookView.setAuthorForm(  authorForm);
+		newBookView.setTitleForm(    titleForm);
+		newBookView.setEditionForm(editionForm);
+		newBookView.setBookForm(      bookForm);
 
 		return newBookView;
 	}
 
 
-	private SearchController buildSearcher(Pane resultPane) {
-		SearchController searcher = context.getBean(SearchController.class);
+	private Searcher buildSearcher(Pane resultPane) {
+		Searcher searcher = context.getBean(Searcher.class);
 		
 		searcher.setClearShearchResults(() -> resultPane.getChildren().clear());
 		searcher.setShowSearchItem(book -> resultPane.getChildren().add(createResultItem(book)));
@@ -132,15 +130,15 @@ public class GuiVer2 extends Gui {
 		return searcher;
 	}
 
-	private void loadAllBooks(MainView2Controller controller) throws IOException {
+	private void loadAllBooks(MainView2 mainView) throws IOException {
 		
 		bookRepository.findAllNotRemoved().stream()
 			.map(this::createResultItem)
-			.forEach(controller::addResultItem);
+			.forEach(mainView::addResultItem);
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		ResultItemController resultItem = context.getBean(ResultItemController.class);
+		ResultItem resultItem = context.getBean(ResultItem.class);
 		MyFXMLLoader.create(fxmlPath("ResultItem.fxml"), resultItem);
 		
 		resultItem.setContent(ent);

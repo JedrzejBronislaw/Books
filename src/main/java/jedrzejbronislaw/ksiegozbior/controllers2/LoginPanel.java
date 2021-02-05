@@ -18,7 +18,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.UserRepository;
 import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 
 @Component
-public class LoginPanelController extends StackPane implements Initializable {
+public class LoginPanel extends StackPane implements Initializable {
 
 	@Autowired private UserRepository repository;
 	@Autowired private Session session;

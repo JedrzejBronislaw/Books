@@ -24,7 +24,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.UserRepository;
 import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 
 @Component
-public class NewUserController extends StackPane implements Initializable {
+public class NewUser extends StackPane implements Initializable {
 
 	@Autowired private UserRepository repository;
 	@Autowired private LibraryRepository libRepository;

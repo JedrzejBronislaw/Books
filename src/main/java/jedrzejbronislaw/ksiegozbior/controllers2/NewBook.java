@@ -41,11 +41,11 @@ import jedrzejbronislaw.ksiegozbior.view2.MyButton;
 import lombok.NonNull;
 
 @Component
-public class NewBookController extends StackPane implements Initializable {
+public class NewBook extends StackPane implements Initializable {
 
 	enum Steps{SEARCH_TITLE, SEARCH_ORIG_TITLE, SEARCH_AUTHOR, FILL_FORMS};
 	
-	@Autowired private SearchController searcher;
+	@Autowired private Searcher searcher;
 	@Autowired private MyFXMLLoader fxmlLoader;
 	
 	@Autowired TheEntGenerator theEntGenerator;
@@ -310,9 +310,9 @@ public class NewBookController extends StackPane implements Initializable {
 	}
 	
 	private Pane createResultItem(Ent ent) {
-		NodeAndController<ResultItemController> nac = fxmlLoader.create("view2/" + "ResultItem.fxml");
+		NodeAndController<ResultItem> nac = fxmlLoader.create("view2/" + "ResultItem.fxml");
 		
-		ResultItemController controller = nac.getController();
+		ResultItem controller = nac.getController();
 		controller.setContent(ent);
 		controller.setOnClick(() -> {
 			selectedExistingEnt = controller.getContent();
