@@ -25,6 +25,7 @@ public abstract class Gui implements ApplicationContextAware {
 	protected static final String NEW_MAIN_VIEW_FXML_FILE = "mainView.fxml";
 	protected static final String     MAIN_VIEW_FXML_FILE = "mainView.fxml";
 	protected static final String          FORMS_FXML_DIR = "forms/";
+	protected static final String       ENTITIES_FXML_DIR = "entities/";
 
 	protected ApplicationContext context;
 	private Scene scene;

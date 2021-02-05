@@ -89,7 +89,7 @@ public class GuiVer2 extends Gui {
 		MyFXMLLoader.create(fxmlPath("BookDetails.fxml"), bookDetailsView);
 		BookDetailsController controller = bookDetailsView;
 
-		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + "entitypreviews/";
+		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + ENTITIES_FXML_DIR;
 		MyFXMLLoader.create(dir + "AuthorPreview.fxml",   authorPreview);
 		MyFXMLLoader.create(dir + "TitlePreview.fxml",     titlePreview);
 		MyFXMLLoader.create(dir + "EditionPreview.fxml", editionPreview);
