@@ -93,8 +93,8 @@ public class GuiVer1 extends Gui {
 			new PathAndClass("NewEditionCollectionPane.fxml",  NewEditionCollectionPaneController.class),
 			new PathAndClass("NewTitleCollectionPane.fxml",      NewTitleCollectionPaneController.class),
 			
-			new PathAndClass("listpreviews/ListPreview.fxml",               ListPreview.class),
-			new PathAndClass("listpreviews/TreePreview.fxml",               TreePreview.class),
+			new PathAndClass("lists/ListPreview.fxml",                      ListPreview.class),
+			new PathAndClass("lists/TreePreview.fxml",                      TreePreview.class),
 			new PathAndClass("entitypreviews/BookPreview.fxml",             BookPreviewController.class),
 			new PathAndClass("entitypreviews/EditionPreview.fxml",       EditionPreviewController.class),
 			new PathAndClass("entitypreviews/AuthorPreview.fxml",         AuthorPreviewController.class),
