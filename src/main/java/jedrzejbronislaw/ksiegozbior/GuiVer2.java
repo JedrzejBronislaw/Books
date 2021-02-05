@@ -108,11 +108,11 @@ public class GuiVer2 extends Gui {
 		MyFXMLLoader.create(fxmlPath("NewBook.fxml"), newBookView);
 		NewBookController nbController = newBookView;
 
-		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR;
-		MyFXMLLoader.create(dir + "newAuthorPane.fxml",   authorForm);
-		MyFXMLLoader.create(dir + "newTitlePane.fxml",     titleForm);
-		MyFXMLLoader.create(dir + "newEditionPane.fxml", editionForm);
-		MyFXMLLoader.create(dir + "newBookPane.fxml",       bookForm);
+		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + FORMS_FXML_DIR;
+		MyFXMLLoader.create(dir + "AuthorForm.fxml",   authorForm);
+		MyFXMLLoader.create(dir + "TitleForm.fxml",     titleForm);
+		MyFXMLLoader.create(dir + "EditionForm.fxml", editionForm);
+		MyFXMLLoader.create(dir + "BookForm.fxml",       bookForm);
 		
 		nbController.setAuthorForm(  authorForm);
 		nbController.setTitleForm(    titleForm);

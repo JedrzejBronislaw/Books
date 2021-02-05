@@ -82,16 +82,16 @@ public class GuiVer1 extends Gui {
 	@Autowired private LanguagePreviewController     languagePreview;
 	
 	private static final PathAndClass[] FXMLS = {
-			new PathAndClass("NewAuthorPane.fxml",                   AuthorForm.class),
-			new PathAndClass("NewTitlePane.fxml",                     TitleForm.class),
-			new PathAndClass("NewBookPane.fxml",                       BookForm.class),
-			new PathAndClass("NewEditionPane.fxml",                 EditionForm.class),
-			new PathAndClass("NewPublishingHousePane.fxml", PublishingHouseForm.class),
-			new PathAndClass("NewLanguagePane.fxml",               LanguageForm.class),
-			new PathAndClass("NewLocationPane.fxml",               LocationForm.class),
-			new PathAndClass("NewBookCollectionPane.fxml",         BookCollForm.class),
-			new PathAndClass("NewEditionCollectionPane.fxml",   EditionCollForm.class),
-			new PathAndClass("NewTitleCollectionPane.fxml",       TitleCollForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "AuthorForm.fxml",                   AuthorForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "BookCollForm.fxml",               BookCollForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "BookForm.fxml",                       BookForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "EditionCollForm.fxml",         EditionCollForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "EditionForm.fxml",                 EditionForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "LanguageForm.fxml",               LanguageForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "LocationForm.fxml",               LocationForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "PublishingHouseForm.fxml", PublishingHouseForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "TitleForm.fxml",                     TitleForm.class),
+			new PathAndClass(FORMS_FXML_DIR + "TitleCollForm.fxml",             TitleCollForm.class),
 			
 			new PathAndClass("lists/ListPreview.fxml",                      ListPreview.class),
 			new PathAndClass("lists/TreePreview.fxml",                      TreePreview.class),
