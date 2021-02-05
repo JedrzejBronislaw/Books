@@ -13,7 +13,7 @@ import lombok.Setter;
 @Component
 public class ViewController {
 
-	@Setter private BorderPane mainPane;//TODO add to constructor
+	@Setter private BorderPane mainPane;
 	
 	private Map<Views, Pane> panes = new HashMap<>();
 
@@ -23,19 +23,14 @@ public class ViewController {
 	}
 	
 	public void set(Views view) {
-		Pane pane = panes.get(view);
-		
-		if (pane != null) set(pane, true);
+		set(panes.get(view));
 	}
 	
-	private void set(Pane pane, boolean inScrollPane) {
+	private void set(Pane pane) {
 		if(pane == null) return;
 		
-		if (inScrollPane) {
-			ScrollPane scrollPane = new ScrollPane(pane);
-			scrollPane.setFitToWidth(true);
-			mainPane.setCenter(scrollPane);
-		} else
-			mainPane.setCenter(pane);
+		ScrollPane scrollPane = new ScrollPane(pane);
+		scrollPane.setFitToWidth(true);
+		mainPane.setCenter(scrollPane);
 	}
 }
