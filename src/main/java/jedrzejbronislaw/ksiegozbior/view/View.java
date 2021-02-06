@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.MultiEntityPreview;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
-import jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -49,13 +49,13 @@ public class View {
 		addPane    .getChildren().add(panes.addPane);
 		previewPane.getChildren().add(panes.previewPane);
 		
-		MultiEntityPreview multiView = multiEntityViews.get(panes.multiEntityViewType);
-		if (multiView != null) {
-			listPane.getChildren().add(multiView);
+		ListManager listManager = panes.listManager;
+		MultiEntityPreview multiView = multiEntityViews.get(listManager.getType());
 		
-			ListManager listManager = panes.listManager;
+		if (multiView != null) {
 			multiView.setListManager(listManager);
 			multiView.setContent(headerStr, listManager.get());
+			listPane.getChildren().add(multiView);
 		}
 		
 		return true;

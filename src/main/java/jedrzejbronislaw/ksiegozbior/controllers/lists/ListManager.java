@@ -6,6 +6,9 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 
 public abstract class ListManager {
 
+	public enum MultiEntityViewType{NONE, LIST, TREE};
+	
+	public abstract MultiEntityViewType getType();
 	public abstract boolean delete(Ent entity);
 	public abstract void add();
 	public abstract void clickAction(Ent entity);

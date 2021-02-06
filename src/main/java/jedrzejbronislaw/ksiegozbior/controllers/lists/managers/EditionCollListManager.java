@@ -11,9 +11,12 @@ import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionRepository;
+import lombok.Getter;
 
 @Component
 public class EditionCollListManager extends ListManager {
+
+	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
 
 	@Autowired private EditionCollectionRepository repository;
 	@Autowired private CollectionPreview preview;

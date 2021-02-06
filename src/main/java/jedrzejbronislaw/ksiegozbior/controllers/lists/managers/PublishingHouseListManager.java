@@ -10,9 +10,12 @@ import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
+import lombok.Getter;
 
 @Component
 public class PublishingHouseListManager extends ListManager {
+
+	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
 
 	@Autowired private PublishingHouseRepository repository;
 	@Autowired private PublisherPreview preview;

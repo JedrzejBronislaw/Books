@@ -1,8 +1,7 @@
 package jedrzejbronislaw.ksiegozbior;
 
-import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.LIST;
-import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.NONE;
-import static jedrzejbronislaw.ksiegozbior.view.PaneSet.MultiEntityViewType.TREE;
+import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType.LIST;
+import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType.TREE;
 
 import java.io.IOException;
 
@@ -157,20 +156,19 @@ public class GuiVer1 extends Gui {
 	}
 
 	private void addPanes() {
-		view.addPanes(Views.AUTHORS,             new PaneSet(         authorForm,     authorPreview, LIST,          authorListManager));
-		view.addPanes(Views.TITLES,              new PaneSet(          titleForm,      titlePreview, LIST,           titleListManager));
-		view.addPanes(Views.BOOKS,               new PaneSet(           bookForm,       bookPreview, LIST,            bookListManager));
-		view.addPanes(Views.EDITIONS,            new PaneSet(        editionForm,    editionPreview, LIST,         editionListManager));
-		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(publishingHouseForm,  publisherPreview, LIST, publishingHouseListManager));
-		view.addPanes(Views.LANGUAGES,           new PaneSet(       languageForm,   languagePreview, LIST,        languageListManager));
-		view.addPanes(Views.LOCATIONS,           new PaneSet(       locationForm,   locationPreview, TREE,        locationListManager));
-		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(       bookCollForm, collectionPreview, TREE,        bookCollListManager));
-		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(    editionCollForm, collectionPreview, TREE,     editionCollListManager));
-		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(      titleCollForm, collectionPreview, TREE,       titleCollListManager));
+		view.addPanes(Views.AUTHORS,             new PaneSet(         authorForm,     authorPreview,          authorListManager));
+		view.addPanes(Views.TITLES,              new PaneSet(          titleForm,      titlePreview,           titleListManager));
+		view.addPanes(Views.BOOKS,               new PaneSet(           bookForm,       bookPreview,            bookListManager));
+		view.addPanes(Views.EDITIONS,            new PaneSet(        editionForm,    editionPreview,         editionListManager));
+		view.addPanes(Views.PUBLISHING_HOUSES,   new PaneSet(publishingHouseForm,  publisherPreview, publishingHouseListManager));
+		view.addPanes(Views.LANGUAGES,           new PaneSet(       languageForm,   languagePreview,        languageListManager));
+		view.addPanes(Views.LOCATIONS,           new PaneSet(       locationForm,   locationPreview,        locationListManager));
+		view.addPanes(Views.BOOK_COLLECTIONS,    new PaneSet(       bookCollForm, collectionPreview,        bookCollListManager));
+		view.addPanes(Views.EDITION_COLLECTIONS, new PaneSet(    editionCollForm, collectionPreview,     editionCollListManager));
+		view.addPanes(Views.TITLE_COLLECTIONS,   new PaneSet(      titleCollForm, collectionPreview,       titleCollListManager));
 		
 		view.addPanes(Views.WELCOME,             new PaneSet(
 													new Pane(new Label("Welcome")),
-													new Pane(new Label("NULL")),
-													NONE));
+													new Pane(new Label("NULL"))));
 	}
 }

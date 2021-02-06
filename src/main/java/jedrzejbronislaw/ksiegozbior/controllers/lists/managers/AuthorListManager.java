@@ -10,14 +10,17 @@ import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
+import lombok.Getter;
 
 @Component
 public class AuthorListManager extends ListManager {
 
+	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
+	
 	@Autowired private AuthorRepository repository;
 	@Autowired private AuthorPreview preview;
 
-
+	
 	@Override
 	public boolean delete(Ent entity) {
 		return (entity instanceof Author) ? setAsRemoved((Author) entity) : false;

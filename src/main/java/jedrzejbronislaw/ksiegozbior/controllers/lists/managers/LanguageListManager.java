@@ -11,9 +11,12 @@ import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
+import lombok.Getter;
 
 @Component
 public class LanguageListManager extends ListManager {
+
+	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
 
 	@Autowired private LanguageRepository repository;
 	@Autowired private LanguagePreview preview;

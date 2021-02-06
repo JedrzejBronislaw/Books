@@ -10,9 +10,12 @@ import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
+import lombok.Getter;
 
 @Component
 public class LocationListManager extends ListManager {
+
+	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
 
 	@Autowired private LocationRepository repository;
 	@Autowired private LocationPreview preview;

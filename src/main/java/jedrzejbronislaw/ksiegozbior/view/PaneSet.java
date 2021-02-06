@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaneSet {
 	
-	public enum MultiEntityViewType{NONE, LIST, TREE};
-	
 	@NonNull Pane addPane;
 	@NonNull Pane previewPane;
-	@NonNull MultiEntityViewType multiEntityViewType;
 	         ListManager listManager;
 }
