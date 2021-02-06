@@ -1,6 +1,6 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 
 import java.net.URL;
 import java.util.ResourceBundle;

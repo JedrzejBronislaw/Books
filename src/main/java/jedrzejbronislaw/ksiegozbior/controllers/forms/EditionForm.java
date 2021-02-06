@@ -1,8 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseLong;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.parseShort;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseLong;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
 
 import java.net.URL;
 import java.util.ResourceBundle;

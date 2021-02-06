@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import lombok.Getter;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 
 @Component
 public class PublishingHouseForm extends VBox implements Initializable, EntityForm {

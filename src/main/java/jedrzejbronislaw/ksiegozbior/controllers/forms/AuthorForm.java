@@ -1,7 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getDate;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getDate;
 
 import java.net.URL;
 import java.sql.Date;

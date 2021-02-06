@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 
 @Component
 public class LanguageForm extends VBox implements Initializable, EntityForm {

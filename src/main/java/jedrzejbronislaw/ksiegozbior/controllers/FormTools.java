@@ -6,7 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class EntityFormTools {
+public class FormTools {
 
 	public static String getText(TextField field) {
 		return getText(field.getText());
