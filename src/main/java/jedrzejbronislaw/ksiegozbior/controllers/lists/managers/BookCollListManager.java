@@ -14,7 +14,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 import lombok.Getter;
 
 @Component
-public class BookCollListManager extends ListManager {
+public class BookCollListManager implements ListManager {
 
 	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
 

@@ -4,13 +4,13 @@ import java.util.List;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 
-public abstract class ListManager {
+public interface ListManager {
 
 	public enum MultiEntityViewType{NONE, LIST, TREE};
 	
-	public abstract MultiEntityViewType getType();
-	public abstract boolean delete(Ent entity);
-	public abstract void add();
-	public abstract void clickAction(Ent entity);
-	public abstract List<? extends Ent> get();
+	MultiEntityViewType getType();
+	boolean delete(Ent entity);
+	void add();
+	void clickAction(Ent entity);
+	List<? extends Ent> get();
 }

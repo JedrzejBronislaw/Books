@@ -13,7 +13,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import lombok.Getter;
 
 @Component
-public class LocationListManager extends ListManager {
+public class LocationListManager implements ListManager {
 
 	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
 

@@ -14,7 +14,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
 
 @Component
-public class LanguageListManager extends ListManager {
+public class LanguageListManager implements ListManager {
 
 	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
 

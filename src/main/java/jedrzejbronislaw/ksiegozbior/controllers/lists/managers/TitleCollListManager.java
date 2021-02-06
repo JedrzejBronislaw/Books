@@ -14,7 +14,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository
 import lombok.Getter;
 
 @Component
-public class TitleCollListManager extends ListManager {
+public class TitleCollListManager implements ListManager {
 
 	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
 

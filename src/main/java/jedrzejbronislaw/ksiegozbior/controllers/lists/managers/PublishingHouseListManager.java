@@ -13,7 +13,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository
 import lombok.Getter;
 
 @Component
-public class PublishingHouseListManager extends ListManager {
+public class PublishingHouseListManager implements ListManager {
 
 	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
 
