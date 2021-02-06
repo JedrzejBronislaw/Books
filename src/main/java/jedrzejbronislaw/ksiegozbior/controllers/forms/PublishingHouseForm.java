@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import lombok.Getter;
@@ -32,11 +33,12 @@ public class PublishingHouseForm extends VBox implements Initializable, EntityFo
 	
 	@FXML
 	public void addPublisherAction() {
-		savePublishingHouse();
-		clearFields();
+		save();
+		clear();
 	}
-	
-	private void savePublishingHouse() {
+
+	@Override
+	public PublishingHouse save() {
 		PublishingHouse newPublishingHouse = new PublishingHouse();
 		
 		newPublishingHouse.setName(getText(nameField));
@@ -44,10 +46,12 @@ public class PublishingHouseForm extends VBox implements Initializable, EntityFo
 		newPublishingHouse.setCity(getText(cityField));
 
 		publishingHouseRepository.save(newPublishingHouse);
+		
+		return newPublishingHouse;
 	}
 
-
-	public void clearFields(){
+	@Override
+	public void clear(){
 		nameField.clear();
 		abbrevField.clear();
 		cityField.clear();
@@ -55,4 +59,9 @@ public class PublishingHouseForm extends VBox implements Initializable, EntityFo
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {}
+
+	@Override
+	public void set(Ent ent) {
+		// TODO Auto-generated method stub
+	}
 }

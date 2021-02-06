@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
@@ -30,24 +31,33 @@ public class LanguageForm extends VBox implements Initializable, EntityForm {
 	
 	@FXML
 	public void addLanguageAction() {
-		saveLanguage();
-		clearFields();
+		save();
+		clear();
 	}
-	
-	private void saveLanguage() {
+
+	@Override
+	public Language save() {
 		Language newLang = new Language();
 		
 		newLang.setName(getText(langField));
 		newLang.setAbbr(getText(abbrevField));
 		
 		languageRepository.save(newLang);
+		
+		return newLang;
 	}
 
-	public void clearFields(){
+	@Override
+	public void clear(){
 		langField.clear();
 		abbrevField.clear();
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {}
+
+	@Override
+	public void set(Ent ent) {
+		// TODO Auto-generated method stub
+	}
 }

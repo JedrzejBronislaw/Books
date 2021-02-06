@@ -41,7 +41,7 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 	@FXML
 	public void addAuthorAction() {
 		save();
-		clearFields();
+		clear();
 	}
 	
 	@Override
@@ -61,7 +61,7 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 
 	@Override
 	public void set(Ent ent) {
-		clearFields();
+		clear();
 		
 		if (!(ent instanceof Author)) return;
 
@@ -77,8 +77,9 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 	private LocalDate getDate(Date date) {
 		return (date == null) ? null : date.toLocalDate();
 	}
-	
-	public void clearFields(){
+
+	@Override
+	public void clear(){
 		nameField.clear();
 		surnameField.clear();
 		birthDateField.setValue(null);

@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
@@ -32,21 +33,24 @@ public class BookCollForm extends VBox implements Initializable, EntityForm {
 	
 	@FXML
 	public void addAction() {
-		saveCollection();
-		clearFields();
+		save();
+		clear();
 	}
 	
-	private void saveCollection() {
+	@Override
+	public BookCollection save() {
 		BookCollection collection = new BookCollection();
 		
 		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());
 		
 		bookCollectionRepository.save(collection);
+		
+		return collection;
 	}
 
-
-	public void clearFields(){
+	@Override
+	public void clear(){
 		nameField.clear();
 		supercollectionField.setValue(null);
 	}
@@ -54,5 +58,10 @@ public class BookCollForm extends VBox implements Initializable, EntityForm {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(supercollectionField, bookCollectionRepository);
+	}
+
+	@Override
+	public void set(Ent ent) {
+		// TODO Auto-generated method stub
 	}
 }

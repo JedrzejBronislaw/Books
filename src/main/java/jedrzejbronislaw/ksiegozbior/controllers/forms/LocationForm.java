@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
@@ -34,11 +35,12 @@ public class LocationForm extends VBox implements Initializable, EntityForm {
 	
 	@FXML
 	public void addAction() {
-		saveLocation();
-		clearFields();
+		save();
+		clear();
 	}
-	
-	private void saveLocation() {
+
+	@Override
+	public Location save() {
 		Location newLocation = new Location();
 		
 		newLocation.setName(       getText(nameField));
@@ -46,10 +48,12 @@ public class LocationForm extends VBox implements Initializable, EntityForm {
 		newLocation.setSuperLocation(superlocationField.getValue());
 		
 		locationRepository.save(newLocation);
+		
+		return newLocation;
 	}
 
-
-	public void clearFields(){
+	@Override
+	public void clear(){
 		nameField.clear();
 		superlocationField.setValue(null);
 		descriptionField.clear();
@@ -58,5 +62,10 @@ public class LocationForm extends VBox implements Initializable, EntityForm {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(superlocationField, locationRepository);
+	}
+
+	@Override
+	public void set(Ent ent) {
+		// TODO Auto-generated method stub
 	}
 }

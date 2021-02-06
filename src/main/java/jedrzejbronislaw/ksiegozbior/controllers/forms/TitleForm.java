@@ -46,10 +46,11 @@ public class TitleForm extends VBox implements Initializable, EntityForm {
 	@FXML private ComboBox<Language> languageField;
 	@FXML private TextArea descriptionField;	
 	
+	
 	@FXML
 	private void addTitleAction() {
 		save();
-		clearFields();
+		clear();
 	}
 	
 	@Override
@@ -81,7 +82,7 @@ public class TitleForm extends VBox implements Initializable, EntityForm {
 
 	@Override
 	public void set(Ent ent) {
-		clearFields();
+		clear();
 		if(ent instanceof Title) {
 			Title title = (Title) ent;
 			
@@ -96,8 +97,9 @@ public class TitleForm extends VBox implements Initializable, EntityForm {
 				authorField.setValue(authors.get(0).getAuthor());
 		}
 	}
-	
-	public void clearFields(){
+
+	@Override
+	public void clear(){
 		titleField.clear();
 		subtitleField.clear();
 		languageField.setValue(null);
@@ -115,10 +117,5 @@ public class TitleForm extends VBox implements Initializable, EntityForm {
 	public void setAuthor(Author author) {
 		authorField.setValue(author);
 		authorField.setDisable(true);
-	}
-	
-	@Override
-	public void enableAllFields() {
-		authorField.setDisable(false);
 	}
 }

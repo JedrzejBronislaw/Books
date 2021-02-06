@@ -69,7 +69,7 @@ public class EditionForm extends VBox implements Initializable, EntityForm {
 	@FXML
 	public void addEditionAction() {
 		save();
-		clearFields();
+		clear();
 	}
 	
 	@Override
@@ -112,7 +112,7 @@ public class EditionForm extends VBox implements Initializable, EntityForm {
 
 	@Override
 	public void set(Ent ent) {
-		clearFields();
+		clear();
 		if (!(ent instanceof Edition)) return;
 		
 			Edition edition = (Edition) ent;
@@ -134,8 +134,8 @@ public class EditionForm extends VBox implements Initializable, EntityForm {
 			descriptionField.setText(edition.getDescription());
 	}
 
-	
-	public void clearFields(){
+	@Override
+	public void clear(){
 		
 		newTitleField.setValue(null);
 		titleListField.getItems().clear();
@@ -220,12 +220,5 @@ public class EditionForm extends VBox implements Initializable, EntityForm {
 		titlesBox.setDisable(true);
 
 		updateTitlePrompText();
-	}
-	
-	@Override
-	public void enableAllFields() {
-		titlesBox.setDisable(false);
-		publisherField.setDisable(false);
-		languageField.setDisable(false);
 	}
 }

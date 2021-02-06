@@ -386,13 +386,9 @@ public class NewBook extends StackPane implements Initializable {
 	}
 	
 	private void clearAllForms() {
-
-		for(EntityForm form : getAllForms()) {
-			if(form == null) continue;
-				
-			form.clearFields();
-			form.enableAllFields();
-		}
+		getAllForms().stream()
+			.filter( f -> f != null)
+			.forEach(f -> f.clear());
 	}
 	
 	private void save() {

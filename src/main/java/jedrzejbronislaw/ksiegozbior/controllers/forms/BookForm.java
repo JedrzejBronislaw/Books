@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
+import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.entities.Visibility;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
@@ -61,7 +62,7 @@ public class BookForm extends VBox implements Initializable, EntityForm {
 	@FXML
 	public void addBookAction() {
 		save();
-		clearFields();
+		clear();
 	}
 	
 	@Override
@@ -100,8 +101,8 @@ public class BookForm extends VBox implements Initializable, EntityForm {
 		return newBook;
 	}
 
-
-	public void clearFields(){
+	@Override
+	public void clear(){
 		ownerLabel.setText("");
 		editionField.setValue(null);
 		autographField.clear();
@@ -130,7 +131,7 @@ public class BookForm extends VBox implements Initializable, EntityForm {
 			loadEditionDetails(editionField.getValue());
 		});
 		
-		clearFields();
+		clear();
 		autographClickAction();
 		loadVisibilityList();
 	}
@@ -167,9 +168,9 @@ public class BookForm extends VBox implements Initializable, EntityForm {
 		editionField.setDisable(true);
 		loadEditionDetails(edition);
 	}
-	
+
 	@Override
-	public void enableAllFields() {
-		editionField.setDisable(false);
+	public void set(Ent ent) {
+		// TODO Auto-generated method stub
 	}
 }
