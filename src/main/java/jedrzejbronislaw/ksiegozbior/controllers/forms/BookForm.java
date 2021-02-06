@@ -1,7 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getDate;
+
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class BookForm extends VBox implements Initializable, EntityForm {
 		
 		newBook.setEdition(editionField.getValue());
 		newBook.setLocation(locationField.getValue());
-		newBook.setPurchaseDate(purchaseDateField.getValue() == null ? null : Date.valueOf(purchaseDateField.getValue()));
+		newBook.setPurchaseDate(getDate(purchaseDateField));
 		newBook.setVisibility(visibilityField.getValue().getValue());
 //		newBook.setLibrary //TODO
 

@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.EntityFormTools.getDate;
 
 import java.net.URL;
 import java.sql.Date;
@@ -51,8 +52,8 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 		newAuthor.setName(       getText(nameField));
 		newAuthor.setSurname(    getText(surnameField));
 		newAuthor.setDescription(getText(descriptionField));
-		newAuthor.setBirthDate(birthDateField.getValue() == null ? null : Date.valueOf(birthDateField.getValue()));
-		newAuthor.setDeathDate(deathDateField.getValue() == null ? null : Date.valueOf(deathDateField.getValue()));
+		newAuthor.setBirthDate(  getDate(birthDateField));
+		newAuthor.setDeathDate(  getDate(deathDateField));
 		
 		autorRepository.save(newAuthor);
 		
@@ -69,12 +70,12 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 		
 		nameField       .setText(author.getName());
 		surnameField    .setText(author.getSurname());
-		birthDateField  .setValue(getDate(author.getBirthDate()));
-		deathDateField  .setValue(getDate(author.getDeathDate()));
+		birthDateField  .setValue(getLocalDate(author.getBirthDate()));
+		deathDateField  .setValue(getLocalDate(author.getDeathDate()));
 		descriptionField.setText(author.getDescription());
 	}
 	
-	private LocalDate getDate(Date date) {
+	private LocalDate getLocalDate(Date date) {
 		return (date == null) ? null : date.toLocalDate();
 	}
 

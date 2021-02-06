@@ -1,5 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
+import java.sql.Date;
+
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -15,6 +18,10 @@ public class EntityFormTools {
 	
 	private static String getText(String text) {
 		return text.isBlank() ? null : text.strip();
+	}
+	
+	public static Date getDate(DatePicker datePicker) {
+		return datePicker.getValue() == null ? null : Date.valueOf(datePicker.getValue());
 	}
 	
 	public static short parseShort(String s, short def) {
