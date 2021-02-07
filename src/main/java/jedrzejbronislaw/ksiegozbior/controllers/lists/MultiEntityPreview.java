@@ -31,6 +31,10 @@ public abstract class MultiEntityPreview extends VBox {
 	}
 	
 	@FXML
+	protected void editAction() {
+	}
+	
+	@FXML
 	protected void deleteAction() {
 		if(listManager == null) return;
 

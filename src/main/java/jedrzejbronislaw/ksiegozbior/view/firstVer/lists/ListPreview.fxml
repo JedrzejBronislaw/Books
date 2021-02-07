@@ -13,6 +13,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#addAction" text="%add" />
+            <Button mnemonicParsing="false" onAction="#editAction" text="%edit" />
           <Button mnemonicParsing="false" onAction="#deleteAction" text="%delete" />
         </buttons>
       </ButtonBar>
