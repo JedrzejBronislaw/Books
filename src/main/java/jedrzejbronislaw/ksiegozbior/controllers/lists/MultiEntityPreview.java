@@ -3,14 +3,19 @@ package jedrzejbronislaw.ksiegozbior.controllers.lists;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import lombok.Setter;
 
 public abstract class MultiEntityPreview extends VBox {
 	
+	@Autowired private ApplicationEventPublisher eventPublisher;
 	@Setter protected ListManager listManager;
 	
 	abstract protected void set(String header, List<Ent> elements);
@@ -32,6 +37,7 @@ public abstract class MultiEntityPreview extends VBox {
 	
 	@FXML
 	protected void editAction() {
+		eventPublisher.publishEvent(new EditRequestEvent(this, getSelectedItem()));
 	}
 	
 	@FXML
