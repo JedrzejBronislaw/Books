@@ -89,8 +89,10 @@ public class TreePreview extends MultiEntityPreview implements Initializable {
 
 	@Override
 	protected Ent getSelectedItem() {
-		return tree.getSelectionModel().getSelectedItem().getValue();
+		TreeItem<Ent> item = tree.getSelectionModel().getSelectedItem();
+		return (item == null) ? null : item.getValue();
 	}
+
 	@Override
 	protected boolean isSelectedItem() {
 		return (tree.getSelectionModel().getSelectedIndex() > -1);
