@@ -126,11 +126,11 @@ public class NewBook extends StackPane implements Initializable {
 		refreshFormsPanes();
 	}
 	
-	private void addBorder(EntityForm form) {
+	private void addBorder(EntityForm<?> form) {
 		form.getFieldsPane().setStyle("-fx-border-color: #000;");
 	}
 	
-	private List<EntityForm> getAllForms() {
+	private List<EntityForm<?>> getAllForms() {
 		return Arrays.asList(
 				authorForm,
 				titleForm,
@@ -247,7 +247,7 @@ public class NewBook extends StackPane implements Initializable {
 	
 	private void refreshFormsPanes() {
 		Pane fieldPane;
-		List<EntityForm> forms = getAllForms();
+		List<EntityForm<?>> forms = getAllForms();
 		boolean[] formsVisibility = getAllFormsVisibility();
 		
 		formPane.getChildren().clear();
@@ -263,8 +263,8 @@ public class NewBook extends StackPane implements Initializable {
 		}
 	}
 	
-	private Pane getFieldPane(EntityForm nac) {
-		return nac.getFieldsPane();
+	private Pane getFieldPane(EntityForm<?> form) {
+		return form.getFieldsPane();
 	}
 	
 	
@@ -351,7 +351,7 @@ public class NewBook extends StackPane implements Initializable {
 	private void hideAllForms() {
 		Pane pane;
 		
-		for(EntityForm form : getAllForms()) {
+		for(EntityForm<?> form : getAllForms()) {
 			if (form == null) continue;
 			
 			pane = getFieldPane(form);
@@ -439,7 +439,7 @@ public class NewBook extends StackPane implements Initializable {
 		return (Book) saveForm(bookForm);
 	}
 
-	private Ent saveForm(EntityForm form) {
+	private Ent saveForm(EntityForm<?> form) {
 		return form.save();
 	}
 }

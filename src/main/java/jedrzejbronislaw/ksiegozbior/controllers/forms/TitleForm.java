@@ -2,6 +2,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.List;
@@ -16,10 +17,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Authorship;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
@@ -30,7 +29,9 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class TitleForm extends VBox implements Initializable, EntityForm {
+public class TitleForm extends EntityForm<Title> implements Initializable {
+
+	@Getter(PROTECTED) private Class<Title> entityClass = Title.class;
 
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private AuthorRepository authorsRepository;
@@ -81,21 +82,16 @@ public class TitleForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
-		clear();
-		if(ent instanceof Title) {
-			Title title = (Title) ent;
-			
-			titleField.setText(title.getTitle());
-			subtitleField.setText(title.getSubtitle());
-			languageField.setValue(title.getLanguage());
-			yearField.setText(Short.toString(title.getYear()));
-			descriptionField.setText(title.getDescription());
-			
-			List<Authorship> authors = title.getAuthors();
-			if (authors.size() > 0)
-				authorField.setValue(authors.get(0).getAuthor());
-		}
+	public void fill(Title title) {
+		titleField.setText(title.getTitle());
+		subtitleField.setText(title.getSubtitle());
+		languageField.setValue(title.getLanguage());
+		yearField.setText(Short.toString(title.getYear()));
+		descriptionField.setText(title.getDescription());
+		
+		List<Authorship> authors = title.getAuthors();
+		if (authors.size() > 0)
+			authorField.setValue(authors.get(0).getAuthor());
 	}
 
 	@Override

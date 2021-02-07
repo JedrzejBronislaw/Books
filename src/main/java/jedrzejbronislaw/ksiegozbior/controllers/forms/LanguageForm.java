@@ -1,5 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static lombok.AccessLevel.PROTECTED;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,16 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
-
 @Component
-public class LanguageForm extends VBox implements Initializable, EntityForm {
+public class LanguageForm extends EntityForm<Language> implements Initializable {
+
+	@Getter(PROTECTED) private Class<Language> entityClass = Language.class;
 
 	@Autowired private LanguageRepository languageRepository;
 
@@ -57,7 +58,7 @@ public class LanguageForm extends VBox implements Initializable, EntityForm {
 	public void initialize(URL arg0, ResourceBundle arg1) {}
 
 	@Override
-	public void set(Ent ent) {
+	public void fill(Language ent) {
 		// TODO Auto-generated method stub
 	}
 }

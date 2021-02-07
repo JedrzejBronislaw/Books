@@ -13,15 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class EditionCollForm extends VBox implements Initializable, EntityForm {
+public class EditionCollForm extends EntityForm<EditionCollection> implements Initializable {
+
+	@Getter private Class<EditionCollection> entityClass = EditionCollection.class;
 
 	@Autowired private EditionCollectionRepository editionCollectionRepository;
 
@@ -61,7 +61,7 @@ public class EditionCollForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
+	public void fill(EditionCollection ent) {
 		// TODO Auto-generated method stub
 	}
 }

@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,15 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.TitleCollection;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class TitleCollForm extends VBox implements Initializable, EntityForm {
+public class TitleCollForm extends EntityForm<TitleCollection> implements Initializable {
+
+	@Getter(PROTECTED) private Class<TitleCollection> entityClass = TitleCollection.class;
 
 	@Autowired private TitleCollectionRepository titleCollectionRepository;
 
@@ -61,7 +62,7 @@ public class TitleCollForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
+	public void fill(TitleCollection ent) {
 		// TODO Auto-generated method stub
 	}
 }

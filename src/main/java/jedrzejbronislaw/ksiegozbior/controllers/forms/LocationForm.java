@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,15 +15,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class LocationForm extends VBox implements Initializable, EntityForm {
+public class LocationForm extends EntityForm<Location> implements Initializable {
+
+	@Getter(PROTECTED) private Class<Location> entityClass = Location.class;
 
 	@Autowired private LocationRepository locationRepository;
 
@@ -65,7 +66,7 @@ public class LocationForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
+	public void fill(Location ent) {
 		// TODO Auto-generated method stub
 	}
 }

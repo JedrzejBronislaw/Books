@@ -1,5 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static lombok.AccessLevel.PROTECTED;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,16 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import lombok.Getter;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
-
 @Component
-public class PublishingHouseForm extends VBox implements Initializable, EntityForm {
+public class PublishingHouseForm extends EntityForm<PublishingHouse> implements Initializable {
+
+	@Getter(PROTECTED) private Class<PublishingHouse> entityClass = PublishingHouse.class;
 
 	@Autowired private PublishingHouseRepository publishingHouseRepository;
 
@@ -61,7 +62,7 @@ public class PublishingHouseForm extends VBox implements Initializable, EntityFo
 	public void initialize(URL arg0, ResourceBundle arg1) {}
 
 	@Override
-	public void set(Ent ent) {
+	public void fill(PublishingHouse ent) {
 		// TODO Auto-generated method stub
 	}
 }

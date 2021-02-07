@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseLong;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
@@ -35,8 +35,10 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class EditionForm extends VBox implements Initializable, EntityForm {
+public class EditionForm extends EntityForm<Edition> implements Initializable {
 
+	@Getter(PROTECTED) Class<Edition> entityClass = Edition.class;
+	
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private Edition_TitleRepository edition_TitleRepository;
 	@Autowired private EditionRepository editionRepository;
@@ -111,27 +113,22 @@ public class EditionForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
-		clear();
-		if (!(ent instanceof Edition)) return;
-		
-			Edition edition = (Edition) ent;
-			
-			newTitleField.setValue(null);
-			titleListField.getItems().clear();
-			edition.getTitles().forEach(et -> titleListField.getItems().add(et.getTitleObj()));
-			titleCheckbox.setSelected(edition.getTitle() == null || edition.getTitle().isBlank());
-			if (!titleCheckbox.isSelected()) titleField.setText(edition.getTitle());
-			subtitleCheckbox.setSelected(edition.getSubtitle() == null || edition.getSubtitle().isBlank());
-			if (!subtitleCheckbox.isSelected()) subtitleField.setText(edition.getSubtitle());
-			languageField.setValue(edition.getLanguage());
-			publisherField.setValue(edition.getPublishingHouse());
-			yearField.setText(Short.toString(edition.getYear()));
-			pagesField.setText(Short.toString(edition.getNumOfPages()));
-			if (edition.getISBN() != null) isbnField.setText(Long.toString(edition.getISBN()));
-			editionNumberField.setText(Short.toString(edition.getNumber()));
-			hardCoverCheckbox.setSelected(edition.isHardCover());
-			descriptionField.setText(edition.getDescription());
+	public void fill(Edition edition) {
+		newTitleField.setValue(null);
+		titleListField.getItems().clear();
+		edition.getTitles().forEach(et -> titleListField.getItems().add(et.getTitleObj()));
+		titleCheckbox.setSelected(edition.getTitle() == null || edition.getTitle().isBlank());
+		if (!titleCheckbox.isSelected()) titleField.setText(edition.getTitle());
+		subtitleCheckbox.setSelected(edition.getSubtitle() == null || edition.getSubtitle().isBlank());
+		if (!subtitleCheckbox.isSelected()) subtitleField.setText(edition.getSubtitle());
+		languageField.setValue(edition.getLanguage());
+		publisherField.setValue(edition.getPublishingHouse());
+		yearField.setText(Short.toString(edition.getYear()));
+		pagesField.setText(Short.toString(edition.getNumOfPages()));
+		if (edition.getISBN() != null) isbnField.setText(Long.toString(edition.getISBN()));
+		editionNumberField.setText(Short.toString(edition.getNumber()));
+		hardCoverCheckbox.setSelected(edition.isHardCover());
+		descriptionField.setText(edition.getDescription());
 	}
 
 	@Override

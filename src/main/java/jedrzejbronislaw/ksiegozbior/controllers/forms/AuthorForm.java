@@ -1,7 +1,8 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getDate;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.sql.Date;
@@ -18,15 +19,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
-import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import lombok.Getter;
 
 @Component
-public class AuthorForm extends VBox implements Initializable, EntityForm {
+public class AuthorForm extends EntityForm<Author> implements Initializable {
 
+	@Getter(PROTECTED) private Class<Author> entityClass = Author.class;
+	
 	@Autowired private AuthorRepository autorRepository;
 
 	@Getter
@@ -61,13 +62,7 @@ public class AuthorForm extends VBox implements Initializable, EntityForm {
 	}
 
 	@Override
-	public void set(Ent ent) {
-		clear();
-		
-		if (!(ent instanceof Author)) return;
-
-		Author author = (Author) ent;
-		
+	protected void fill(Author author) {
 		nameField       .setText(author.getName());
 		surnameField    .setText(author.getSurname());
 		birthDateField  .setValue(getLocalDate(author.getBirthDate()));
