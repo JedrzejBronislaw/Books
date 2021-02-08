@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
+import jedrzejbronislaw.ksiegozbior.model.entities.Library;
 import jedrzejbronislaw.ksiegozbior.tools.MyList;
 import lombok.NonNull;
 
@@ -29,8 +30,9 @@ public class TheBook extends TheEdition implements TheEnt {
 		return (book.getPurchaseDate() != null) ? book.getPurchaseDate().toString() : "-";
 	}
 
-	public String getLibrary() {//TODO
-		return "";
+	public String getLibraryName() {
+		Library library = book.getLibrary();
+		return (library == null) ? "" : library.getName();
 	}
 
 	public MyList<String> getComments(){

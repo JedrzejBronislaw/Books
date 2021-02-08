@@ -49,7 +49,7 @@ public class BookPreview extends VBox implements Initializable {
 		publisherLabel      .setText(theBook.getPublisherName());
 		languageLabel       .setText(theBook.getLanguageName());
 		purchaseDateLabel   .setText(theBook.getPurchaseDate());
-		libraryLabel        .setText(theBook.getLibrary());
+		libraryLabel        .setText(theBook.getLibraryName());
 		publicationDateLabel.setText(theBook.getPublicationYear().str());
 		pagesLabel          .setText(theBook.getPages().str());
 		hardCoverLabel      .setText(theBook.isHardCoverStr());
