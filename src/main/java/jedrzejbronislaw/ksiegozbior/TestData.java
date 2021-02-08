@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Authorship;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
+import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
@@ -33,6 +35,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorshipRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionLinkRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCollectionRepository;
+import jedrzejbronislaw.ksiegozbior.model.repositories.BookCommentRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionLinkRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionRepository;
@@ -62,6 +65,7 @@ public class TestData {
 	@Autowired private EditionRepository editionRepository;
 	@Autowired private Edition_TitleRepository edition_TitleRepository;
 	@Autowired private BookRepository bookRepository;
+	@Autowired private BookCommentRepository bookCommentRepository;
 	@Autowired private TitleCollectionRepository titleCollectionRepository;
 	@Autowired private TitleCollectionLinkRepository titleCollectionLinkRepository;
 	@Autowired private EditionCollectionRepository editionCollectionRepository;
@@ -81,6 +85,8 @@ public class TestData {
 		saveTestTitles();
 		saveTestEdition();
 		saveTestBooks();
+
+		saveTestComments();
 		
 		saveTestTitleCollections();
 		saveTestEditionCollections();
@@ -441,11 +447,16 @@ public class TestData {
 		Edition editionHobbit = editionRepository.findByTitle("The Hobbit").get(0);
 		Edition editionDzielaTolkiena = editionRepository.findByTitle("Dzieła Tolkiena").get(0);
 		
+		Library library1 = libraryRepository.findById(1L).get();
+		Library library2 = libraryRepository.findById(2L).get();
+		Library library3 = libraryRepository.findById(3L).get();
+		
 		book = new Book();
 		book.setEdition(editionHarda);
 		book.setLocation(locationDzialka);
 		book.setPurchaseDate(Date.valueOf("2010-1-5"));
 		book.setVisibility(Visibility.OwnerOnly.getValue());
+		book.setLibrary(library1);
 		bookRepository.save(book);
 		
 		book = new Book();
@@ -453,6 +464,7 @@ public class TestData {
 		book.setLocation(locationPolkaDrzwi);
 		book.setPurchaseDate(Date.valueOf("2012-4-15"));
 		book.setVisibility(Visibility.All.getValue());
+		book.setLibrary(library2);
 		bookRepository.save(book);
 		
 		book = new Book();
@@ -460,6 +472,7 @@ public class TestData {
 		book.setLocation(locationPolkaOkno);
 		book.setPurchaseDate(Date.valueOf("2019-2-13"));
 		book.setVisibility(Visibility.Friends.getValue());
+		book.setLibrary(library3);
 		bookRepository.save(book);
 		
 		book = new Book();
@@ -468,6 +481,33 @@ public class TestData {
 		book.setPurchaseDate(Date.valueOf("2019-2-13"));
 		book.setVisibility(Visibility.Default.getValue());
 		bookRepository.save(book);
+	}
+
+	private void saveTestComments() {
+		BookComment comment;
+		
+		Book bookHarda        = bookRepository.findByTitle("Harda").get(0);
+		Book bookSilmallirion = bookRepository.findByTitle("The Silmarillion").get(0);
+		Book bookHobbit       = bookRepository.findByTitle("Hobbit").get(0);
+		
+		comment = new BookComment("missing pages 105-106");
+		comment.setBooks(Set.of(bookHarda));
+		bookHarda.getComments().add(comment);
+		bookCommentRepository.save(comment);
+		bookRepository.save(bookHarda);
+
+		comment = new BookComment("I got this book from Adam");
+		comment.setBooks(Set.of(bookSilmallirion));
+		bookHarda.getComments().add(comment);
+		bookSilmallirion.getComments().add(comment);
+		bookCommentRepository.save(comment);
+		bookRepository.save(bookSilmallirion);
+		
+		comment = new BookComment("flooded");
+		comment.setBooks(Set.of(bookHobbit));
+		bookHobbit.getComments().add(comment);
+		bookCommentRepository.save(comment);
+		bookRepository.save(bookHobbit);
 	}
 
 	private void saveTestTitleCollections() {
