@@ -62,7 +62,8 @@ public class TitleCollForm extends EntityForm<TitleCollection> implements Initia
 	}
 
 	@Override
-	public void fill(TitleCollection ent) {
-		// TODO Auto-generated method stub
+	public void fill(TitleCollection collection) {
+		nameField.setText(collection.getName());
+		supercollectionField.setValue(collection.getSuperCollection());
 	}
 }

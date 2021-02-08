@@ -83,11 +83,11 @@ public class TitleForm extends EntityForm<Title> implements Initializable {
 
 	@Override
 	public void fill(Title title) {
-		titleField.setText(title.getTitle());
-		subtitleField.setText(title.getSubtitle());
-		languageField.setValue(title.getLanguage());
-		yearField.setText(Short.toString(title.getYear()));
-		descriptionField.setText(title.getDescription());
+		titleField      .setText( title.getTitle());
+		subtitleField   .setText( title.getSubtitle());
+		languageField   .setValue(title.getLanguage());
+		yearField       .setText(Short.toString(title.getYear()));
+		descriptionField.setText( title.getDescription());
 		
 		List<Authorship> authors = title.getAuthors();
 		if (authors.size() > 0)

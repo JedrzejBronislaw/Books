@@ -58,7 +58,8 @@ public class LanguageForm extends EntityForm<Language> implements Initializable 
 	public void initialize(URL arg0, ResourceBundle arg1) {}
 
 	@Override
-	public void fill(Language ent) {
-		// TODO Auto-generated method stub
+	public void fill(Language language) {
+		langField  .setText(language.getName());
+		abbrevField.setText(language.getAbbr());
 	}
 }

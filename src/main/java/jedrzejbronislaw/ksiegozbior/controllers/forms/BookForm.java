@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringJoiner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -172,7 +173,24 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	}
 
 	@Override
-	public void fill(Book ent) {
-		// TODO Auto-generated method stub
+	public void fill(Book book) {
+//		ownerLabel.setText(book.getLibrary());
+		editionField.setValue(book.getEdition());
+		purchaseDateField.setValue(book.getPurchaseDate().toLocalDate());
+		locationField.setValue(book.getLocation());
+		visibilityField.setValue(Visibility.values()[book.getVisibility()]);
+		commentField.setText(serializedComments(book));
+		
+		loadEditionDetails(book.getEdition());
+	}
+	
+	private String serializedComments(Book book) {
+		StringJoiner strJoiner = new StringJoiner("\n\n");
+
+		book.getComments().stream()
+			.map(c -> c.getContent())
+			.forEach(strJoiner::add);
+		
+		return strJoiner.toString();
 	}
 }

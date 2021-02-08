@@ -61,7 +61,8 @@ public class EditionCollForm extends EntityForm<EditionCollection> implements In
 	}
 
 	@Override
-	public void fill(EditionCollection ent) {
-		// TODO Auto-generated method stub
+	public void fill(EditionCollection collection) {
+		nameField.setText(collection.getName());
+		supercollectionField.setValue(collection.getSuperCollection());
 	}
 }

@@ -62,7 +62,8 @@ public class BookCollForm extends EntityForm<BookCollection> implements Initiali
 	}
 
 	@Override
-	protected void fill(BookCollection ent) {
-		// TODO Auto-generated method stub
+	protected void fill(BookCollection collection) {
+		nameField.setText(collection.getName());
+		supercollectionField.setValue(collection.getSuperCollection());
 	}
 }

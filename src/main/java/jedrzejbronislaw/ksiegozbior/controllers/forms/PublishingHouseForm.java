@@ -62,7 +62,9 @@ public class PublishingHouseForm extends EntityForm<PublishingHouse> implements 
 	public void initialize(URL arg0, ResourceBundle arg1) {}
 
 	@Override
-	public void fill(PublishingHouse ent) {
-		// TODO Auto-generated method stub
+	public void fill(PublishingHouse publisher) {
+		nameField  .setText(publisher.getName());
+		abbrevField.setText(publisher.getAbbr());
+		cityField  .setText(publisher.getCity());
 	}
 }

@@ -66,7 +66,9 @@ public class LocationForm extends EntityForm<Location> implements Initializable 
 	}
 
 	@Override
-	public void fill(Location ent) {
-		// TODO Auto-generated method stub
+	public void fill(Location location) {
+		nameField         .setText( location.getName());;
+		superlocationField.setValue(location.getSuperLocation());
+		descriptionField  .setText( location.getDescription());;
 	}
 }
