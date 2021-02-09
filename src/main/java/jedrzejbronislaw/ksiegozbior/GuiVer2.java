@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.entities.AuthorPreview;
-import jedrzejbronislaw.ksiegozbior.controllers.entities.BookPreview;
-import jedrzejbronislaw.ksiegozbior.controllers.entities.EditionPreview;
-import jedrzejbronislaw.ksiegozbior.controllers.entities.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.AuthorForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.BookForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.EditionForm;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.TitleForm;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.AuthorPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.BookPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.EditionPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.TitlePreview;
 import jedrzejbronislaw.ksiegozbior.controllers2.BookDetails;
 import jedrzejbronislaw.ksiegozbior.controllers2.LoginPanel;
 import jedrzejbronislaw.ksiegozbior.controllers2.MainView2;

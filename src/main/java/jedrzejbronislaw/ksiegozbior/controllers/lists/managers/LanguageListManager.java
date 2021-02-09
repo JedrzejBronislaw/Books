@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entities.LanguagePreview;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.LanguagePreview;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;

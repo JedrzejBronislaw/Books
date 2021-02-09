@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.entities;
+package jedrzejbronislaw.ksiegozbior.controllers.previews;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jedrzejbronislaw.ksiegozbior.controllers.entities.PublisherPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.previews.PublisherPreview;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
