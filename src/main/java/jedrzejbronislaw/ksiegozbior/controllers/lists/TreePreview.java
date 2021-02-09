@@ -19,7 +19,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.view.SimpleTreeCallback;
 
 @Component
-public class TreePreview extends MultiEntityPreview implements Initializable {
+public class TreePreview extends AbstractListPreview implements Initializable {
 
 	@Autowired TheEntGenerator theEntGenerator;
 

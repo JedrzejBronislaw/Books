@@ -16,7 +16,7 @@ import jedrzejbronislaw.ksiegozbior.model.projections.TheEntGenerator;
 import jedrzejbronislaw.ksiegozbior.view.SimpleListCallback;
 
 @Component
-public class ListPreview extends MultiEntityPreview implements Initializable {
+public class ListPreview extends AbstractListPreview implements Initializable {
 
 	@Autowired TheEntGenerator theEntGenerator;
 	

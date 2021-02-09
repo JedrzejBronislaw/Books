@@ -13,7 +13,7 @@ import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import lombok.Setter;
 
-public abstract class MultiEntityPreview extends VBox {
+public abstract class AbstractListPreview extends VBox {
 	
 	@Autowired private ApplicationEventPublisher eventPublisher;
 	@Setter protected ListManager listManager;

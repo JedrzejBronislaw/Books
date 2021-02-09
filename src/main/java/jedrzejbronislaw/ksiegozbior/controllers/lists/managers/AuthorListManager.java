@@ -15,7 +15,7 @@ import lombok.Getter;
 @Component
 public class AuthorListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
+	@Getter private final ListType type = ListType.LIST;
 	
 	@Autowired private AuthorRepository repository;
 	@Autowired private AuthorPreview preview;

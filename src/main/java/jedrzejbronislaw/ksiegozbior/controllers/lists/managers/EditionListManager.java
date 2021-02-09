@@ -15,7 +15,7 @@ import lombok.Getter;
 @Component
 public class EditionListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
+	@Getter private final ListType type = ListType.LIST;
 
 	@Autowired private EditionRepository repository;
 	@Autowired private EditionPreview preview;

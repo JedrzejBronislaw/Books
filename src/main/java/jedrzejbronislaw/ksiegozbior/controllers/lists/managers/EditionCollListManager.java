@@ -16,7 +16,7 @@ import lombok.Getter;
 @Component
 public class EditionCollListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
+	@Getter private final ListType type = ListType.TREE;
 
 	@Autowired private EditionCollectionRepository repository;
 	@Autowired private CollectionPreview preview;

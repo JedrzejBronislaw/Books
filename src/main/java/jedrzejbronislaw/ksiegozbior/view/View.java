@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
-import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType;
-import jedrzejbronislaw.ksiegozbior.controllers.lists.MultiEntityPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.ListType;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.AbstractListPreview;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,14 +23,14 @@ public class View {
 	@Setter @NonNull private Label header;
 
 	private Map<Views, PaneSet> paneMap = new HashMap<>();
-	private Map<MultiEntityViewType, MultiEntityPreview> multiEntityViews = new HashMap<>();
+	private Map<ListType, AbstractListPreview> multiEntityViews = new HashMap<>();
 	
 	
 	public PaneSet addPanes(Views view, PaneSet panes) {
 		return paneMap.put(view, panes);
 	}
 
-	public MultiEntityPreview addMultiEntityView(MultiEntityViewType key, MultiEntityPreview multiView) {
+	public AbstractListPreview addMultiEntityView(ListType key, AbstractListPreview multiView) {
 		return multiEntityViews.put(key, multiView);
 	}
 	
@@ -50,7 +50,7 @@ public class View {
 		previewPane.getChildren().add(panes.previewPane);
 		
 		ListManager listManager = panes.listManager;
-		MultiEntityPreview multiView = multiEntityViews.get(listManager.getType());
+		AbstractListPreview multiView = multiEntityViews.get(listManager.getType());
 		
 		if (multiView != null) {
 			multiView.setListManager(listManager);

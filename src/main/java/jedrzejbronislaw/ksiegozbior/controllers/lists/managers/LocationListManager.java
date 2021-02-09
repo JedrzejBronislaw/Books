@@ -15,7 +15,7 @@ import lombok.Getter;
 @Component
 public class LocationListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.TREE;
+	@Getter private final ListType type = ListType.TREE;
 
 	@Autowired private LocationRepository repository;
 	@Autowired private LocationPreview preview;

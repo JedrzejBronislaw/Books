@@ -1,7 +1,7 @@
 package jedrzejbronislaw.ksiegozbior;
 
-import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType.LIST;
-import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.MultiEntityViewType.TREE;
+import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.ListType.LIST;
+import static jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.ListType.TREE;
 
 import java.io.IOException;
 

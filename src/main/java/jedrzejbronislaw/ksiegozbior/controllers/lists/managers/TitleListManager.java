@@ -15,7 +15,7 @@ import lombok.Getter;
 @Component
 public class TitleListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
+	@Getter private final ListType type = ListType.LIST;
 
 	@Autowired private TitleRepository repository;
 	@Autowired private TitlePreview preview;

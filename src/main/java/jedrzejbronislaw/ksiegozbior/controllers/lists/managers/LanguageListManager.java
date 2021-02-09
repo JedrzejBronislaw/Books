@@ -16,7 +16,7 @@ import lombok.Getter;
 @Component
 public class LanguageListManager implements ListManager {
 
-	@Getter private final MultiEntityViewType type = MultiEntityViewType.LIST;
+	@Getter private final ListType type = ListType.LIST;
 
 	@Autowired private LanguageRepository repository;
 	@Autowired private LanguagePreview preview;
