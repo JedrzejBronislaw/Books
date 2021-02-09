@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import lombok.Setter;
 

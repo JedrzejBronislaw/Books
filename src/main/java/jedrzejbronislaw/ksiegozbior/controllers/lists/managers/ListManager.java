@@ -1,4 +1,4 @@
-package jedrzejbronislaw.ksiegozbior.controllers.lists;
+package jedrzejbronislaw.ksiegozbior.controllers.lists.managers;
 
 import java.util.List;
 

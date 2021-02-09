@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
-import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager.ListType;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.AbstractListPreview;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.ListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.ListManager.ListType;
 import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import lombok.NonNull;
 import lombok.Setter;

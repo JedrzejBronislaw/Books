@@ -1,7 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.view;
 
 import javafx.scene.layout.Pane;
-import jedrzejbronislaw.ksiegozbior.controllers.lists.ListManager;
+import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.ListManager;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
