@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -38,5 +39,9 @@ public class FormTools {
 		} catch (NumberFormatException e) {
 			return def;
 		}
+	}
+	
+	public static LocalDate localDate(Date date) {
+		return (date == null) ? null : date.toLocalDate();
 	}
 }

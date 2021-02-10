@@ -2,11 +2,10 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getDate;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.localDate;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,13 +64,9 @@ public class AuthorForm extends EntityForm<Author> implements Initializable {
 	protected void fill(Author author) {
 		nameField       .setText(author.getName());
 		surnameField    .setText(author.getSurname());
-		birthDateField  .setValue(getLocalDate(author.getBirthDate()));
-		deathDateField  .setValue(getLocalDate(author.getDeathDate()));
+		birthDateField  .setValue(localDate(author.getBirthDate()));
+		deathDateField  .setValue(localDate(author.getDeathDate()));
 		descriptionField.setText(author.getDescription());
-	}
-	
-	private LocalDate getLocalDate(Date date) {
-		return (date == null) ? null : date.toLocalDate();
 	}
 
 	@Override

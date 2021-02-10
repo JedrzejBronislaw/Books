@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getDate;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.localDate;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
@@ -176,7 +177,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	public void fill(Book book) {
 //		ownerLabel.setText(book.getLibrary());
 		editionField.setValue(book.getEdition());
-		purchaseDateField.setValue(book.getPurchaseDate().toLocalDate());
+		purchaseDateField.setValue(localDate(book.getPurchaseDate()));
 		locationField.setValue(book.getLocation());
 		visibilityField.setValue(book.getVisibility());
 		commentField.setText(serializedComments(book));
