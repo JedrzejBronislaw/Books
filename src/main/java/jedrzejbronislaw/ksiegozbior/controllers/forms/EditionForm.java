@@ -114,21 +114,41 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	@Override
 	public void fill(Edition edition) {
-		newTitleField.setValue(null);
-		titleListField.getItems().clear();
-		edition.getTitles().forEach(et -> titleListField.getItems().add(et.getTitleObj()));
-		titleCheckbox.setSelected(edition.getTitle() == null || edition.getTitle().isBlank());
-		if (!titleCheckbox.isSelected()) titleField.setText(edition.getTitle());
-		subtitleCheckbox.setSelected(edition.getSubtitle() == null || edition.getSubtitle().isBlank());
-		if (!subtitleCheckbox.isSelected()) subtitleField.setText(edition.getSubtitle());
-		languageField.setValue(edition.getLanguage());
-		publisherField.setValue(edition.getPublishingHouse());
-		yearField.setText(Short.toString(edition.getYear()));
-		pagesField.setText(Short.toString(edition.getNumOfPages()));
-		if (edition.getISBN() != null) isbnField.setText(Long.toString(edition.getISBN()));
-		editionNumberField.setText(Short.toString(edition.getNumber()));
-		hardCoverCheckbox.setSelected(edition.isHardCover());
-		descriptionField.setText(edition.getDescription());
+		boolean titleExists    = textExists(edition.getTitle());
+		boolean subtitleExists = textExists(edition.getSubtitle());
+		Long isbn = edition.getISBN();
+		
+		
+		edition.getTitles().stream()
+			.map(et -> et.getTitleObj())
+			.forEach(titleListField.getItems()::add);
+		
+		titleCheckbox.setSelected(!titleExists);
+		if (titleExists) titleField.setText(edition.getTitle());
+		
+		subtitleCheckbox.setSelected(!subtitleExists);
+		if (subtitleExists) subtitleField.setText(edition.getSubtitle());
+		
+		languageField     .setValue      (edition.getLanguage());
+		publisherField    .setValue      (edition.getPublishingHouse());
+		yearField         .setText(string(edition.getYear()));
+		pagesField        .setText(string(edition.getNumOfPages()));
+		editionNumberField.setText(string(edition.getNumber()));
+		isbnField         .setText(string(isbn));
+		descriptionField  .setText       (edition.getDescription());
+		hardCoverCheckbox .setSelected   (edition.isHardCover());
+	}
+
+	private String string(Long l) {
+		return (l != null) ? Long.toString(l) : "";
+	}
+
+	private String string(short s) {
+		return (s > 0) ? Short.toString(s) : "";
+	}
+
+	private boolean textExists(String string) {
+		return string != null && !string.isBlank();
 	}
 
 	@Override
