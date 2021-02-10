@@ -24,4 +24,10 @@ public class Library implements Ent {
 
 	@ManyToMany(mappedBy = "libraries")
 	private List<User> users;
+	
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

@@ -23,12 +23,14 @@ import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
+import jedrzejbronislaw.ksiegozbior.model.entities.Library;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.entities.Visibility;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCommentRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
+import jedrzejbronislaw.ksiegozbior.model.repositories.LibraryRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LocationRepository;
 import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
@@ -39,6 +41,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	@Getter(PROTECTED) private Class<Book> entityClass = Book.class;
 
 	@Autowired private BookRepository bookRepository;
+	@Autowired private LibraryRepository libraryRepository;
 	@Autowired private EditionRepository editionRepository;
 	@Autowired private LocationRepository locationRepository;
 	@Autowired private BookCommentRepository bookCommentRepository;
@@ -47,7 +50,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 
 	@Getter
 	@FXML private GridPane fieldsPane;
-	@FXML private Label ownerLabel;
+	@FXML private ComboBox<Library> libraryField;
 	@FXML private ComboBox<Edition> editionField;
 	@FXML private TextField autographField;
 	@FXML private CheckBox autographCheck;
@@ -73,11 +76,11 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	public Book save() {
 		Book newBook = new Book();
 		
+		newBook.setLibrary(libraryField.getValue());
 		newBook.setEdition(editionField.getValue());
 		newBook.setLocation(locationField.getValue());
 		newBook.setPurchaseDate(getDate(purchaseDateField));
 		newBook.setVisibility(visibilityField.getValue());
-//		newBook.setLibrary //TODO
 
 		if(autographCheck.isSelected()) {
 			BookComment autographComment = new BookComment();
@@ -107,7 +110,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 
 	@Override
 	public void clear(){
-		ownerLabel.setText("");
+		libraryField.setValue(null);
 		editionField.setValue(null);
 		autographField.clear();
 		autographCheck.setSelected(false);
@@ -125,6 +128,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Refresher.setOnShowing(libraryField,  libraryRepository);
 		Refresher.setOnShowing(editionField,  editionRepository);
 		Refresher.setOnShowing(locationField, locationRepository);
 		
@@ -175,7 +179,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 
 	@Override
 	public void fill(Book book) {
-//		ownerLabel.setText(book.getLibrary());
+		libraryField.setValue(book.getLibrary());
 		editionField.setValue(book.getEdition());
 		purchaseDateField.setValue(localDate(book.getPurchaseDate()));
 		locationField.setValue(book.getLocation());

@@ -47,7 +47,6 @@
                   <TextField fx:id="autographField" promptText="%autograph_content" />
                </children>
             </HBox>
-            <Label fx:id="ownerLabel" text="Label" GridPane.columnIndex="1" />
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ComboBox fx:id="editionField" />
@@ -80,6 +79,7 @@
             </VBox>
             <Label text="%visibility" GridPane.rowIndex="4" />
             <ComboBox fx:id="visibilityField" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="libraryField" prefWidth="150.0" GridPane.columnIndex="1" />
 		</children>
 		<opaqueInsets>
 			<Insets />
