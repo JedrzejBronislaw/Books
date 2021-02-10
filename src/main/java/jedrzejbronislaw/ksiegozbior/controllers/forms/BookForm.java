@@ -16,17 +16,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.EditionMiniPreview;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Library;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.entities.Visibility;
-import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCommentRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
@@ -46,12 +46,11 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	@Autowired private LocationRepository locationRepository;
 	@Autowired private BookCommentRepository bookCommentRepository;
 	
-	@Autowired private TheEdition theEdition;
-
 	@Getter
 	@FXML private GridPane fieldsPane;
 	@FXML private ComboBox<Library> libraryField;
 	@FXML private ComboBox<Edition> editionField;
+	@FXML private VBox editionBox;
 	@FXML private TextField autographField;
 	@FXML private CheckBox autographCheck;
 	@FXML private DatePicker purchaseDateField;
@@ -59,11 +58,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	@FXML private ComboBox<Location> locationField;
 	@FXML private TextArea commentField;
 	
-	@FXML private Label editionTitle;
-	@FXML private Label editionAuthor;
-	@FXML private Label editionLanguage;
-	@FXML private Label editionPublisher;
-	@FXML private Label editionNumber;
+	@Autowired private EditionMiniPreview editionPreview;
 	
 	
 	@FXML
@@ -119,11 +114,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		visibilityField.setValue(Visibility.Default);
 		commentField.clear();
 		
-		editionTitle.setText("");
-		editionAuthor.setText("");
-		editionLanguage.setText("");
-		editionPublisher.setText("");
-		editionNumber.setText("");
+		editionPreview.clear();
 	}
 	
 	@Override
@@ -132,12 +123,11 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		Refresher.setOnShowing(editionField,  editionRepository);
 		Refresher.setOnShowing(locationField, locationRepository);
 		
+		editionBox.getChildren().add(editionPreview);
+		
 		autographCheck.setOnAction(e -> autographClickAction());
 		
-		editionField.setOnAction(e -> {
-			System.out.println("editionField.setOnAction");
-			loadEditionDetails(editionField.getValue());
-		});
+		editionField.setOnAction(e -> editionPreview.setEdition(editionField.getValue()));
 		
 		clear();
 		autographClickAction();
@@ -159,22 +149,11 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		visibilityField.getItems().clear();
 		visibilityField.getItems().addAll(vis);
 	}
-	
-	private void loadEditionDetails(Edition edition) {
-		if(edition == null) return;
-		theEdition.setEdition(edition);
-		
-		editionTitle    .setText(theEdition.getTitle());
-		editionAuthor   .setText(theEdition.getAuthors().serialize_newLine());
-		editionLanguage .setText(theEdition.getLanguageName());
-		editionPublisher.setText(theEdition.getPublisherName());
-		editionNumber   .setText(theEdition.getNumerRoman());
-	}
 
 	public void setEdition(Edition edition) {
 		editionField.setValue(edition);
 		editionField.setDisable(true);
-		loadEditionDetails(edition);
+		editionPreview.setEdition(edition);
 	}
 
 	@Override
@@ -186,7 +165,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		visibilityField.setValue(book.getVisibility());
 		commentField.setText(serializedComments(book));
 		
-		loadEditionDetails(book.getEdition());
+		editionPreview.setEdition(book.getEdition());
 	}
 	
 	private String serializedComments(Book book) {
