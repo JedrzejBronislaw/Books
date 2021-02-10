@@ -75,7 +75,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		newBook.setEdition(editionField.getValue());
 		newBook.setLocation(locationField.getValue());
 		newBook.setPurchaseDate(getDate(purchaseDateField));
-		newBook.setVisibility(visibilityField.getValue().getValue());
+		newBook.setVisibility(visibilityField.getValue());
 //		newBook.setLibrary //TODO
 
 		if(autographCheck.isSelected()) {
@@ -178,7 +178,7 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		editionField.setValue(book.getEdition());
 		purchaseDateField.setValue(book.getPurchaseDate().toLocalDate());
 		locationField.setValue(book.getLocation());
-		visibilityField.setValue(Visibility.values()[book.getVisibility()]);
+		visibilityField.setValue(book.getVisibility());
 		commentField.setText(serializedComments(book));
 		
 		loadEditionDetails(book.getEdition());

@@ -26,7 +26,7 @@ public class Book implements Ent {
 	private long id;
 	
 	private Date purchaseDate;
-	private byte visibility;
+	private Visibility visibility;
 	private boolean removed;
 
 	@ManyToOne private Edition edition;

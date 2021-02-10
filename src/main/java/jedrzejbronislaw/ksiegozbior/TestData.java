@@ -455,7 +455,7 @@ public class TestData {
 		book.setEdition(editionHarda);
 		book.setLocation(locationDzialka);
 		book.setPurchaseDate(Date.valueOf("2010-1-5"));
-		book.setVisibility(Visibility.OwnerOnly.getValue());
+		book.setVisibility(Visibility.OwnerOnly);
 		book.setLibrary(library1);
 		bookRepository.save(book);
 		
@@ -463,7 +463,7 @@ public class TestData {
 		book.setEdition(editionSilmallirion);
 		book.setLocation(locationPolkaDrzwi);
 		book.setPurchaseDate(Date.valueOf("2012-4-15"));
-		book.setVisibility(Visibility.All.getValue());
+		book.setVisibility(Visibility.All);
 		book.setLibrary(library2);
 		bookRepository.save(book);
 		
@@ -471,7 +471,7 @@ public class TestData {
 		book.setEdition(editionHobbit);
 		book.setLocation(locationPolkaOkno);
 		book.setPurchaseDate(Date.valueOf("2019-2-13"));
-		book.setVisibility(Visibility.Friends.getValue());
+		book.setVisibility(Visibility.Friends);
 		book.setLibrary(library3);
 		bookRepository.save(book);
 		
@@ -479,7 +479,7 @@ public class TestData {
 		book.setEdition(editionDzielaTolkiena);
 		book.setLocation(locationPolkaOkno);
 		book.setPurchaseDate(Date.valueOf("2019-2-13"));
-		book.setVisibility(Visibility.Default.getValue());
+		book.setVisibility(Visibility.Default);
 		bookRepository.save(book);
 	}
 
