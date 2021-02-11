@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseLong;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.textExists;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
@@ -79,13 +80,13 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		Edition newEdition = new Edition();
 		
 		short year, pages, number;
-		long isbn;
+		Long isbn;
 		
 		//TODO validation
 		year   = parseShort(yearField.getText(), (short) 0);
 		pages  = parseShort(pagesField.getText(), (short) 0);
 		number = parseShort(editionNumberField.getText(), (short) 0);
-		isbn   = parseLong(isbnField.getText(), 0L);
+		isbn   = parseLong(isbnField.getText(), null);
 
 		newEdition.setYear(year);
 		if(!titleCheckbox   .isSelected()) newEdition.setTitle(   titleField.getText());
@@ -145,10 +146,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	private String string(short s) {
 		return (s > 0) ? Short.toString(s) : "";
-	}
-
-	private boolean textExists(String string) {
-		return string != null && !string.isBlank();
 	}
 
 	@Override

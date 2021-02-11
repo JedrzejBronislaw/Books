@@ -18,14 +18,18 @@ public class FormTools {
 	}
 	
 	private static String getText(String text) {
-		return text.isBlank() ? null : text.strip();
+		return textExists(text) ? text.strip() : null;
+	}
+	
+	public static boolean textExists(String string) {
+		return string != null && !string.isBlank();
 	}
 	
 	public static Date getDate(DatePicker datePicker) {
 		return datePicker.getValue() == null ? null : Date.valueOf(datePicker.getValue());
 	}
 	
-	public static short parseShort(String s, short def) {
+	public static Short parseShort(String s, Short def) {
 		try {
 			return Short.parseShort(s);
 		} catch (NumberFormatException e) {
@@ -33,9 +37,9 @@ public class FormTools {
 		}
 	}
 
-	public static long parseLong(String s, long def) {
+	public static Long parseLong(String s, Long def) {
 		try {
-			return Short.parseShort(s);
+			return Long.parseLong(s);
 		} catch (NumberFormatException e) {
 			return def;
 		}
