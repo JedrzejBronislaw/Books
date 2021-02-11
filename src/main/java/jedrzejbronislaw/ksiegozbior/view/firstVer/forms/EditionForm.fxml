@@ -41,17 +41,12 @@
 			<Label text="%description" GridPane.rowIndex="10" />
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <CheckBox fx:id="titleCheckbox" mnemonicParsing="false" selected="true" text="%the_same" />
+                  <CheckBox fx:id="titleCheckbox" mnemonicParsing="false" selected="true" text="%original_title" />
       			<TextField fx:id="titleField" editable="false" />
                </children>
             </VBox>
 			<TextArea fx:id="descriptionField" prefHeight="150.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <CheckBox fx:id="subtitleCheckbox" mnemonicParsing="false" selected="true" text="%the_same" />
-      			<TextField fx:id="subtitleField" editable="false" />
-               </children>
-            </VBox>
+			<TextField fx:id="subtitleField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="yearField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="languageField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="%publishing_house" GridPane.rowIndex="4" />

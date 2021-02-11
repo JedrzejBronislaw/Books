@@ -57,7 +57,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	
 	@FXML private CheckBox titleCheckbox;
 	@FXML private TextField titleField;
-	@FXML private CheckBox subtitleCheckbox;
 	@FXML private TextField subtitleField;
 	@FXML private ComboBox<Language> languageField;
 	@FXML private ComboBox<PublishingHouse> publisherField;
@@ -89,8 +88,10 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		isbn   = parseLong(isbnField.getText(), null);
 
 		newEdition.setYear(year);
-		if(!titleCheckbox   .isSelected()) newEdition.setTitle(   titleField.getText());
-		if(!subtitleCheckbox.isSelected()) newEdition.setSubtitle(subtitleField.getText());
+		if (!titleCheckbox.isSelected()) {
+			newEdition.setTitle(      titleField.getText());
+			newEdition.setSubtitle(subtitleField.getText());
+		}
 		newEdition.setPublishingHouse(publisherField.getValue());
 		newEdition.setNumOfPages(pages);
 		newEdition.setNumber(number);
@@ -115,8 +116,7 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	@Override
 	public void fill(Edition edition) {
-		boolean titleExists    = textExists(edition.getTitle());
-		boolean subtitleExists = textExists(edition.getSubtitle());
+		boolean titleExists = textExists(edition.getTitle());
 		Long isbn = edition.getISBN();
 		
 		
@@ -125,10 +125,10 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 			.forEach(titleListField.getItems()::add);
 		
 		titleCheckbox.setSelected(!titleExists);
-		if (titleExists) titleField.setText(edition.getTitle());
-		
-		subtitleCheckbox.setSelected(!subtitleExists);
-		if (subtitleExists) subtitleField.setText(edition.getSubtitle());
+		if (titleExists) {
+			titleField   .setText(edition.getTitle());
+			subtitleField.setText(edition.getSubtitle());
+		}
 		
 		languageField     .setValue      (edition.getLanguage());
 		publisherField    .setValue      (edition.getPublishingHouse());
@@ -138,6 +138,8 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		isbnField         .setText(string(isbn));
 		descriptionField  .setText       (edition.getDescription());
 		hardCoverCheckbox .setSelected   (edition.isHardCover());
+
+		onTitlesChange();
 	}
 
 	private String string(Long l) {
@@ -155,10 +157,7 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		titleListField.getItems().clear();
 		titleCheckbox.setSelected(true);
 		titleField.clear();
-		titleField.setPromptText("");
-		subtitleCheckbox.setSelected(true);
 		subtitleField.clear();
-		subtitleField.setPromptText("");
 		languageField.setValue(null);
 		publisherField.setValue(null);
 		yearField.clear();
@@ -171,61 +170,53 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		addToTitleListButton.setOnAction(e -> {
-			if(newTitleField.getValue() != null)
-				titleListField.getItems().add(newTitleField.getValue());
+			Title newTitle = newTitleField.getValue();
+			if(newTitle != null)
+				titleListField.getItems().add(newTitle);
 			
-			updateTitlePrompText();
+			onTitlesChange();
 		});
 		
 		removeFromTitleListButton.setOnAction(e -> {
 			Title title = titleListField.getSelectionModel().getSelectedItem();
 			if(title != null)
 				titleListField.getItems().remove(title);
-			
-			updateTitlePrompText();
+
+			onTitlesChange();
 		});
 		
+
+		titleField   .editableProperty().bind(titleCheckbox.selectedProperty().not());
+		subtitleField.editableProperty().bind(titleCheckbox.selectedProperty().not());
+		titleField    .disableProperty().bind(titleCheckbox.selectedProperty());
+		subtitleField .disableProperty().bind(titleCheckbox.selectedProperty());
 		
-		subtitleCheckbox.disableProperty().bind(titleCheckbox.selectedProperty().not());
 		
-		titleCheckbox.setOnAction(e -> {
-			titleField.setEditable(!titleCheckbox.isSelected());
-			titleField.setText("");
-			
-			if(!titleCheckbox.isSelected())
-				subtitleCheckbox.setSelected(false);
-			
-			updateTitlePrompText();
-		});
-		subtitleCheckbox.setOnAction(e -> {
-			subtitleField.setEditable(!subtitleCheckbox.isSelected());	
-			subtitleField.setText("");
-			
-			updateTitlePrompText();
-		});
-		
+		titleCheckbox.setOnAction(e -> updateOriginalTitle());
 		
 		Refresher.setOnShowing(languageField, languageRepository);
 		Refresher.setOnShowing(newTitleField, titleRepository);
 		Refresher.setOnShowing(publisherField, publishingHouseRepository);
+		
+		onTitlesChange();
 	}
 
-	private void updateTitlePrompText() {
-		if(titleListField.getItems().size() == 1) {
-
-			if(titleCheckbox.isSelected())
-				titleField.setPromptText(titleListField.getItems().get(0).getTitle()); else
-				titleField.setPromptText("");
-			
-			if(subtitleCheckbox.isSelected())
-				subtitleField.setPromptText(titleListField.getItems().get(0).getSubtitle()); else
-				subtitleField.setPromptText("");
-				
+	private void onTitlesChange() {
+		if (titleListField.getItems().size() == 1) {
+			titleCheckbox.setDisable(false);
 		} else {
-			titleField.setPromptText("");
-			subtitleField.setPromptText("");
+			titleCheckbox.setDisable(true);
+			titleCheckbox.setSelected(false);
+		}
+		
+		updateOriginalTitle();
+	}
+
+	private void updateOriginalTitle() {
+		if (titleCheckbox.isSelected()) {
+			titleField   .setText(titleListField.getItems().get(0).getTitle());
+			subtitleField.setText(titleListField.getItems().get(0).getSubtitle());
 		}
 	}
 
@@ -233,6 +224,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		titleListField.getItems().add(title);
 		titlesBox.setDisable(true);
 
-		updateTitlePrompText();
+		onTitlesChange();
 	}
 }
