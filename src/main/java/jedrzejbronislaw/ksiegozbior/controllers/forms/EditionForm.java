@@ -8,20 +8,19 @@ import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.MultiSelector;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
@@ -49,12 +48,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	@Getter
 	@FXML private GridPane fieldsPane;
 	
-	@FXML private VBox titlesBox;
-	@FXML private ComboBox<Title> newTitleField;
-	@FXML private Button addToTitleListButton;
-	@FXML private ListView<Title> titleListField;
-	@FXML private Button removeFromTitleListButton;
-	
 	@FXML private CheckBox titleCheckbox;
 	@FXML private TextField titleField;
 	@FXML private TextField subtitleField;
@@ -67,6 +60,8 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	@FXML private CheckBox hardCoverCheckbox;
 	@FXML private TextArea descriptionField;
 
+	private MultiSelector<Title> titleSelector;
+	
 	
 	@FXML
 	public void addEditionAction() {
@@ -103,7 +98,7 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 		editionRepository.save(newEdition);
 		
-		for(Title title : titleListField.getItems()) {
+		for (Title title : titleSelector.getItems()) {
 			Edition_Title et = new Edition_Title();
 			et.setEditionId(newEdition.getId());
 			et.setTitleId(title.getId());
@@ -120,9 +115,10 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		Long isbn = edition.getISBN();
 		
 		
-		edition.getTitles().stream()
-			.map(et -> et.getTitleObj())
-			.forEach(titleListField.getItems()::add);
+		titleSelector.fill(edition.getTitles()
+				.stream()
+				.map(et -> et.getTitleObj())
+				.collect(Collectors.toList()));
 		
 		titleCheckbox.setSelected(!titleExists);
 		if (titleExists) {
@@ -152,9 +148,7 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	@Override
 	public void clear(){
-		
-		newTitleField.setValue(null);
-		titleListField.getItems().clear();
+		titleSelector.clear();
 		titleCheckbox.setSelected(true);
 		titleField.clear();
 		subtitleField.clear();
@@ -170,40 +164,25 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		addToTitleListButton.setOnAction(e -> {
-			Title newTitle = newTitleField.getValue();
-			if(newTitle != null)
-				titleListField.getItems().add(newTitle);
-			
-			onTitlesChange();
-		});
-		
-		removeFromTitleListButton.setOnAction(e -> {
-			Title title = titleListField.getSelectionModel().getSelectedItem();
-			if(title != null)
-				titleListField.getItems().remove(title);
-
-			onTitlesChange();
-		});
-		
+		titleSelector = new MultiSelector<Title>(titleRepository);
+		titleSelector.setOnListChnage(this::onTitlesChange);
+		fieldsPane.add(titleSelector, 1, 0);
 
 		titleField   .editableProperty().bind(titleCheckbox.selectedProperty().not());
 		subtitleField.editableProperty().bind(titleCheckbox.selectedProperty().not());
 		titleField    .disableProperty().bind(titleCheckbox.selectedProperty());
 		subtitleField .disableProperty().bind(titleCheckbox.selectedProperty());
 		
-		
 		titleCheckbox.setOnAction(e -> updateOriginalTitle());
 		
 		Refresher.setOnShowing(languageField, languageRepository);
-		Refresher.setOnShowing(newTitleField, titleRepository);
 		Refresher.setOnShowing(publisherField, publishingHouseRepository);
 		
 		onTitlesChange();
 	}
 
 	private void onTitlesChange() {
-		if (titleListField.getItems().size() == 1) {
+		if (titleSelector.size() == 1) {
 			titleCheckbox.setDisable(false);
 		} else {
 			titleCheckbox.setDisable(true);
@@ -215,14 +194,14 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	private void updateOriginalTitle() {
 		if (titleCheckbox.isSelected()) {
-			titleField   .setText(titleListField.getItems().get(0).getTitle());
-			subtitleField.setText(titleListField.getItems().get(0).getSubtitle());
+			titleField   .setText(titleSelector.firstItem().getTitle());
+			subtitleField.setText(titleSelector.firstItem().getSubtitle());
 		}
 	}
 
 	public void setTitle(Title title) {
-		titleListField.getItems().add(title);
-		titlesBox.setDisable(true);
+		titleSelector.setTitle(title);
+		titleSelector.setDisable(true);
 
 		onTitlesChange();
 	}

@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -52,14 +51,6 @@
             <Label text="%publishing_house" GridPane.rowIndex="4" />
             <ComboBox fx:id="publisherField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="%titles" />
-            <VBox fx:id="titlesBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1">
-               <children>
-                  <ComboBox fx:id="newTitleField" prefWidth="150.0" />
-                  <Button fx:id="addToTitleListButton" mnemonicParsing="false" text="%add" />
-                  <ListView fx:id="titleListField" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="removeFromTitleListButton" mnemonicParsing="false" text="%remove" />
-               </children>
-            </VBox>
             <Label text="%pages" GridPane.rowIndex="6" />
             <TextField fx:id="pagesField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
