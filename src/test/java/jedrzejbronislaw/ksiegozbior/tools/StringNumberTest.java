@@ -76,6 +76,28 @@ public class StringNumberTest {
 	public void zeroFloat() {
 		assertEquals("0.0", new StringNumber<Float>(0f).str());
 	}
+
+	//null
+	
+	@Test
+	public void nullInt() {
+		assertEquals("", new StringNumber<Integer>(null).str());
+	}
+
+	@Test
+	public void nullLong() {
+		assertEquals("", new StringNumber<Long>(null).str());
+	}
+
+	@Test
+	public void nullShort() {
+		assertEquals("", new StringNumber<Short>(null).str());
+	}
+
+	@Test
+	public void nullFloat() {
+		assertEquals("", new StringNumber<Float>(null).str());
+	}
 	
 
 	//filters
@@ -86,6 +108,7 @@ public class StringNumberTest {
 		assertEquals(":(", new StringNumber<Integer>(-5)  .setNegative(":(").str());
 		assertEquals( "0", new StringNumber<Integer>( 0)  .setNegative(":(").str());
 		assertEquals( "5", new StringNumber<Integer>( 5)  .setNegative(":(").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setNegative(":(").str());
 	}
 	
 	@Test
@@ -93,6 +116,7 @@ public class StringNumberTest {
 		assertEquals("-5", new StringNumber<Integer>(-5)  .setPositive(":)").str());
 		assertEquals( "0", new StringNumber<Integer>( 0)  .setPositive(":)").str());
 		assertEquals(":)", new StringNumber<Integer>( 5)  .setPositive(":)").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setPositive(":)").str());
 	}
 	
 	@Test
@@ -100,6 +124,7 @@ public class StringNumberTest {
 		assertEquals("-5", new StringNumber<Integer>(-5)  .setZero(":|").str());
 		assertEquals(":|", new StringNumber<Integer>( 0)  .setZero(":|").str());
 		assertEquals( "5", new StringNumber<Integer>( 5)  .setZero(":|").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setZero(":|").str());
 	}
 	
 	//two filters
@@ -109,6 +134,7 @@ public class StringNumberTest {
 		assertEquals(":(", new StringNumber<Integer>(-5)  .setNegative(":(").setPositive(":)").str());
 		assertEquals( "0", new StringNumber<Integer>( 0)  .setNegative(":(").setPositive(":)").str());
 		assertEquals(":)", new StringNumber<Integer>( 5)  .setNegative(":(").setPositive(":)").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setNegative(":(").setPositive(":)").str());
 	}
 	
 	@Test
@@ -116,6 +142,7 @@ public class StringNumberTest {
 		assertEquals("-5", new StringNumber<Integer>(-5)  .setPositive(":)").setZero(":|").str());
 		assertEquals(":|", new StringNumber<Integer>( 0)  .setPositive(":)").setZero(":|").str());
 		assertEquals(":)", new StringNumber<Integer>( 5)  .setPositive(":)").setZero(":|").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setPositive(":)").setZero(":|").str());
 	}
 	
 	@Test
@@ -123,6 +150,7 @@ public class StringNumberTest {
 		assertEquals(":(", new StringNumber<Integer>(-5)  .setZero(":|").setNegative(":(").str());
 		assertEquals(":|", new StringNumber<Integer>( 0)  .setZero(":|").setNegative(":(").str());
 		assertEquals( "5", new StringNumber<Integer>( 5)  .setZero(":|").setNegative(":(").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setZero(":|").setNegative(":(").str());
 	}
 	
 	//three filters
@@ -132,5 +160,6 @@ public class StringNumberTest {
 		assertEquals(":(", new StringNumber<Integer>(-5)  .setNegative(":(").setPositive(":)").setZero(":|").str());
 		assertEquals(":|", new StringNumber<Integer>( 0)  .setNegative(":(").setPositive(":)").setZero(":|").str());
 		assertEquals(":)", new StringNumber<Integer>( 5)  .setNegative(":(").setPositive(":)").setZero(":|").str());
+		assertEquals(  "", new StringNumber<Integer>(null).setNegative(":(").setPositive(":)").setZero(":|").str());
 	}
 }

@@ -1,18 +1,19 @@
 package jedrzejbronislaw.ksiegozbior.tools;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class StringNumber<E extends Number> {
 
-	@NonNull private E number;
+	private final E number;
 	
 	private String zeroStringValue = null;
 	private String negativeStringValue = null;
 	private String positiveStringValue = null;
 	
 	public String str() {
+		if (number == null) return "";
+		
 		String outcome;
 		
 		if(number instanceof Integer) outcome = Integer.toString((int)  number); else
