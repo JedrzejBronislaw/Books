@@ -1,6 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getDate;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.localDate;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -37,6 +38,8 @@ import lombok.Getter;
 
 @Component
 public class BookForm extends EntityForm<Book> implements Initializable {
+
+	private static final String AUTOGRAPH = "autograph";
 
 	@Getter(PROTECTED) private Class<Book> entityClass = Book.class;
 
@@ -77,30 +80,34 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 		newBook.setPurchaseDate(getDate(purchaseDateField));
 		newBook.setVisibility(visibilityField.getValue());
 
-		if(autographCheck.isSelected()) {
-			BookComment autographComment = new BookComment();
-			StringBuffer sb = new StringBuffer("autograph"); //TODO internationalization
-			
-			if (!autographField.getText().isBlank())
-				sb.append(" (" + autographField.getText().strip() + ")");
-			
-			autographComment.setContent(sb.toString());
-			
-			bookCommentRepository.save(autographComment);
-			
-			newBook.getComments().add(autographComment);
-		}
+		if (autographCheck.isSelected())
+			newBook.getComments().add(saveAutographComment());
 		
-		if(!commentField.getText().isBlank()) {
-			BookComment comment = new BookComment(commentField.getText());			
-			bookCommentRepository.save(comment);
-			
-			newBook.getComments().add(comment);
-		}
+		String commentContent = getText(commentField);
+		if (commentContent != null)
+			newBook.getComments().add(saveComment(commentContent));
 		
 		bookRepository.save(newBook);
 		
 		return newBook;
+	}
+
+	private BookComment saveAutographComment() {
+		BookComment autographComment = new BookComment();
+		
+		String autograph = getText(autographField);
+		if (autograph != null)
+			autographComment.setContent(AUTOGRAPH + " (" + autograph + ")"); else
+			autographComment.setContent(AUTOGRAPH);
+		
+		bookCommentRepository.save(autographComment);
+		return autographComment;
+	}
+
+	private BookComment saveComment(String commentContent) {
+		BookComment comment = new BookComment(commentContent);
+		bookCommentRepository.save(comment);
+		return comment;
 	}
 
 	@Override
