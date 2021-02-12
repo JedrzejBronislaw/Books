@@ -21,9 +21,15 @@ public class StringNumber<E extends Number> {
 		if(number instanceof Float)   outcome = Float  .toString((float)number); else
 									  outcome ="error";
 		
-		if(    zeroStringValue != null && outcome.equals("0"))      outcome =     zeroStringValue; else
-		if(negativeStringValue != null && outcome.charAt(0) == '-') outcome = negativeStringValue; else
-		if(positiveStringValue != null)                             outcome = positiveStringValue;
+		if (isZero(outcome)) {
+			if (zeroStringValue     != null) outcome =     zeroStringValue;
+		} else
+		if (isNegative(outcome)) {
+			if (negativeStringValue != null) outcome = negativeStringValue;
+		} else
+		if (isPositive(outcome)) {
+			if (positiveStringValue != null) outcome = positiveStringValue;
+		}
 		
 		return outcome;
 	}
@@ -44,6 +50,18 @@ public class StringNumber<E extends Number> {
 	public StringNumber<E> setPositive(String positiveValue) {
 		positiveStringValue = positiveValue;
 		return this;
+	}
+
+	private boolean isZero(String outcome) {
+		return outcome.equals("0");
+	}
+
+	private boolean isNegative(String outcome) {
+		return outcome.charAt(0) == '-';
+	}
+
+	private boolean isPositive(String outcome) {
+		return outcome.charAt(0) != '-';
 	}
 	
 	@Override
