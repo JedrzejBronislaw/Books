@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.BookCollectionLink;
 import lombok.Getter;
@@ -25,13 +26,13 @@ public class Book implements Ent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private Date purchaseDate;
-	private Visibility visibility;
-	private boolean removed;
+	         private Date purchaseDate;
+	@NotNull private Visibility visibility = Visibility.Default;
+	         private boolean removed;
 
-	@ManyToOne private Edition edition;
-	@ManyToOne private Location location;
-	@ManyToOne private Library library;
+	@NotNull @ManyToOne private Edition edition;
+	         @ManyToOne private Location location;
+	@NotNull @ManyToOne private Library library;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<BookComment> comments = new HashSet<>();

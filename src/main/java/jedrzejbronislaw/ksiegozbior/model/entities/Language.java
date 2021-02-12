@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +20,8 @@ public class Language implements Ent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String name;
-	private String abbr;
+	@NotNull private String name;
+	@NotNull private String abbr;
 
 	@OneToMany(mappedBy="language")
 	private Set<Title> titles;

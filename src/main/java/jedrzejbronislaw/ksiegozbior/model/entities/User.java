@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +25,14 @@ public class User implements Ent {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private String login;
+	@NotNull private String login;
 	private byte[] password;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private Timestamp registrationTime;
-	private Mode mode;
-	private Role role;
+	@NotNull private Mode mode = Mode.Ok;
+	@NotNull private Role role = Role.User;
 	
 	@ManyToMany private List<Library> libraries;
 	

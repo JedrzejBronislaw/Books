@@ -142,8 +142,8 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		return (l != null) ? Long.toString(l) : "";
 	}
 
-	private String string(short s) {
-		return (s > 0) ? Short.toString(s) : "";
+	private String string(Short s) {
+		return (s != null) ? Short.toString(s) : "";
 	}
 
 	@Override

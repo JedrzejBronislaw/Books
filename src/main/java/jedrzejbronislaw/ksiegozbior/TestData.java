@@ -480,6 +480,7 @@ public class TestData {
 		book.setLocation(locationPolkaOkno);
 		book.setPurchaseDate(Date.valueOf("2019-2-13"));
 		book.setVisibility(Visibility.Default);
+		book.setLibrary(library3);
 		bookRepository.save(book);
 	}
 

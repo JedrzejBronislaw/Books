@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +20,8 @@ public class Library implements Ent {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private String name;
-	private byte bookVisibility;
+	@NotNull private String name;
+	@NotNull private Visibility bookVisibility = Visibility.Default;
 
 	@ManyToMany(mappedBy = "libraries")
 	private List<User> users;

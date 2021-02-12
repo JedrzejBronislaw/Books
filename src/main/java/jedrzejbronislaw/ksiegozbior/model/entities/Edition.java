@@ -25,10 +25,10 @@ public class Edition implements Ent {
 
 	private String title;
 	private String subtitle;
-	private short year;
-	private short numOfPages;
+	private Short year;
+	private Short numOfPages;
 	private Long ISBN;
-	private short number;
+	private Short number;
 	private boolean hardCover;
 	@Lob
 	private String description;

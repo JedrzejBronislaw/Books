@@ -26,7 +26,7 @@ public class Title implements Ent {
 	
 	private String title;
 	private String subtitle;
-	private short year;
+	private Short year;
 	@Lob
 	private String description;
 	private boolean removed;

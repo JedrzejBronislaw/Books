@@ -136,8 +136,8 @@ public class TheEdition implements TheEnt {
 	}
 
 	public String getNumerRoman() {
-		short number = edition.getNumber();
-		return (number > 0) ? RomanNumber.toRoman(number) : "";
+		Short number = edition.getNumber();
+		return (number != null) ? RomanNumber.toRoman(number) : "";
 	}
 
 	public String getLanguageName() {
@@ -189,9 +189,9 @@ public class TheEdition implements TheEnt {
 		
 		str.add(notnullTitle.get(getTitle()));
 
-		if (is(getPublisherName()))          str.add(getPublisherName());
-		if (getPublicationYear().num() != 0) str.add(getPublicationYear().str());
-		if (getNumer().num() > 0)            str.add(Internationalization.get("edition") + ": " + getNumerRoman());
+		if (is(getPublisherName()))           str.add(getPublisherName());
+		if (getPublicationYear().str() != "") str.add(getPublicationYear().str());
+		if (getNumer().str() != "")           str.add(Internationalization.get("edition") + ": " + getNumerRoman());
 		
 		return str.toString();
 	}
