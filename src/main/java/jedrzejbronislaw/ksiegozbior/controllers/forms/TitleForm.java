@@ -2,6 +2,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.string;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
@@ -92,10 +93,6 @@ public class TitleForm extends EntityForm<Title> implements Initializable {
 		List<Authorship> authors = title.getAuthors();
 		if (authors.size() > 0)
 			authorField.setValue(authors.get(0).getAuthor());
-	}
-
-	private String string(Short s) {
-		return (s != null) ? Short.toString(s) : "";
 	}
 
 	@Override

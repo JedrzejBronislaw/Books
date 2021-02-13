@@ -24,6 +24,14 @@ public class FormTools {
 	public static boolean textExists(String string) {
 		return string != null && !string.isBlank();
 	}
+
+	public static String string(Long l) {
+		return (l != null) ? Long.toString(l) : "";
+	}
+
+	public static String string(Short s) {
+		return (s != null) ? Short.toString(s) : "";
+	}
 	
 	public static Date getDate(DatePicker datePicker) {
 		return datePicker.getValue() == null ? null : Date.valueOf(datePicker.getValue());

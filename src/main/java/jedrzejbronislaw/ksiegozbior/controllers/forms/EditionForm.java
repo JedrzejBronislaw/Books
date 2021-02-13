@@ -3,6 +3,7 @@ package jedrzejbronislaw.ksiegozbior.controllers.forms;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.getText;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseLong;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.parseShort;
+import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.string;
 import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.textExists;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -136,14 +137,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 		hardCoverCheckbox .setSelected   (edition.isHardCover());
 
 		onTitlesChange();
-	}
-
-	private String string(Long l) {
-		return (l != null) ? Long.toString(l) : "";
-	}
-
-	private String string(Short s) {
-		return (s != null) ? Short.toString(s) : "";
 	}
 
 	@Override
