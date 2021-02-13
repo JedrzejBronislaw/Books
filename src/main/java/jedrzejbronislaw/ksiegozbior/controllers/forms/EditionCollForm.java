@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -19,7 +18,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class EditionCollForm extends EntityForm<EditionCollection> implements Initializable {
+public class EditionCollForm extends EntityForm<EditionCollection> {
 
 	@Getter private Class<EditionCollection> entityClass = EditionCollection.class;
 
@@ -31,12 +30,6 @@ public class EditionCollForm extends EntityForm<EditionCollection> implements In
 	@FXML private ComboBox<EditionCollection> supercollectionField;
 	
 	
-	@FXML
-	public void addAction() {
-		save();
-		clear();
-	}
-
 	@Override
 	public EditionCollection save() {
 		EditionCollection collection = new EditionCollection();

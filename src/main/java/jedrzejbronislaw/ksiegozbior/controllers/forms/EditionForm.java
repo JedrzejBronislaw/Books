@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -36,7 +35,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class EditionForm extends EntityForm<Edition> implements Initializable {
+public class EditionForm extends EntityForm<Edition> {
 
 	@Getter(PROTECTED) Class<Edition> entityClass = Edition.class;
 	
@@ -63,12 +62,6 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 
 	private MultiSelector<Title> titleSelector;
 	
-	
-	@FXML
-	public void addEditionAction() {
-		save();
-		clear();
-	}
 	
 	@Override
 	public Edition save() {

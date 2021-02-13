@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
@@ -18,7 +17,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository
 import lombok.Getter;
 
 @Component
-public class PublishingHouseForm extends EntityForm<PublishingHouse> implements Initializable {
+public class PublishingHouseForm extends EntityForm<PublishingHouse> {
 
 	@Getter(PROTECTED) private Class<PublishingHouse> entityClass = PublishingHouse.class;
 
@@ -32,12 +31,6 @@ public class PublishingHouseForm extends EntityForm<PublishingHouse> implements 
 	@FXML private TextField cityField;
 
 	
-	@FXML
-	public void addPublisherAction() {
-		save();
-		clear();
-	}
-
 	@Override
 	public PublishingHouse save() {
 		PublishingHouse newPublishingHouse = new PublishingHouse();

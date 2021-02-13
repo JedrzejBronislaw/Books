@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -20,7 +19,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class TitleCollForm extends EntityForm<TitleCollection> implements Initializable {
+public class TitleCollForm extends EntityForm<TitleCollection> {
 
 	@Getter(PROTECTED) private Class<TitleCollection> entityClass = TitleCollection.class;
 
@@ -32,12 +31,6 @@ public class TitleCollForm extends EntityForm<TitleCollection> implements Initia
 	@FXML private ComboBox<TitleCollection> supercollectionField;
 	
 	
-	@FXML
-	public void addAction() {
-		save();
-		clear();
-	}
-
 	@Override
 	public TitleCollection save() {
 		TitleCollection collection = new TitleCollection();

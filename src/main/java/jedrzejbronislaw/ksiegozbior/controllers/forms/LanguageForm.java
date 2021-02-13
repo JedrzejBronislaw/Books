@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
@@ -18,7 +17,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import lombok.Getter;
 
 @Component
-public class LanguageForm extends EntityForm<Language> implements Initializable {
+public class LanguageForm extends EntityForm<Language> {
 
 	@Getter(PROTECTED) private Class<Language> entityClass = Language.class;
 
@@ -30,12 +29,6 @@ public class LanguageForm extends EntityForm<Language> implements Initializable 
 	@FXML private TextField abbrevField;
 
 	
-	@FXML
-	public void addLanguageAction() {
-		save();
-		clear();
-	}
-
 	@Override
 	public Language save() {
 		Language newLang = new Language();

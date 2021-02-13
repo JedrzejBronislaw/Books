@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,7 +29,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class TitleForm extends EntityForm<Title> implements Initializable {
+public class TitleForm extends EntityForm<Title> {
 
 	@Getter(PROTECTED) private Class<Title> entityClass = Title.class;
 
@@ -48,12 +47,6 @@ public class TitleForm extends EntityForm<Title> implements Initializable {
 	@FXML private ComboBox<Language> languageField;
 	@FXML private TextArea descriptionField;	
 	
-	
-	@FXML
-	private void addTitleAction() {
-		save();
-		clear();
-	}
 	
 	@Override
 	public Title save() {

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -21,7 +20,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class LocationForm extends EntityForm<Location> implements Initializable {
+public class LocationForm extends EntityForm<Location> {
 
 	@Getter(PROTECTED) private Class<Location> entityClass = Location.class;
 
@@ -34,12 +33,6 @@ public class LocationForm extends EntityForm<Location> implements Initializable 
 	@FXML private TextArea descriptionField;
 
 	
-	@FXML
-	public void addAction() {
-		save();
-		clear();
-	}
-
 	@Override
 	public Location save() {
 		Location newLocation = new Location();

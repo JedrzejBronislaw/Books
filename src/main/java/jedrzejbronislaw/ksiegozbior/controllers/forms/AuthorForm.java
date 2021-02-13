@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -23,7 +22,7 @@ import jedrzejbronislaw.ksiegozbior.model.repositories.AuthorRepository;
 import lombok.Getter;
 
 @Component
-public class AuthorForm extends EntityForm<Author> implements Initializable {
+public class AuthorForm extends EntityForm<Author> {
 
 	@Getter(PROTECTED) private Class<Author> entityClass = Author.class;
 	
@@ -38,12 +37,6 @@ public class AuthorForm extends EntityForm<Author> implements Initializable {
 	@FXML private ComboBox<String> nationalityField;
 	@FXML private TextArea descriptionField;
 	
-	
-	@FXML
-	public void addAuthorAction() {
-		save();
-		clear();
-	}
 	
 	@Override
 	public Author save() {

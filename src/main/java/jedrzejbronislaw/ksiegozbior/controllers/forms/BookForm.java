@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -37,7 +36,7 @@ import jedrzejbronislaw.ksiegozbior.view.Refresher;
 import lombok.Getter;
 
 @Component
-public class BookForm extends EntityForm<Book> implements Initializable {
+public class BookForm extends EntityForm<Book> {
 
 	private static final String AUTOGRAPH = "autograph";
 
@@ -63,12 +62,6 @@ public class BookForm extends EntityForm<Book> implements Initializable {
 	
 	@Autowired private EditionMiniPreview editionPreview;
 	
-	
-	@FXML
-	public void addBookAction() {
-		save();
-		clear();
-	}
 	
 	@Override
 	public Book save() {
