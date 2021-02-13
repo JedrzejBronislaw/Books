@@ -43,7 +43,7 @@ public class LocationPreview extends VBox implements Initializable {
 		sublocationsLabel .setText(theLocation.getSublocationsNames().serialize_newLine());
 		
 		elementsLabel.setText(
-			"(" + theLocation.getNumberOfBooks().str() + ")"
+			"(" + theLocation.getNumberOfBooks() + ")"
 			+ System.lineSeparator() +
 			theLocation.getBooksNames().serialize_newLine()
 		);

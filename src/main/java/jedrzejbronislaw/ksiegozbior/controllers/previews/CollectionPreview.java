@@ -59,7 +59,7 @@ public class CollectionPreview extends VBox implements Initializable {
 		supercollectionLabel.setText(theCollection.getSupercollections().serialize_newLine());
 		
 		elementsLabel.setText(
-			"(" + theCollection.getNumberOfElements().str() + ")"
+			"(" + theCollection.getNumberOfElements() + ")"
 			+ System.lineSeparator() +
 			theCollection.getElements().serialize_newLine()
 		);
