@@ -48,7 +48,12 @@ public class LanguageForm extends EntityForm<Language> {
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {}
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		addButton.disableProperty().bind(
+				langField  .textProperty().isEmpty().or(
+				abbrevField.textProperty().isEmpty()
+		));
+	}
 
 	@Override
 	public void fill(Language language) {

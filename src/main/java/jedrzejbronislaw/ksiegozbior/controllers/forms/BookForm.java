@@ -119,6 +119,11 @@ public class BookForm extends EntityForm<Book> {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		addButton.disableProperty().bind(
+				libraryField.valueProperty().isNull().or(
+				editionField.valueProperty().isNull()
+		));
+		
 		Refresher.setOnShowing(libraryField,  libraryRepository);
 		Refresher.setOnShowing(editionField,  editionRepository);
 		Refresher.setOnShowing(locationField, locationRepository);
