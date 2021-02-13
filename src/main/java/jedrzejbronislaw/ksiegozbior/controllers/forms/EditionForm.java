@@ -74,14 +74,13 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	public Edition save() {
 		Edition newEdition = new Edition();
 		
-		short year, pages, number;
+		Short year, pages, number;
 		Long isbn;
 		
-		//TODO validation
-		year   = parseShort(yearField.getText(), (short) 0);
-		pages  = parseShort(pagesField.getText(), (short) 0);
-		number = parseShort(editionNumberField.getText(), (short) 0);
-		isbn   = parseLong(isbnField.getText(), null);
+		year   = parseShort         (yearField.getText(), null);
+		pages  = parseShort        (pagesField.getText(), null);
+		number = parseShort(editionNumberField.getText(), null);
+		isbn   = parseLong          (isbnField.getText(), null);
 
 		newEdition.setYear(year);
 		if (!titleCheckbox.isSelected()) {
@@ -177,6 +176,7 @@ public class EditionForm extends EntityForm<Edition> implements Initializable {
 	private void onTitlesChange() {
 		if (titleSelector.size() == 1) {
 			titleCheckbox.setDisable(false);
+			titleCheckbox.setSelected(true);
 		} else {
 			titleCheckbox.setDisable(true);
 			titleCheckbox.setSelected(false);

@@ -58,16 +58,15 @@ public class TitleForm extends EntityForm<Title> implements Initializable {
 	@Override
 	public Title save() {
 		Title newTitle = new Title();
-		short year;
+		Short year;
 		
-		//TODO validation
-		year = parseShort(yearField.getText(), (short)0);
+		year = parseShort(yearField.getText(), null);
 		
 		newTitle.setTitle(   getText(titleField));
 		newTitle.setSubtitle(getText(subtitleField));
 		newTitle.setLanguage(languageField.getValue());
 
-		if (year != 0) newTitle.setYear(year);
+		newTitle.setYear(year);
 		newTitle.setDescription(getText(descriptionField));
 		titleRepository.save(newTitle);
 		
