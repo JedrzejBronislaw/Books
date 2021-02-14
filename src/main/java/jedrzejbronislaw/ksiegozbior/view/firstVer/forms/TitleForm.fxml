@@ -38,7 +38,6 @@
             <TextField fx:id="yearField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ComboBox fx:id="languageField" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="%author" GridPane.rowIndex="2" />
-            <ComboBox fx:id="authorField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 		</children>
 		<opaqueInsets>
 			<Insets />

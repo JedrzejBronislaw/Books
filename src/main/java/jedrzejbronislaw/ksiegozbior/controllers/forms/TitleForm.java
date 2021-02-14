@@ -6,8 +6,8 @@ import static jedrzejbronislaw.ksiegozbior.controllers.FormTools.string;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.MultiSelector;
 import jedrzejbronislaw.ksiegozbior.model.entities.Author;
 import jedrzejbronislaw.ksiegozbior.model.entities.Authorship;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
@@ -42,10 +43,11 @@ public class TitleForm extends EntityForm<Title> {
 	@FXML private GridPane fieldsPane;
 	@FXML private TextField titleField;
 	@FXML private TextField subtitleField;
-	@FXML private ComboBox<Author> authorField;
 	@FXML private TextField yearField;
 	@FXML private ComboBox<Language> languageField;
 	@FXML private TextArea descriptionField;	
+	
+	private MultiSelector<Author> authorSelector;
 	
 	
 	@Override
@@ -62,10 +64,11 @@ public class TitleForm extends EntityForm<Title> {
 		newTitle.setYear(year);
 		newTitle.setDescription(getText(descriptionField));
 		titleRepository.save(newTitle);
-		
-		if (authorField.getValue() != null) {
+
+		for (Author author : authorSelector.getItems()) {
 			Authorship authorship = new Authorship();
-			authorship.setAuthorId(authorField.getValue().getId());
+			
+			authorship.setAuthorId(author.getId());
 			authorship.setTitleId(newTitle.getId());
 			
 			authorship = authorshipRepository.save(authorship);
@@ -82,9 +85,10 @@ public class TitleForm extends EntityForm<Title> {
 		yearField       .setText(string(title.getYear()));
 		descriptionField.setText       (title.getDescription());
 		
-		List<Authorship> authors = title.getAuthors();
-		if (authors.size() > 0)
-			authorField.setValue(authors.get(0).getAuthor());
+		authorSelector.fill(title.getAuthors()
+				.stream()
+				.map(a -> a.getAuthor())
+				.collect(Collectors.toList()));
 	}
 
 	@Override
@@ -94,17 +98,19 @@ public class TitleForm extends EntityForm<Title> {
 		languageField.setValue(null);
 		yearField.clear();
 		descriptionField.clear();
-		authorField.setValue(null);
+		authorSelector.clear();
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {		
-		Refresher.setOnShowing(authorField,   authorsRepository);
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		authorSelector = new MultiSelector<>(authorsRepository);
+		fieldsPane.add(authorSelector, 1,2);
+		
 		Refresher.setOnShowing(languageField, languageRepository);
 	}
 
 	public void setAuthor(Author author) {
-		authorField.setValue(author);
-		authorField.setDisable(true);
+		authorSelector.setTitle(author);
+		authorSelector.setDisable(true);
 	}
 }
