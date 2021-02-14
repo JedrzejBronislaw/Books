@@ -110,7 +110,7 @@ public class TitleForm extends EntityForm<Title> {
 	}
 
 	public void setAuthor(Author author) {
-		authorSelector.setTitle(author);
+		authorSelector.addItem(author);
 		authorSelector.setDisable(true);
 	}
 }

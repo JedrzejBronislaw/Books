@@ -80,7 +80,7 @@ public class MultiSelector<T extends Ent> extends VBox implements Initializable 
 		return list.getItems().size();
 	}
 
-	public void setTitle(T title) {
-		list.getItems().add(title);
+	public void addItem(T item) {
+		list.getItems().add(item);
 	}
 }

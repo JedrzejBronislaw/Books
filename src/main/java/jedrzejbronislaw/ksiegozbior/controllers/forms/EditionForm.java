@@ -186,7 +186,7 @@ public class EditionForm extends EntityForm<Edition> {
 	}
 
 	public void setTitle(Title title) {
-		titleSelector.setTitle(title);
+		titleSelector.addItem(title);
 		titleSelector.setDisable(true);
 
 		onTitlesChange();
