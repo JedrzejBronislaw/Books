@@ -21,12 +21,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.EditionMiniPreview;
+import jedrzejbronislaw.ksiegozbior.model.entities.Autograph;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.entities.BookComment;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Library;
 import jedrzejbronislaw.ksiegozbior.model.entities.Location;
 import jedrzejbronislaw.ksiegozbior.model.entities.Visibility;
+import jedrzejbronislaw.ksiegozbior.model.repositories.AutographRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookCommentRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.BookRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
@@ -38,8 +40,6 @@ import lombok.Getter;
 @Component
 public class BookForm extends EntityForm<Book> {
 
-	private static final String AUTOGRAPH = "autograph";
-
 	@Getter(PROTECTED) private Class<Book> entityClass = Book.class;
 
 	@Autowired private BookRepository bookRepository;
@@ -47,6 +47,7 @@ public class BookForm extends EntityForm<Book> {
 	@Autowired private EditionRepository editionRepository;
 	@Autowired private LocationRepository locationRepository;
 	@Autowired private BookCommentRepository bookCommentRepository;
+	@Autowired private AutographRepository autographRepository;
 	
 	@Getter
 	@FXML private GridPane fieldsPane;
@@ -74,7 +75,7 @@ public class BookForm extends EntityForm<Book> {
 		newBook.setVisibility(visibilityField.getValue());
 
 		if (autographCheck.isSelected())
-			newBook.getComments().add(saveAutographComment());
+			saveAutographComment(newBook);
 		
 		String commentContent = getText(commentField);
 		if (commentContent != null)
@@ -85,16 +86,10 @@ public class BookForm extends EntityForm<Book> {
 		return newBook;
 	}
 
-	private BookComment saveAutographComment() {
-		BookComment autographComment = new BookComment();
-		
-		String autograph = getText(autographField);
-		if (autograph != null)
-			autographComment.setContent(AUTOGRAPH + " (" + autograph + ")"); else
-			autographComment.setContent(AUTOGRAPH);
-		
-		bookCommentRepository.save(autographComment);
-		return autographComment;
+	private Autograph saveAutographComment(Book book) {
+		Autograph autograph = new Autograph(book, getText(autographField));
+		autographRepository.save(autograph);
+		return autograph;
 	}
 
 	private BookComment saveComment(String commentContent) {
