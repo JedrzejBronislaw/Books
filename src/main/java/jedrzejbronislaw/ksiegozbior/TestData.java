@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -492,22 +491,20 @@ public class TestData {
 		Book bookHobbit       = bookRepository.findByTitle("Hobbit").get(0);
 		
 		comment = new BookComment("missing pages 105-106");
-		comment.setBooks(Set.of(bookHarda));
 		bookHarda.getComments().add(comment);
 		bookCommentRepository.save(comment);
-		bookRepository.save(bookHarda);
 
 		comment = new BookComment("I got this book from Adam");
-		comment.setBooks(Set.of(bookSilmallirion));
-		bookHarda.getComments().add(comment);
 		bookSilmallirion.getComments().add(comment);
+		bookHarda.getComments().add(comment);
 		bookCommentRepository.save(comment);
-		bookRepository.save(bookSilmallirion);
 		
 		comment = new BookComment("flooded");
-		comment.setBooks(Set.of(bookHobbit));
 		bookHobbit.getComments().add(comment);
 		bookCommentRepository.save(comment);
+
+		bookRepository.save(bookHarda);
+		bookRepository.save(bookSilmallirion);
 		bookRepository.save(bookHobbit);
 	}
 
