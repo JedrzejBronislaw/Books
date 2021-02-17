@@ -1,5 +1,7 @@
 package jedrzejbronislaw.ksiegozbior.controllers.forms;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 
 import javafx.fxml.FXML;
@@ -7,12 +9,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.controllers.EditEvent;
 import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 
 public abstract class EntityForm<T extends Ent> extends VBox implements Initializable {
 
 	protected abstract Class<T> getEntityClass();
+	
+	@Autowired private ApplicationEventPublisher eventPublisher;
 	
 	public    abstract Pane getFieldsPane();
 	public    abstract void clear();
@@ -24,8 +29,10 @@ public abstract class EntityForm<T extends Ent> extends VBox implements Initiali
 	
 	@FXML
 	public void add() {
-		save();
+		T entity = save();
 		clear();
+		
+		eventPublisher.publishEvent(new EditEvent(this, entity));
 	}
 	
 	@EventListener

@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import jedrzejbronislaw.ksiegozbior.controllers.EditEvent;
 import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
 import jedrzejbronislaw.ksiegozbior.controllers.lists.managers.ListManager;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
@@ -63,5 +65,12 @@ public abstract class AbstractListPreview extends VBox {
 		
 		if (isSelectedItem() && event.getClickCount() == 1)
 			listManager.clickAction(getSelectedItem());
+	}
+	
+	@EventListener
+	public void eventListener(EditEvent event) {
+		if(listManager == null) return;
+
+		refresh(convert(listManager.get()));
 	}
 }
