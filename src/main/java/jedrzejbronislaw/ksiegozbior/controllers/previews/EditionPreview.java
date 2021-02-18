@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheEdition;
+import jedrzejbronislaw.ksiegozbior.view.YesNoLabel;
 
 @Component
 public class EditionPreview extends VBox implements Initializable {
@@ -30,6 +31,8 @@ public class EditionPreview extends VBox implements Initializable {
 	@FXML private Label hardCoverLabel;
 
 	@FXML private Label titlesLabel;
+	
+	private YesNoLabel hardCoverYNLabel;
 	
 
 	public void setEdition(Edition edition) {
@@ -50,7 +53,7 @@ public class EditionPreview extends VBox implements Initializable {
 		isbnLabel           .setText(theEdition.getISBNFormatted());
 		publicationDateLabel.setText(theEdition.getPublicationYear().str());
 		pagesLabel          .setText(theEdition.getPages().str());
-		hardCoverLabel      .setText(theEdition.isHardCoverStr());
+		hardCoverYNLabel    .set    (theEdition.isHardCover());
 		
 		titlesLabel         .setText(theEdition.getTitlesText());
 	}
@@ -72,6 +75,7 @@ public class EditionPreview extends VBox implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		hardCoverYNLabel = new YesNoLabel(hardCoverLabel);
 		clear();
 	}
 }

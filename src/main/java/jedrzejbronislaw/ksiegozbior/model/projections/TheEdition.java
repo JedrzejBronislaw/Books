@@ -157,11 +157,6 @@ public class TheEdition implements TheEnt {
 	public boolean isHardCover() {
 		return edition.isHardCover();
 	}
-	public String isHardCoverStr() {
-		return isHardCover() ?
-				Internationalization.get("yes") :
-				Internationalization.get("no");
-	}
 
 	public Long getISBN() {
 		return edition.getISBN();
