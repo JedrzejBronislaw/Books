@@ -13,7 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Book;
 import jedrzejbronislaw.ksiegozbior.model.projections.TheBook;
-import jedrzejbronislaw.ksiegozbior.view.YesNoLabel;
+import jedrzejbronislaw.ksiegozbior.view.MyLabel;
 
 @Component
 public class BookPreview extends VBox implements Initializable {
@@ -33,8 +33,11 @@ public class BookPreview extends VBox implements Initializable {
 
 	@FXML private Label titlesLabel;
 	@FXML private TextArea commentsField;
-	
-	private YesNoLabel hardCoverYNLabel;
+
+	private MyLabel authorsMLabel;
+	private MyLabel pubDateMLabel;
+	private MyLabel pagesMLabel;
+	private MyLabel hardCoverMLabel;
 
 	
 	public void setBook(Book book) {
@@ -48,14 +51,14 @@ public class BookPreview extends VBox implements Initializable {
 		
 		titleLabel          .setText(theBook.getTitle());
 		subtitleLabel       .setText(theBook.getSubtitle());
-		authorsLabel        .setText(theBook.getAuthors().serialize_newLine());
+		authorsMLabel       .setText(theBook.getAuthors());
 		publisherLabel      .setText(theBook.getPublisherName());
 		languageLabel       .setText(theBook.getLanguageName());
 		purchaseDateLabel   .setText(theBook.getPurchaseDate());
 		libraryLabel        .setText(theBook.getLibraryName());
-		publicationDateLabel.setText(theBook.getPublicationYear().str());
-		pagesLabel          .setText(theBook.getPages().str());
-		hardCoverYNLabel    .set    (theBook.isHardCover());
+		pubDateMLabel       .setText(theBook.getPublicationYear());
+		pagesMLabel         .setText(theBook.getPages());
+		hardCoverMLabel     .setText(theBook.isHardCover());
 		
 		titlesLabel         .setText(theBook.getTitlesText());
 		commentsField       .setText(theBook.getCommentsText());
@@ -79,7 +82,10 @@ public class BookPreview extends VBox implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		hardCoverYNLabel = new YesNoLabel(hardCoverLabel);
+		authorsMLabel   = new MyLabel(authorsLabel);
+		pubDateMLabel   = new MyLabel(publicationDateLabel);
+		pagesMLabel     = new MyLabel(pagesLabel);
+		hardCoverMLabel = new MyLabel(hardCoverLabel);
 		clear();
 	}
 }
