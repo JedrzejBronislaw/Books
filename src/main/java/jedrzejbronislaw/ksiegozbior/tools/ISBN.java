@@ -14,7 +14,10 @@ public class ISBN {
 		type = matchType();
 	}
 	
-	public ISBN(long isbn) {
+	public ISBN(Long isbn) {
+		if (isbn == null || isbn == 0)
+			throw new IllegalArgumentException();
+		
 		this.isbn = isbn;
 		type = matchType();
 	}

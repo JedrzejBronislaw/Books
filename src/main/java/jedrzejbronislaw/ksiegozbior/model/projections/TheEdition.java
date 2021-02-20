@@ -162,11 +162,11 @@ public class TheEdition implements TheEnt {
 		return edition.getISBN();
 	}
 	public String getISBNFormatted() {
-		Long isbn = edition.getISBN();
-		
-		if (isbn == null || isbn == 0)
-			return ""; else
-			return new ISBN(isbn).getFormattedString();
+		try {
+			return new ISBN(edition.getISBN()).getFormattedString();
+		} catch (IllegalArgumentException e) {
+			return "";
+		}
 	}
 
 	public StringNumber<Short> getPublicationYear() {
