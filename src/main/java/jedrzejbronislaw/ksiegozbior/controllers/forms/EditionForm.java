@@ -134,7 +134,6 @@ public class EditionForm extends EntityForm<Edition> {
 	@Override
 	public void clear(){
 		titleSelector.clear();
-		titleCheckbox.setSelected(true);
 		titleField.clear();
 		subtitleField.clear();
 		languageField.setValue(null);
@@ -145,6 +144,8 @@ public class EditionForm extends EntityForm<Edition> {
 		editionNumberField.clear();
 		hardCoverCheckbox.setSelected(false);
 		descriptionField.clear();
+		
+		onTitlesChange();
 	}
 	
 	@Override
