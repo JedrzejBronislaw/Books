@@ -26,13 +26,16 @@ public abstract class EntityForm<T extends Ent> extends VBox implements Initiali
 	
 	@FXML protected Button addButton;
 	
+	protected T entity = null;
+	
 	
 	@FXML
 	public void add() {
-		T entity = save();
+		entity = save();
 		clear();
 		
 		eventPublisher.publishEvent(new EditEvent(this, entity));
+		entity = null;
 	}
 	
 	@EventListener
@@ -46,6 +49,7 @@ public abstract class EntityForm<T extends Ent> extends VBox implements Initiali
 		if (entity.getClass() != getEntityClass()) return;
 
 		clear();
+		this.entity = (T)entity;
 		fill((T)entity);
 	}
 }

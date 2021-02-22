@@ -40,17 +40,17 @@ public class AuthorForm extends EntityForm<Author> {
 	
 	@Override
 	public Author save() {
-		Author newAuthor = new Author();
+		Author author = (entity == null) ? new Author() : entity;
 		
-		newAuthor.setName(       getText(nameField));
-		newAuthor.setSurname(    getText(surnameField));
-		newAuthor.setDescription(getText(descriptionField));
-		newAuthor.setBirthDate(  getDate(birthDateField));
-		newAuthor.setDeathDate(  getDate(deathDateField));
+		author.setName(       getText(nameField));
+		author.setSurname(    getText(surnameField));
+		author.setDescription(getText(descriptionField));
+		author.setBirthDate(  getDate(birthDateField));
+		author.setDeathDate(  getDate(deathDateField));
 		
-		autorRepository.save(newAuthor);
+		autorRepository.save(author);
 		
-		return newAuthor;
+		return author;
 	}
 
 	@Override
