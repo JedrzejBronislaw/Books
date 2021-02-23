@@ -52,29 +52,29 @@ public class TitleForm extends EntityForm<Title> {
 	
 	@Override
 	public Title save() {
-		Title newTitle = new Title();
+		Title title = (entity == null) ? new Title() : entity;
 		Short year;
 		
 		year = parseShort(yearField.getText(), null);
 		
-		newTitle.setTitle(   getText(titleField));
-		newTitle.setSubtitle(getText(subtitleField));
-		newTitle.setLanguage(languageField.getValue());
+		title.setTitle(   getText(titleField));
+		title.setSubtitle(getText(subtitleField));
+		title.setLanguage(languageField.getValue());
 
-		newTitle.setYear(year);
-		newTitle.setDescription(getText(descriptionField));
-		titleRepository.save(newTitle);
+		title.setYear(year);
+		title.setDescription(getText(descriptionField));
+		titleRepository.save(title);
 
 		for (Author author : authorSelector.getItems()) {
 			Authorship authorship = new Authorship();
 			
 			authorship.setAuthorId(author.getId());
-			authorship.setTitleId(newTitle.getId());
+			authorship.setTitleId(title.getId());
 			
 			authorship = authorshipRepository.save(authorship);
 		}
 		
-		return newTitle;
+		return title;
 	}
 
 	@Override

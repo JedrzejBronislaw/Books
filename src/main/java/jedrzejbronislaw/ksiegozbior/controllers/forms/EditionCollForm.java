@@ -32,7 +32,7 @@ public class EditionCollForm extends EntityForm<EditionCollection> {
 	
 	@Override
 	public EditionCollection save() {
-		EditionCollection collection = new EditionCollection();
+		EditionCollection collection = (entity == null) ? new EditionCollection() : entity;
 		
 		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());

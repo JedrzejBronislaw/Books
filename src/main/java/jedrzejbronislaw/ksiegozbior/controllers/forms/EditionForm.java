@@ -65,7 +65,7 @@ public class EditionForm extends EntityForm<Edition> {
 	
 	@Override
 	public Edition save() {
-		Edition newEdition = new Edition();
+		Edition edition = (entity == null) ? new Edition() : entity;
 		
 		Short year, pages, number;
 		Long isbn;
@@ -75,31 +75,31 @@ public class EditionForm extends EntityForm<Edition> {
 		number = parseShort(editionNumberField.getText(), null);
 		isbn   = parseLong          (isbnField.getText(), null);
 
-		newEdition.setYear(year);
+		edition.setYear(year);
 		if (!titleCheckbox.isSelected()) {
-			newEdition.setTitle(      titleField.getText());
-			newEdition.setSubtitle(subtitleField.getText());
+			edition.setTitle(      titleField.getText());
+			edition.setSubtitle(subtitleField.getText());
 		}
-		newEdition.setPublishingHouse(publisherField.getValue());
-		newEdition.setNumOfPages(pages);
-		newEdition.setNumber(number);
-		newEdition.setLanguage(languageField.getValue());
-		newEdition.setISBN(isbn);
-		newEdition.setHardCover(hardCoverCheckbox.isSelected());
-		newEdition.setDescription(getText(descriptionField));
+		edition.setPublishingHouse(publisherField.getValue());
+		edition.setNumOfPages(pages);
+		edition.setNumber(number);
+		edition.setLanguage(languageField.getValue());
+		edition.setISBN(isbn);
+		edition.setHardCover(hardCoverCheckbox.isSelected());
+		edition.setDescription(getText(descriptionField));
 
 
-		editionRepository.save(newEdition);
+		editionRepository.save(edition);
 		
 		for (Title title : titleSelector.getItems()) {
 			Edition_Title et = new Edition_Title();
-			et.setEditionId(newEdition.getId());
+			et.setEditionId(edition.getId());
 			et.setTitleId(title.getId());
 			
 			edition_TitleRepository.save(et);
 		}
 		
-		return newEdition;
+		return edition;
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class TitleCollForm extends EntityForm<TitleCollection> {
 	
 	@Override
 	public TitleCollection save() {
-		TitleCollection collection = new TitleCollection();
+		TitleCollection collection = (entity == null) ? new TitleCollection() : entity;
 		
 		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());

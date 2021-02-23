@@ -33,15 +33,15 @@ public class PublishingHouseForm extends EntityForm<PublishingHouse> {
 	
 	@Override
 	public PublishingHouse save() {
-		PublishingHouse newPublishingHouse = new PublishingHouse();
+		PublishingHouse publishingHouse = (entity == null) ? new PublishingHouse() : entity;
 		
-		newPublishingHouse.setName(getText(nameField));
-		newPublishingHouse.setAbbr(getText(abbrevField));
-		newPublishingHouse.setCity(getText(cityField));
+		publishingHouse.setName(getText(nameField));
+		publishingHouse.setAbbr(getText(abbrevField));
+		publishingHouse.setCity(getText(cityField));
 
-		publishingHouseRepository.save(newPublishingHouse);
+		publishingHouseRepository.save(publishingHouse);
 		
-		return newPublishingHouse;
+		return publishingHouse;
 	}
 
 	@Override

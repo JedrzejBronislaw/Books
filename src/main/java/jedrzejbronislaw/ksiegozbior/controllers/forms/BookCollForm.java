@@ -33,7 +33,7 @@ public class BookCollForm extends EntityForm<BookCollection> {
 	
 	@Override
 	public BookCollection save() {
-		BookCollection collection = new BookCollection();
+		BookCollection collection = (entity == null) ? new BookCollection() : entity;
 		
 		collection.setName(getText(nameField));
 		collection.setSuperCollection(supercollectionField.getValue());

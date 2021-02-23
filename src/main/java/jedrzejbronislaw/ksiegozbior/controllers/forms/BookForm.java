@@ -66,24 +66,24 @@ public class BookForm extends EntityForm<Book> {
 	
 	@Override
 	public Book save() {
-		Book newBook = new Book();
+		Book book = (entity == null) ? new Book() : entity;
 		
-		newBook.setLibrary(libraryField.getValue());
-		newBook.setEdition(editionField.getValue());
-		newBook.setLocation(locationField.getValue());
-		newBook.setPurchaseDate(getDate(purchaseDateField));
-		newBook.setVisibility(visibilityField.getValue());
+		book.setLibrary(libraryField.getValue());
+		book.setEdition(editionField.getValue());
+		book.setLocation(locationField.getValue());
+		book.setPurchaseDate(getDate(purchaseDateField));
+		book.setVisibility(visibilityField.getValue());
 
 		if (autographCheck.isSelected())
-			saveAutographComment(newBook);
+			saveAutographComment(book);
 		
 		String commentContent = getText(commentField);
 		if (commentContent != null)
-			newBook.getComments().add(saveComment(commentContent));
+			book.getComments().add(saveComment(commentContent));
 		
-		bookRepository.save(newBook);
+		bookRepository.save(book);
 		
-		return newBook;
+		return book;
 	}
 
 	private Autograph saveAutographComment(Book book) {

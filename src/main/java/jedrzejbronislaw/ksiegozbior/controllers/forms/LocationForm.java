@@ -35,15 +35,15 @@ public class LocationForm extends EntityForm<Location> {
 	
 	@Override
 	public Location save() {
-		Location newLocation = new Location();
+		Location location = (entity == null) ? new Location() : entity;
 		
-		newLocation.setName(       getText(nameField));
-		newLocation.setDescription(getText(descriptionField));
-		newLocation.setSuperLocation(superlocationField.getValue());
+		location.setName(       getText(nameField));
+		location.setDescription(getText(descriptionField));
+		location.setSuperLocation(superlocationField.getValue());
 		
-		locationRepository.save(newLocation);
+		locationRepository.save(location);
 		
-		return newLocation;
+		return location;
 	}
 
 	@Override

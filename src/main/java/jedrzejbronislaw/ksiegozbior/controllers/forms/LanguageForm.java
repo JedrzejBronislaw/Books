@@ -31,14 +31,14 @@ public class LanguageForm extends EntityForm<Language> {
 	
 	@Override
 	public Language save() {
-		Language newLang = new Language();
+		Language language = (entity == null) ? new Language() : entity;
 		
-		newLang.setName(getText(langField));
-		newLang.setAbbr(getText(abbrevField));
+		language.setName(getText(langField));
+		language.setAbbr(getText(abbrevField));
 		
-		languageRepository.save(newLang);
+		languageRepository.save(language);
 		
-		return newLang;
+		return language;
 	}
 
 	@Override
