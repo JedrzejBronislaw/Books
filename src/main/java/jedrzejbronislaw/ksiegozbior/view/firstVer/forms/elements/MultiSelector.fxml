@@ -5,11 +5,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-
-<fx:root fx:id="titlesBox" alignment="CENTER" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="titlesBox" alignment="CENTER" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ComboBox fx:id="comboBox" prefWidth="150.0" />
-      <Button mnemonicParsing="false" onAction="#add" text="%add" />
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#add" text="%add" />
       <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" />
       <Button mnemonicParsing="false" onAction="#remove" text="%remove" />
    </children>

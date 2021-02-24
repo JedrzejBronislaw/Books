@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ public class MultiSelector<T extends Ent> extends VBox implements Initializable 
 
 	@FXML private ComboBox<T> comboBox;
 	@FXML private ListView<T> list;
+	@FXML private Button addButton;
 	
 	@Setter private CrudRepository<T, Long> repository;
 	@Setter private Runnable onListChnage;
@@ -46,6 +48,7 @@ public class MultiSelector<T extends Ent> extends VBox implements Initializable 
 		T newItem = comboBox.getValue();
 		if(newItem != null)
 			list.getItems().add(newItem);
+		comboBox.getSelectionModel().clearSelection();
 		
 		Injection.run(onListChnage);
 	}
@@ -62,6 +65,8 @@ public class MultiSelector<T extends Ent> extends VBox implements Initializable 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Refresher.setOnShowing(comboBox, repository);
+		
+		addButton.disableProperty().bind(comboBox.getSelectionModel().selectedItemProperty().isNull());
 	}
 	
 	public T getItem(int i) {
