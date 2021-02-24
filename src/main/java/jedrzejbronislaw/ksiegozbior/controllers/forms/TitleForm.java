@@ -65,6 +65,8 @@ public class TitleForm extends EntityForm<Title> {
 		title.setDescription(getText(descriptionField));
 		titleRepository.save(title);
 
+		authorshipRepository.deleteByTitle(title);
+		
 		for (Author author : authorSelector.getItems()) {
 			Authorship authorship = new Authorship();
 			

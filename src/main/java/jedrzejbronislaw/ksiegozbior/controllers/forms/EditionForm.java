@@ -87,9 +87,9 @@ public class EditionForm extends EntityForm<Edition> {
 		edition.setISBN(isbn);
 		edition.setHardCover(hardCoverCheckbox.isSelected());
 		edition.setDescription(getText(descriptionField));
-
-
 		editionRepository.save(edition);
+
+		edition_TitleRepository.deleteByEdition(edition);
 		
 		for (Title title : titleSelector.getItems()) {
 			Edition_Title et = new Edition_Title();
