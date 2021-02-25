@@ -1,8 +1,6 @@
 package jedrzejbronislaw.ksiegozbior;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +98,6 @@ public class TestData {
 		admin.setFirstName("admin");
 		admin.setLastName("admin");
 		admin.setEmail("admin@admin.com");
-		admin.setRegistrationTime(Timestamp.valueOf(LocalDateTime.now()));
 		admin.setMode(Mode.Ok);
 		admin.setRole(Role.Admin);
 		
@@ -108,7 +105,6 @@ public class TestData {
 		user.setFirstName("Adam");
 		user.setLastName("Kowalski");
 		user.setEmail("adam@kowalski.com");
-		user.setRegistrationTime(Timestamp.valueOf(LocalDateTime.now()));
 		
 		userRepositiry.save(admin);
 		userRepositiry.save(user);
