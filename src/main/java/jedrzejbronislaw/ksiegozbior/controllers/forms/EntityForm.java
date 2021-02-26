@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.controllers.EditEvent;
 import jedrzejbronislaw.ksiegozbior.controllers.EditRequestEvent;
+import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 
 public abstract class EntityForm<T extends Ent> extends VBox implements Initializable {
@@ -36,6 +37,8 @@ public abstract class EntityForm<T extends Ent> extends VBox implements Initiali
 		
 		eventPublisher.publishEvent(new EditEvent(this, entity));
 		entity = null;
+		
+		addButton.setText(Internationalization.get("add"));
 	}
 	
 	@EventListener
@@ -51,5 +54,7 @@ public abstract class EntityForm<T extends Ent> extends VBox implements Initiali
 		clear();
 		this.entity = (T)entity;
 		fill((T)entity);
+
+		addButton.setText(Internationalization.get("update"));
 	}
 }
