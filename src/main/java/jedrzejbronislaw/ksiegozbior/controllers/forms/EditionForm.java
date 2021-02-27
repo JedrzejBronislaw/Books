@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.MultiSelector;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
+import jedrzejbronislaw.ksiegozbior.model.entities.Edition_TitleId;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
@@ -89,14 +90,20 @@ public class EditionForm extends EntityForm<Edition> {
 		edition.setDescription(getText(descriptionField));
 		editionRepository.save(edition);
 
-		edition_TitleRepository.deleteByEdition(edition);
+		edition_TitleRepository.deleteByEditionExcept(edition, titleSelector.getItems());
 		
 		for (Title title : titleSelector.getItems()) {
-			Edition_Title et = new Edition_Title();
-			et.setEditionId(edition.getId());
-			et.setTitleId(title.getId());
+			long titleId = title.getId();
+			long editionId = edition.getId();
+			Edition_TitleId id = new Edition_TitleId(editionId, titleId);
+
+			edition_TitleRepository.findById(id).orElseGet(() -> {
+				Edition_Title et = new Edition_Title();
+				et.setEditionId(editionId);
+				et.setTitleId(titleId);
 			
-			edition_TitleRepository.save(et);
+				return edition_TitleRepository.save(et);
+			});
 		}
 		
 		return edition;
