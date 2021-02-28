@@ -48,19 +48,11 @@ public class TheEdition implements TheEnt {
 	}
 	
 	public String getTitlesText() {
+		List<String> titleList = titles().stream()
+			.map(this::title)
+			.collect(Collectors.toList());
 		
-		if (numberOfTitles() > 1) {
-			
-			List<String> titleList = titles().stream()
-				.map(this::title)
-				.collect(Collectors.toList());
-			
-			return String.join(", ", titleList);
-			
-		} else
-		if (is(editionTitle()))    return editionTitle(); else
-		if (numberOfTitles() == 1) return title(getFirstET()); else
-			                       return notnullTitle.get(null);
+		return String.join(", ", titleList);
 	}
 	
 	private String title(Edition_Title et) {
