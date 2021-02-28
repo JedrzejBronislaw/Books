@@ -88,7 +88,7 @@ public class GuiVer2 extends Gui {
 	private Pane buildBookDetailsPane() throws IOException {
 		MyFXMLLoader.create(fxmlPath("BookDetails.fxml"), bookDetailsView);
 
-		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + ENTITIES_FXML_DIR;
+		String dir = FXML_DIR + FIRST_VERSION_FXML_DIR + PREVIEWS_FXML_DIR;
 		MyFXMLLoader.create(dir + "AuthorPreview.fxml",   authorPreview);
 		MyFXMLLoader.create(dir + "TitlePreview.fxml",     titlePreview);
 		MyFXMLLoader.create(dir + "EditionPreview.fxml", editionPreview);

@@ -94,14 +94,14 @@ public class GuiVer1 extends Gui {
 			
 			new PathAndClass("lists/ListPreview.fxml",                      ListPreview.class),
 			new PathAndClass("lists/TreePreview.fxml",                      TreePreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "BookPreview.fxml",             BookPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "EditionPreview.fxml",       EditionPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "AuthorPreview.fxml",         AuthorPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "TitlePreview.fxml",           TitlePreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "PublisherPreview.fxml",   PublisherPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "CollectionPreview.fxml", CollectionPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "LocationPreview.fxml",     LocationPreview.class),
-			new PathAndClass(ENTITIES_FXML_DIR + "LanguagePreview.fxml",     LanguagePreview.class)
+			new PathAndClass(PREVIEWS_FXML_DIR + "BookPreview.fxml",             BookPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "EditionPreview.fxml",       EditionPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "AuthorPreview.fxml",         AuthorPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "TitlePreview.fxml",           TitlePreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "PublisherPreview.fxml",   PublisherPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "CollectionPreview.fxml", CollectionPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "LocationPreview.fxml",     LocationPreview.class),
+			new PathAndClass(PREVIEWS_FXML_DIR + "LanguagePreview.fxml",     LanguagePreview.class)
 	};
 
 	@Autowired private MainViewController mainView;
