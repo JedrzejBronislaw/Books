@@ -37,7 +37,7 @@ public class Author implements Ent{
 	@Override
 	public String toString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-		StringBuilder sb = new StringBuilder("L ");
+		StringBuilder sb = new StringBuilder();
 		
 		if (surname != null && !surname.trim().isEmpty())
 			sb.append(surname + " ");

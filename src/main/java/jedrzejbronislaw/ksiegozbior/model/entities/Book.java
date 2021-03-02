@@ -43,7 +43,7 @@ public class Book implements Ent {
 	
 	@Override
 	public String toString() {
-		return "B: " + edition.toString();
+		return edition.toString();
 	}
 
 	@Override
