@@ -77,7 +77,10 @@ public class EditionForm extends EntityForm<Edition> {
 		isbn   = parseLong          (isbnField.getText(), null);
 
 		edition.setYear(year);
-		if (!titleCheckbox.isSelected()) {
+		if (titleCheckbox.isSelected()) {
+			edition.setTitle(null);
+			edition.setSubtitle(null);
+		} else {
 			edition.setTitle(      titleField.getText());
 			edition.setSubtitle(subtitleField.getText());
 		}
