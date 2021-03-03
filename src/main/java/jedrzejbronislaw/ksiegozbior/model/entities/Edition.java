@@ -11,6 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import jedrzejbronislaw.ksiegozbior.lang.Internationalization;
 import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollectionLink;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,7 +53,7 @@ public class Edition implements Ent {
 		sb.append(", ");
 		sb.append(publishingHouse);
 		sb.append(", ");
-		sb.append("Wydanie: " + number); //TODO internationalization
+		sb.append(Internationalization.get("edition") + ": " + number);
 		
 		return sb.toString();
 	}
