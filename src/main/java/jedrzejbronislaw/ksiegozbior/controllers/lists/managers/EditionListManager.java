@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import jedrzejbronislaw.ksiegozbior.controllers.previews.EditionPreview;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
-import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
+import jedrzejbronislaw.ksiegozbior.model.managers.EditionManager;
 import lombok.Getter;
 
 @Component
@@ -16,25 +16,13 @@ public class EditionListManager implements ListManager {
 
 	@Getter private final ListType type = ListType.LIST;
 
-	@Autowired private EditionRepository repository;
+	@Autowired private EditionManager manager;
 	@Autowired private EditionPreview preview;
 
 
 	@Override
 	public boolean delete(Ent entity) {
-		return (entity instanceof Edition) ? setAsRemoved((Edition) entity) : false;
-	}
-
-	private boolean setAsRemoved(Edition edition) {
-		try {
-			
-			edition.setRemoved(true);
-			repository.save(edition);
-			return true;
-			
-		} catch (Exception e) {
-			return false;
-		}
+		return (entity instanceof Edition) ? manager.setAsRemoved((Edition) entity) : false;
 	}
 
 	@Override
@@ -50,6 +38,6 @@ public class EditionListManager implements ListManager {
 	
 	@Override
 	public List<? extends Ent> get() {
-		return repository.findAllNotRemoved();
+		return manager.getAll();
 	}
 }

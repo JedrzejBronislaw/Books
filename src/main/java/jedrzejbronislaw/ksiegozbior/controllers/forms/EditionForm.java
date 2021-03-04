@@ -22,13 +22,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import jedrzejbronislaw.ksiegozbior.controllers.forms.elements.MultiSelector;
 import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
-import jedrzejbronislaw.ksiegozbior.model.entities.Edition_Title;
-import jedrzejbronislaw.ksiegozbior.model.entities.Edition_TitleId;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
-import jedrzejbronislaw.ksiegozbior.model.repositories.EditionRepository;
-import jedrzejbronislaw.ksiegozbior.model.repositories.Edition_TitleRepository;
+import jedrzejbronislaw.ksiegozbior.model.managers.EditionManager;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
@@ -41,11 +38,11 @@ public class EditionForm extends EntityForm<Edition> {
 	@Getter(PROTECTED) Class<Edition> entityClass = Edition.class;
 	
 	@Autowired private TitleRepository titleRepository;
-	@Autowired private Edition_TitleRepository edition_TitleRepository;
-	@Autowired private EditionRepository editionRepository;
 	@Autowired private PublishingHouseRepository publishingHouseRepository;
 	@Autowired private LanguageRepository languageRepository;
 
+	@Autowired private EditionManager editionManager;
+	
 	@Getter
 	@FXML private GridPane fieldsPane;
 	
@@ -91,23 +88,8 @@ public class EditionForm extends EntityForm<Edition> {
 		edition.setISBN(isbn);
 		edition.setHardCover(hardCoverCheckbox.isSelected());
 		edition.setDescription(getText(descriptionField));
-		editionRepository.save(edition);
 
-		edition_TitleRepository.deleteByEditionExcept(edition, titleSelector.getItems());
-		
-		for (Title title : titleSelector.getItems()) {
-			long titleId = title.getId();
-			long editionId = edition.getId();
-			Edition_TitleId id = new Edition_TitleId(editionId, titleId);
-
-			edition_TitleRepository.findById(id).orElseGet(() -> {
-				Edition_Title et = new Edition_Title();
-				et.setEditionId(editionId);
-				et.setTitleId(titleId);
-			
-				return edition_TitleRepository.save(et);
-			});
-		}
+		editionManager.save(edition, titleSelector.getItems());
 		
 		return edition;
 	}
