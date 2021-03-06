@@ -2,6 +2,7 @@ package jedrzejbronislaw.ksiegozbior.model.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class Edition implements Ent {
 	@OneToMany(mappedBy="element")
 	private Set<EditionCollectionLink> collections;
 
-	@OneToMany(mappedBy="edition", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="edition", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Edition_Title> titles;
 	
 	
