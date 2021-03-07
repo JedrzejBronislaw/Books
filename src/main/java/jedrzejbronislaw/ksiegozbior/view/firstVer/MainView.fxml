@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="400.0" prefWidth="640.0" type="VBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" prefWidth="640.0" type="VBox" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -55,52 +55,48 @@
             <Menu fx:id="languageMenu" mnemonicParsing="false" text="%menu.language" />
       </menus>
     </MenuBar>
-      <HBox VBox.vgrow="ALWAYS">
-         <children>
-            <BorderPane>
-               <center>
-                  <ScrollPane hbarPolicy="NEVER">
-                     <content>
-                        <HBox spacing="10.0">
-                           <children>
-                            <AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
-                              <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="Księgozbiór" />
-                                    <Label fx:id="label1" layoutX="31.0" layoutY="32.0" text="Label" />
-                        
-                                    </children>
-                            </AnchorPane>
-                              <AnchorPane fx:id="previewPane" minWidth="100.0" />
-                              <AnchorPane fx:id="sPane" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
-               </center>
-               <left>
-                  <VBox fx:id="formBox" prefHeight="374.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <center>
+            <ScrollPane fitToHeight="true">
+               <content>
+                  <HBox spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#showBooks" text="%books" />
-                        <Button mnemonicParsing="false" onAction="#showAuthors" text="%authors" />
-                        <Button mnemonicParsing="false" onAction="#showTitles" text="%titles" />
-                        <Button mnemonicParsing="false" onAction="#showEditions" text="%editions" />
-                        <Button mnemonicParsing="false" onAction="#showBookCollections" text="%book_collections" />
-                        <Button mnemonicParsing="false" onAction="#showTitleCollections" text="%title_collections" />
-                        <Button mnemonicParsing="false" onAction="#showEditionCollections" text="%edition_collections" />
-                        <Button mnemonicParsing="false" onAction="#showLanguages" text="%languages" />
-                        <Button mnemonicParsing="false" onAction="#showLocations" text="%locations" />
-                        <Button mnemonicParsing="false" onAction="#showPublishingHouses" text="%publishing_houses" />
+                      <AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
+                        <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Księgozbiór" />
+                              <Label fx:id="label1" layoutX="31.0" layoutY="32.0" text="Label" />
+                  
+                                    </children>
+                      </AnchorPane>
+                        <AnchorPane fx:id="previewPane" minWidth="100.0" />
+                        <AnchorPane fx:id="sPane" />
                      </children>
-                  </VBox>
-               </left>
-               <top>
-                  <Label fx:id="header1" text="Label" BorderPane.alignment="CENTER" />
-               </top>
-            </BorderPane>
-         </children>
-      </HBox>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </center>
+         <left>
+            <VBox fx:id="formBox" prefHeight="374.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showBooks" text="%books" />
+                  <Button mnemonicParsing="false" onAction="#showAuthors" text="%authors" />
+                  <Button mnemonicParsing="false" onAction="#showTitles" text="%titles" />
+                  <Button mnemonicParsing="false" onAction="#showEditions" text="%editions" />
+                  <Button mnemonicParsing="false" onAction="#showBookCollections" text="%book_collections" />
+                  <Button mnemonicParsing="false" onAction="#showTitleCollections" text="%title_collections" />
+                  <Button mnemonicParsing="false" onAction="#showEditionCollections" text="%edition_collections" />
+                  <Button mnemonicParsing="false" onAction="#showLanguages" text="%languages" />
+                  <Button mnemonicParsing="false" onAction="#showLocations" text="%locations" />
+                  <Button mnemonicParsing="false" onAction="#showPublishingHouses" text="%publishing_houses" />
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <Label fx:id="header1" text="Label" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
   </children>
 </fx:root>
