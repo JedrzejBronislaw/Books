@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import jedrzejbronislaw.ksiegozbior.model.entities.Ent;
 import jedrzejbronislaw.ksiegozbior.tools.Injection;
@@ -67,6 +68,9 @@ public class MultiSelector<T extends Ent> extends VBox implements Initializable 
 		Refresher.setOnShowing(comboBox, repository);
 		
 		addButton.disableProperty().bind(comboBox.getSelectionModel().selectedItemProperty().isNull());
+		list.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.DELETE) remove();
+		});
 	}
 	
 	public T getItem(int i) {
