@@ -39,7 +39,7 @@ public class Edition implements Ent {
 	@ManyToOne private Language language;
 	@ManyToOne private PublishingHouse publishingHouse;
 	
-	@OneToMany(mappedBy="element")
+	@OneToMany(mappedBy="element", fetch=FetchType.EAGER)
 	private Set<EditionCollectionLink> collections;
 
 	@OneToMany(mappedBy="edition", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

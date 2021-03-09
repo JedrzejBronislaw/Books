@@ -25,7 +25,9 @@ import jedrzejbronislaw.ksiegozbior.model.entities.Edition;
 import jedrzejbronislaw.ksiegozbior.model.entities.Language;
 import jedrzejbronislaw.ksiegozbior.model.entities.PublishingHouse;
 import jedrzejbronislaw.ksiegozbior.model.entities.Title;
+import jedrzejbronislaw.ksiegozbior.model.entities.collections.EditionCollection;
 import jedrzejbronislaw.ksiegozbior.model.managers.EditionManager;
+import jedrzejbronislaw.ksiegozbior.model.repositories.EditionCollectionRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.LanguageRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.PublishingHouseRepository;
 import jedrzejbronislaw.ksiegozbior.model.repositories.TitleRepository;
@@ -40,6 +42,7 @@ public class EditionForm extends EntityForm<Edition> {
 	@Autowired private TitleRepository titleRepository;
 	@Autowired private PublishingHouseRepository publishingHouseRepository;
 	@Autowired private LanguageRepository languageRepository;
+	@Autowired private EditionCollectionRepository collectionRepository;
 
 	@Autowired private EditionManager editionManager;
 	
@@ -59,6 +62,7 @@ public class EditionForm extends EntityForm<Edition> {
 	@FXML private TextArea descriptionField;
 
 	private MultiSelector<Title> titleSelector;
+	private MultiSelector<EditionCollection> collectionSelector;
 	
 	
 	@Override
@@ -98,11 +102,16 @@ public class EditionForm extends EntityForm<Edition> {
 	public void fill(Edition edition) {
 		boolean titleExists = textExists(edition.getTitle());
 		Long isbn = edition.getISBN();
-		
+
 		
 		titleSelector.fill(edition.getTitles()
 				.stream()
 				.map(et -> et.getTitleObj())
+				.collect(Collectors.toList()));
+		
+		collectionSelector.fill(edition.getCollections()
+				.stream()
+				.map(link -> link.getCollection())
 				.collect(Collectors.toList()));
 		
 		titleCheckbox.setSelected(!titleExists);
@@ -136,6 +145,7 @@ public class EditionForm extends EntityForm<Edition> {
 		editionNumberField.clear();
 		hardCoverCheckbox.setSelected(false);
 		descriptionField.clear();
+		collectionSelector.clear();
 		
 		onTitlesChange();
 	}
@@ -145,6 +155,9 @@ public class EditionForm extends EntityForm<Edition> {
 		titleSelector = new MultiSelector<Title>(titleRepository);
 		titleSelector.setOnListChnage(this::onTitlesChange);
 		fieldsPane.add(titleSelector, 1, 0);
+
+		collectionSelector = new MultiSelector<>(collectionRepository);
+		fieldsPane.add(collectionSelector, 1, 11);
 
 		titleField   .editableProperty().bind(titleCheckbox.selectedProperty().not());
 		subtitleField.editableProperty().bind(titleCheckbox.selectedProperty().not());
